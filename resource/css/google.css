@@ -6,7 +6,7 @@
 
 body {
     margin: 0;
-    background: url("Image/6191adf72865fc3ba574.jpg");
+    background: url("/Front_End/resource/Image/6191adf72865fc3ba574.jpg");
     background-size: auto;
     min-height: 100vh;
     align-items: center;
@@ -129,7 +129,7 @@ body {
     width: 800px;
     border-radius: 5px;
     height: 200px;
-    background:url("Image/Cute\ Hand\ Drawn\ Style\ Math\ Education\ Stripes\ Background\,\ Eraser\,\ Ruler\,\ Notebook\ Background\ Image\ And\ Wallpaper\ for\ Free\ Download.jpg");
+    background:url("/Front_End/resource/Image/Cute\ Hand\ Drawn\ Style\ Math\ Education\ Stripes\ Background\,\ Eraser\,\ Ruler\,\ Notebook\ Background\ Image\ And\ Wallpaper\ for\ Free\ Download.jpg");
     background-size: cover;
     position: relative;
     box-shadow: 0 0 3px 3px rgba(255, 255, 255, .5);
