@@ -1,21 +1,41 @@
+
 let sidebar = document.querySelector(".sidebar");
 let closeBtn = document.querySelector("#btn");
+
 closeBtn.addEventListener("click", () => {
     sidebar.classList.toggle("open");
-    menuBtnChange();//calling the function(optional)
+    menuBtnChange();
 });
-searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search iocn
+
+// Add an event listener to the search button
+searchBtn.addEventListener("click", () => {
     sidebar.classList.toggle("open");
-    menuBtnChange(); //calling the function(optional)
+    menuBtnChange();
 });
-// following are the code to change sidebar button(optional)
+
+// Add an event listener to the options in the sidebar
+document.querySelectorAll(".nav-list a").forEach(link => {
+    link.addEventListener("click", event => {
+        event.preventDefault(); // Prevent the default behavior of following the link
+        event.stopPropagation(); // Prevent the click event from reaching the window
+        const href = link.getAttribute("href");
+        navigateTo(href);
+    });
+});
+
 function menuBtnChange() {
     if (sidebar.classList.contains("open")) {
-        closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+        closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
     } else {
-        closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");//replacing the iocns class
+        closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");
     }
 }
+
+function navigateTo(href) {
+    window.location.href = href;
+}
+
+
 
 //dropdown content
 /* When the user clicks on the button, 
