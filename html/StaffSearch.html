@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Responsive Sidebar Menu | CodingLab </title>
+    <link rel="stylesheet" href="../resource/css/Welcome.css">
+    <link rel="stylesheet" href="../resource/css/StaffSearch.css">
+
+    <!-- Boxicons CDN Link -->
+    <script src="https://kit.fontawesome.com/53e701d613.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class="fa-solid fa-calendar icon"></i>
+            <div class="logo_name">F-ESMS</div>
+            <i class="fa-solid fa-bars" id="btn"></i>
+        </div>
+        <ul class="nav-list">
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="links_name">Home</span>
+                </a>
+                <span class="tooltip">Home</span>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-regular fa-calendar"></i>
+                    <span class="links_name">View Exam Slots</span>
+                </a>
+                <span class="tooltip">View Exam Slots</span>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <!-- Nav Horizontal-->
+
+        <div class="navbar">
+            <div class="dropdown">
+                <button class="dropbtn" onclick="myFunction()">Username
+                    <i class="fa-solid fa-chevron-down" id="dropdown-icon"></i>
+                </button>
+                <div class="dropdown-content" id="myDropdown">
+                    <a href="#"><i class="fa-regular fa-address-card"></i>Profile</a>
+                    <a href="#"><i class="fa-regular fa-pen-to-square"></i>Update Profile</a>
+                    <a href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a>
+                </div>
+            </div>
+        </div>
+        <!---->
+        <!--Welcome section-->
+        <div class="title">
+            <h2>VIEW EXAM SLOTS</h2>
+        </div>
+
+        <div class="search-input">
+            <div>
+                <form class="search-field">
+                    <input class="form-control me-2" type="search" placeholder="Subject" aria-label="Search">
+                </form>
+            </div>
+
+            <div>
+                <form class="search-field">
+                    <input class="form-control me-2" type="date" placeholder="Select Date" aria-label="Search">
+                </form>
+            </div>
+
+            <div>
+                <form class="search-field">
+                    <input class="form-control me-2" type="time" placeholder="Select Time" aria-label="Search">
+                </form>
+            </div>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Supervisor</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>15/07/2023</td>
+                        <td>7:30 - 9:00</td>
+                        <td> 20/35 <i onclick="showTable()" class="fa-solid fa-square-caret-down"></i> </td>
+                        <td><i onclick="showTable2()" class="fa-solid fa-square-caret-down"></i></td>
+                    </tr>
+                    <tr>
+                        <td>15/07/2023</td>
+                        <td>7:30 - 9:00</td>
+                        <td> 20/35 <i onclick="showTable()" class="fa-solid fa-square-caret-down"></i> </td>
+                        <td><i onclick="showTable2()" class="fa-solid fa-square-caret-down"></i></td>
+
+                    </tr>
+                    <tr>
+                        <td>15/07/2023</td>
+                        <td>7:30 - 9:00</td>
+                        <td> 20/35 <i onclick="showTable()" class="fa-solid fa-square-caret-down"></i> </td>
+                        <td><i onclick="showTable2()" class="fa-solid fa-square-caret-down"></i></td>
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="table-container-hidden" id="hiddenTable" style="display: none;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Member Code</th>
+                        <th>Full Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>DuyLNPSE171722</td>
+                        <td>Luong Ngoc Phuong Duy</td>
+                        <td><i class="fa-solid fa-trash"></i></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>DuyLNPSE171722</td>
+                        <td>Tony Luong</td>
+                        <td><i class="fa-solid fa-trash"></i></td>
+
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>DuyLNPSE171722</td>
+                        <td>Duy Luong</td>
+                        <td><i class="fa-solid fa-trash"></i></td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="table-container-hidden" id="hiddenTable-2" style="display: none;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Subject</th>
+                        <th>Type</th>
+                        <th>Room</th>
+                        <th>Student</th>
+                        <th></th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>FER201m</td>
+                        <td>FE</td>
+                        <td>222</td>
+                        <td>25/30</td>
+                        <td><button class="edit-button">Edit</button></td>
+                        <td><button class="remove-button">Remove</button></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>FER201m</td>
+                        <td>FE</td>
+                        <td>222</td>
+                        <td>25/30</td>
+                        <td><button class="edit-button">Edit</button></td>
+                        <td><button class="remove-button">Remove</button></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>FER201m</td>
+                        <td>FE</td>
+                        <td>222</td>
+                        <td>25/30</td>
+                        <td><button class="edit-button">Edit</button></td>
+                        <td><button class="remove-button">Remove</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <script>
+            function showTable() {
+                const hiddenTable = document.getElementById("hiddenTable");
+                if (hiddenTable.style.display === "none") {
+                    hiddenTable.style.display = "block";
+                } else {
+                    hiddenTable.style.display = "none";
+                }
+            }
+
+            function showTable2() {
+                const hiddenTable = document.getElementById("hiddenTable-2");
+                if (hiddenTable.style.display === "none") {
+                    hiddenTable.style.display = "block";
+                } else {
+                    hiddenTable.style.display = "none";
+                }
+            }
+        </script>
+
+
+
+        <!------------------------------------------------------------------->
+
+    </section>
+    <!-- <script>
+        // Lấy tham chiếu đến phần tử button có id là "showTableButton"
+        var showTableButton = document.getElementById("showTableButton");
+
+        // Lấy tham chiếu đến bảng có id là "myTable"
+        var myTable = document.getElementById("myTable");
+
+        // Đặt sự kiện click cho nút "showTableButton"
+        showTableButton.addEventListener("click", function () {
+            // Kiểm tra nếu bảng đang ẩn (display: none), thì hiển thị, ngược lại ẩn đi
+            if (myTable.style.display === "none" || myTable.style.display === "") {
+                myTable.style.display = "table"; // Hiển thị bảng
+            } else {
+                myTable.style.display = "none"; // Ẩn bảng
+            }
+        });
+    </script> -->
+    <script src="../resource/javascript/Welcome.js"></script>
+</body>
+
+</html>
