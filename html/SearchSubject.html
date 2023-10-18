@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Responsive Sidebar Menu | CodingLab </title>
+    <link rel="stylesheet" href="../resource/css/Welcome.css">
+    <link rel="stylesheet" href="../resource/css/SearchSubject.css">
+
+    <!-- Boxicons CDN Link -->
+    <script src="https://kit.fontawesome.com/53e701d613.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class="fa-solid fa-calendar icon"></i>
+            <div class="logo_name">F-ESMS</div>
+            <i class="fa-solid fa-bars" id="btn"></i>
+        </div>
+        <ul class="nav-list">
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="links_name">Home</span>
+                </a>
+                <span class="tooltip">Home</span>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-regular fa-calendar"></i>
+                    <span class="links_name">View Exam Slots</span>
+                </a>
+                <span class="tooltip">View Exam Slots</span>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <!-- Nav Horizontal-->
+
+        <div class="navbar">
+            <div class="dropdown">
+                <button class="dropbtn" onclick="myFunction()">Username
+                    <i class="fa-solid fa-chevron-down" id="dropdown-icon"></i>
+                </button>
+                <div class="dropdown-content" id="myDropdown">
+                    <a href="#"><i class="fa-regular fa-address-card"></i>Profile</a>
+                    <a href="#"><i class="fa-regular fa-pen-to-square"></i>Update Profile</a>
+                    <a href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a>
+                </div>
+            </div>
+        </div>
+        <!---->
+        <!--Welcome section-->
+        <div class="title">
+            <h2>VIEW UPCOMING EXAM SCHEDULES</h2>
+        </div>
+
+        <div class="search-input">
+            <div>
+                <form class="search-field">
+                    <input class="form-control me-2" type="search" placeholder="Subject" aria-label="Search">
+                    <button class="search-subject-button">Search</button>
+                </form>
+            </div>
+
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Exam Form</th>
+                        <th>Time</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>IOT102</td>
+                        <td>18/10/2023</td>
+                        <td>FE</td>
+                        <td>Exam Form</td>
+                        <td>7:30 - 9:00</td>
+                    </tr>
+                    <tr>
+                        <td>IOT102</td>
+                        <td>18/10/2023</td>
+                        <td>FE</td>
+                        <td>Exam Form</td>
+                        <td>7:30 - 9:00</td>
+                    </tr>
+                    <tr>
+                        <td>IOT102</td>
+                        <td>18/10/2023</td>
+                        <td>FE</td>
+                        <td>Exam Form</td>
+                        <td>7:30 - 9:00</td>
+                    </tr>
+                    <tr>
+                        <td>IOT102</td>
+                        <td>18/10/2023</td>
+                        <td>FE</td>
+                        <td>Exam Form</td>
+                        <td>7:30 - 9:00</td>
+                    </tr>
+                    <tr>
+                        <td>IOT102</td>
+                        <td>18/10/2023</td>
+                        <td>FE</td>
+                        <td>Exam Form</td>
+                        <td>7:30 - 9:00</td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+        <!------------------------------------------------------------------->
+
+    </section>
+
+    <script src="../resource/javascript/Welcome.js"></script>
+</body>
+
+</html>

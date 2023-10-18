@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title> Responsive Sidebar Menu | CodingLab </title>
     <link rel="stylesheet" href="../resource/css/Welcome.css">
-    <link rel="stylesheet" href="../resource/css/StaffSearch.css">
+    <link rel="stylesheet" href="../resource/css/TestingAdminSearch.css">
 
     <!-- Boxicons CDN Link -->
     <script src="https://kit.fontawesome.com/53e701d613.js" crossorigin="anonymous"></script>
@@ -162,72 +162,38 @@
                         <th>Type</th>
                         <th>Room</th>
                         <th>Student</th>
-                        a
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>FER201m</td>
-                        <td>FE</td>
-                        <td>222</td>
-                        <td><button onclick="showTable3()" class="student-button">25/30</button></td>
-
-
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>FER201m</td>
-                        <td>FE</td>
-                        <td>222</td>
-                        <td><button onclick="showTable3()" class="student-button">25/30</button></td>
-
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>FER201m</td>
-                        <td>FE</td>
-                        <td>222</td>
-                        <td><button onclick="showTable3()" class="student-button">25/30</button></td>
-
-
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
-
-        <div class="table-container-hidden" id="hiddenTable-3" style="display: none;">
-            <table>
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Member Code</th>
-                        <th>Full Name</th>
-
-
-
+                        <th></th>
+                        <th></th>
 
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td>nguyenlv</td>
-                        <td>Lê Văn Nguyên</td>
-
+                        <td>FER201m</td>
+                        <td>FE</td>
+                        <td>222</td>
+                        <td>25/30</td>
+                        <td><button class="edit-button">Edit</button></td>
+                        <td><button class="remove-button">Remove</button></td>
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td>nguyenlv</td>
-                        <td>Lê Văn Nguyên</td>
-
+                        <td>FER201m</td>
+                        <td>FE</td>
+                        <td>222</td>
+                        <td>25/30</td>
+                        <td><button class="edit-button">Edit</button></td>
+                        <td><button class="remove-button">Remove</button></td>
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td>nguyenlv</td>
-                        <td>Lê Văn Nguyên</td>
-
+                        <td>FER201m</td>
+                        <td>FE</td>
+                        <td>222</td>
+                        <td>25/30</td>
+                        <td><button class="edit-button">Edit</button></td>
+                        <td><button class="remove-button">Remove</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -252,36 +218,6 @@
                     hiddenTable.style.display = "none";
                 }
             }
-
-            function showTable3() {
-                const hiddenTable3 = document.getElementById("hiddenTable-3");
-                if (hiddenTable3.style.display === "none" || hiddenTable3.style.display === "") {
-                    hiddenTable3.style.display = "block"; // Hiển thị hiddenTable-3
-                }
-            }
-
-            // let hiddenTable2Visible = false; // Biến để kiểm tra trạng thái hiển thị của hiddenTable-2
-
-            // function showTable2() {
-            //     const hiddenTable2 = document.getElementById("hiddenTable-2");
-            //     if (!hiddenTable2Visible) {
-            //         hiddenTable2.style.display = "block"; // Hiển thị hiddenTable-2
-            //         hiddenTable2Visible = true;
-            //     } else {
-            //         hiddenTable2.style.display = "none"; // Ẩn hiddenTable-2
-            //         hiddenTable2Visible = false;
-            //     }
-            // }
-
-            // function showTable3() {
-            //     if (hiddenTable2Visible) { // Kiểm tra xem hiddenTable-2 có đang hiển thị không
-            //         const hiddenTable3 = document.getElementById("hiddenTable-3");
-            //         if (hiddenTable3.style.display === "none" || hiddenTable3.style.display === "") {
-            //             hiddenTable3.style.display = "block"; // Hiển thị hiddenTable-3
-            //         }
-            //     }
-            // }
-
         </script>
 
 

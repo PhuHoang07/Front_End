@@ -72,7 +72,21 @@ tr:hover {
     margin-top: 35px;
 }
 
-.student-button{
-    width: 30%;
+.edit-button {
+    width: 80%;
+    height: 25px;
+    background-color: rgb(82, 179, 82);
+    color: white;
+    border: none;
+    cursor: pointer;
+
+}
+
+.remove-button {
+    width: 50%;
+    height: 25px;
+    background-color: red;
+    color: white;
+    border: none;
     cursor: pointer;
 }
