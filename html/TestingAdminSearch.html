@@ -11,6 +11,9 @@
     <script src="https://kit.fontawesome.com/53e701d613.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/2.24.0/date-fns.min.js"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -79,6 +82,8 @@
                 </form>
             </div>
         </div>
+
+
         <div class="table-container">
             <table>
                 <thead>
@@ -87,37 +92,49 @@
                         <th>Time</th>
                         <th>Supervisor</th>
                         <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr onclick="selectRowToEdit(this)">
                         <td>15/07/2023</td>
                         <td>7:30 - 9:00</td>
-                        <td> 20/35 <i onclick="showTable()" class="fa-solid fa-square-caret-down"></i> </td>
+                        <!-- <td> 20/35 <i onclick="showTable()" class="fa-solid fa-square-caret-down"></i> </td> -->
+                        <td><button class="button-supervisor" onclick="showTable()">20/35</button></td>
+                        <td><button class="edit-button" onclick="showTable5()">Edit</button></td>
+                        <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
                         <td><i onclick="showTable2()" class="fa-solid fa-square-caret-down"></i></td>
                     </tr>
-                    <tr>
+                    <tr onclick="selectRowToEdit(this)">
                         <td>15/07/2023</td>
                         <td>7:30 - 9:00</td>
-                        <td> 20/35 <i onclick="showTable()" class="fa-solid fa-square-caret-down"></i> </td>
+                        <td><button class="button-supervisor" onclick="showTable()">20/35</button></td>
+                        <td><button class="edit-button" onclick="showTable5()">Edit</button></td>
+                        <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
                         <td><i onclick="showTable2()" class="fa-solid fa-square-caret-down"></i></td>
 
                     </tr>
-                    <tr>
+                    <tr onclick="selectRowToEdit(this)">
                         <td>15/07/2023</td>
                         <td>7:30 - 9:00</td>
-                        <td> 20/35 <i onclick="showTable()" class="fa-solid fa-square-caret-down"></i> </td>
+                        <td><button class="button-supervisor" onclick="showTable()">20/35</button></td>
+                        <td><button class="edit-button" onclick="showTable5()">Edit</button></td>
+                        <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
                         <td><i onclick="showTable2()" class="fa-solid fa-square-caret-down"></i></td>
 
                     </tr>
 
 
                 </tbody>
+                <button onclick="showTable4()" class="button-exam">
+                    <i class="fa-solid fa-plus fa-xl" style="color: #12264f;"></i>
+                </button>
             </table>
         </div>
 
-
-        <div class="table-container-hidden" id="hiddenTable" style="display: none;">
+        <!-- SUPERVISOR TABLE -->
+        <div class="table-container-hidden-2" id="hiddenTable" style="display: none;">
             <table>
                 <thead>
                     <tr>
@@ -132,28 +149,38 @@
                         <td>1</td>
                         <td>DuyLNPSE171722</td>
                         <td>Luong Ngoc Phuong Duy</td>
-                        <td><i class="fa-solid fa-trash"></i></td>
+                        <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td>DuyLNPSE171722</td>
                         <td>Tony Luong</td>
-                        <td><i class="fa-solid fa-trash"></i></td>
+                        <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
 
                     </tr>
                     <tr>
                         <td>3</td>
                         <td>DuyLNPSE171722</td>
-                        <td>Duy Luong</td>
-                        <td><i class="fa-solid fa-trash"></i></td>
+                        <td>pHUONG DUY</td>
+                        <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
 
                     </tr>
+
+
+                    <!-- <button class="close-button" onclick="closeTable()">Close</button> -->
+                    <button class="add-button" onclick="addNewTable()">
+                        <i class="fa-solid fa-user-plus fa-lg"></i>
+                    </button>
+                    <i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTable()"></i>
                 </tbody>
+
             </table>
 
         </div>
 
-        <div class="table-container-hidden" id="hiddenTable-2" style="display: none;">
+
+        <!-- VIEW EXAM SCHEDULE TABLE -->
+        <div class="table-container-hidden-2" id="hiddenTable-2" style="display: none;">
             <table>
                 <thead>
                     <tr>
@@ -173,76 +200,307 @@
                         <td>FER201m</td>
                         <td>FE</td>
                         <td>222</td>
-                        <td>25/30</td>
+                        <td><button class="button-supervisor" onclick="showTable3()">20/35</button></td>
                         <td><button class="edit-button">Edit</button></td>
-                        <td><button class="remove-button">Remove</button></td>
+                        <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
                     </tr>
                     <tr>
                         <td>1</td>
                         <td>FER201m</td>
                         <td>FE</td>
                         <td>222</td>
-                        <td>25/30</td>
+                        <td><button class="button-supervisor" onclick="showTable3()">20/35</button></td>
                         <td><button class="edit-button">Edit</button></td>
-                        <td><button class="remove-button">Remove</button></td>
+                        <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
                     </tr>
                     <tr>
                         <td>1</td>
                         <td>FER201m</td>
                         <td>FE</td>
                         <td>222</td>
-                        <td>25/30</td>
+                        <td><button class="button-supervisor" onclick="showTable3()">20/35</button></td>
                         <td><button class="edit-button">Edit</button></td>
-                        <td><button class="remove-button">Remove</button></td>
+                        <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
                     </tr>
+
+
+
+                </tbody>
+                <button class="add-button" onclick="addNewTable2()">
+                    <i class="fa-solid fa-user-plus fa-lg"></i>
+                </button>
+                <i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTable2()"></i>
+
+            </table>
+
+        </div>
+
+        <!-- VIEW STUDENT LIST TABLE -->
+        <div class="table-container-hidden-2" id="hiddenTable-3" style="display: none;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Member Code</th>
+                        <th>Full Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>nguyenlv</td>
+                        <td>Lê Văn Nguyên</td>
+                        <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>DuyLNPSE171722</td>
+                        <td>duy luong</td>
+                        <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>3</td>
+                        <td>tunguyen</td>
+                        <td>anh tu</td>
+                        <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
+                    </tr>
+                </tbody>
+                <i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTable3()"></i>
+            </table>
+
+        </div>
+
+        <div class="table-container-hidden-3" id="hiddenTable-4" style="display: none;">
+            <div class="search-field-2">
+                <input id="searchInput" type="number" placeholder="Search">
+                <button onclick="addAndRemoveRows()">Add</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Member Code</th>
+                        <th></th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>fn11</td>
+                        <td><input type="radio"></td>
+                        <td style="display: none"><button class="remove-button"
+                                onclick="showConfirmationModal(this.parentNode.parentNode)">Remove</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>fn12</td>
+                        <td><input type="radio"></td>
+                        <td style="display: none"><button class="remove-button"
+                                onclick="showConfirmationModal(this.parentNode.parentNode)">Remove</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>3</td>
+                        <td>fn13</td>
+                        <td><input type="radio"></td>
+                        <td style="display: none"><button class="remove-button"
+                                onclick="showConfirmationModal(this.parentNode.parentNode)">Remove</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>4</td>
+                        <td>fn14</td>
+                        <td><input type="radio"></td>
+                        <td style="display: none"><button class="remove-button"
+                                onclick="showConfirmationModal(this.parentNode.parentNode)">Remove</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>4</td>
+                        <td>fn14</td>
+                        <td><input type="radio"></td>
+                        <td style="display: none"><button class="remove-button"
+                                onclick="showConfirmationModal(this.parentNode.parentNode)">Remove</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>5</td>
+                        <td>fn14</td>
+                        <td><input type="radio"></td>
+                        <td style="display: none"><button class="remove-button"
+                                onclick="showConfirmationModal(this.parentNode.parentNode)">Remove</button></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>fn14</td>
+                        <td><input type="radio"></td>
+                        <td style="display: none"><button class="remove-button"
+                                onclick="showConfirmationModal(this)">Remove</button></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+        <div class="table-container-hidden-3" id="hiddenTable-5" style="display: none;">
+            <div class="search-field-2">
+                <input id="searchInput2" type="number" placeholder="Search">
+                <button onclick="addAndRemoveRows2()">Add</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Member Code</th>
+                        <th></th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>fn11</td>
+                        <td><input type="radio"></td>
+                        <td style="display: none"><button class="remove-button"
+                                onclick="showConfirmationModal(this.parentNode.parentNode)">Remove</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>fn12</td>
+                        <td><input type="radio"></td>
+                        <td style="display: none"><button class="remove-button"
+                                onclick="showConfirmationModal(this.parentNode.parentNode)">Remove</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>3</td>
+                        <td>fn13</td>
+                        <td><input type="radio"></td>
+                        <td style="display: none"><button class="remove-button"
+                                onclick="showConfirmationModal(this.parentNode.parentNode)">Remove</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>4</td>
+                        <td>fn14</td>
+                        <td><input type="radio"></td>
+                        <td style="display: none"><button class="remove-button"
+                                onclick="showConfirmationModal(this.parentNode.parentNode)">Remove</button></td>
+                    </tr>
+
+
                 </tbody>
             </table>
 
         </div>
 
-        <script>
-            function showTable() {
-                const hiddenTable = document.getElementById("hiddenTable");
-                if (hiddenTable.style.display === "none") {
-                    hiddenTable.style.display = "block";
-                } else {
-                    hiddenTable.style.display = "none";
-                }
-            }
 
-            function showTable2() {
-                const hiddenTable = document.getElementById("hiddenTable-2");
-                if (hiddenTable.style.display === "none") {
-                    hiddenTable.style.display = "block";
-                } else {
-                    hiddenTable.style.display = "none";
-                }
-            }
-        </script>
+        <div class="table-container-hidden-4" id="hiddenTable-6" style="display: none;">
+
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" />
+
+                </div>
+                <div class="form-group">
+                    <label for="start-time">Start Time:</label>
+                    <input type="time" />
+                </div>
+                <div class="form-group">
+                    <label for="slot-type">Slot Type:</label>
+                    <select name="slot-type" id="slot-type">
+                        <option value="90">1h30</option>
+                        <option value="120">2h</option>
+                        <option value="180">2h30</option>
+                        <option value="240">3h</option>
+                        <option value="300">3h30</option>
+
+                    </select>
+                </div>
+                <div class="button-container">
+                    <button type="button" class="add_button" onclick="addRowToTable2()">Add</button>
+                    <button type="button" class="cancel_button" onclick="closeTable4()">Cancel</button>
+                </div>
+                <div id="error-message" class="error-message" style="display: none;">
+                    Please select complete information
+                </div>
+            </div>
+
+        </div>
+
+        <div class="table-container-hidden-4" id="hiddenTable-7" style="display: none;">
+
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" />
+
+                </div>
+                <div class="form-group">
+                    <label for="start-time">Start Time:</label>
+                    <input type="time" />
+                </div>
+                <div class="form-group">
+                    <label for="slot-type">Slot Type:</label>
+                    <select name="slot-type" id="slot-type">
+                        <option value="90">1h30</option>
+                        <option value="120">2h</option>
+                        <option value="180">2h30</option>
+                        <option value="240">3h</option>
+                        <option value="300">3h30</option>
+
+                    </select>
+                </div>
+                <div class="button-container">
+                    <button type="button" class="add_button" onclick="editRowInTableContainer()">Edit</button>
+                    <button type="button" class="cancel_button" onclick="closeTable5()">Cancel</button>
+                </div>
+                <div id="error-message" class="error-message" style="display: none;">
+                    Please select complete information
+                </div>
+            </div>
+
+        </div>
 
 
+
+
+        <div id="confirmationModal" class="modal">
+            <div class="modal-content">
+                <p>Are you sure you want to remove this item?</p>
+                <div class="modal-buttons">
+                    <button class="modal-button" onclick="confirmRemove(true)">Yes</button>
+                    <button class="modal-button" onclick="confirmRemove(false)">No</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="confirmationModal-2" class="modal">
+            <div class="modal-content">
+                <p>Are you sure you want to edit this item?</p>
+                <div class="modal-buttons">
+                    <button class="modal-button yes">Yes</button>
+                    <button class="modal-button no">No</button>
+                </div>
+            </div>
+        </div>
 
         <!------------------------------------------------------------------->
 
     </section>
-    <!-- <script>
-        // Lấy tham chiếu đến phần tử button có id là "showTableButton"
-        var showTableButton = document.getElementById("showTableButton");
 
-        // Lấy tham chiếu đến bảng có id là "myTable"
-        var myTable = document.getElementById("myTable");
-
-        // Đặt sự kiện click cho nút "showTableButton"
-        showTableButton.addEventListener("click", function () {
-            // Kiểm tra nếu bảng đang ẩn (display: none), thì hiển thị, ngược lại ẩn đi
-            if (myTable.style.display === "none" || myTable.style.display === "") {
-                myTable.style.display = "table"; // Hiển thị bảng
-            } else {
-                myTable.style.display = "none"; // Ẩn bảng
-            }
-        });
-    </script> -->
     <script src="../resource/javascript/Welcome.js"></script>
+    <script src="../resource/javascript/TestingAdmin.js"></script>
+
 </body>
 
 </html>
