@@ -1,0 +1,103 @@
+/*-------------------display button------------------------------*/
+.btn {
+    margin: 100px auto 100px auto;
+    border-radius: 10px;
+    font-size: 16;
+    background-color: #fff;
+    width: 100px;
+    position: fixed;
+}
+/*---------------------------- for overlay ----------------------------------------*/
+.overlay-background {
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: none;
+}
+/*------------------------ board of tag ------------------------------------------------*/
+.tag-board {
+    display: flex;
+    flex-direction: column;
+    background-color: #333;
+    margin: 100px auto;
+    width: 700px;
+    height: 400px;
+    position: relative;
+    align-items: center;
+    overflow: hidden; /* che các tag ko scroll đến*/
+}
+/*--------<div class= " options ">-------------------------------------*/
+.tag-board h3{
+    margin-top: 10px;
+    color: #fff;
+    font-size: 20;
+    font-weight: 300;
+}
+
+
+/*--------<div class= " options ">-------------------------------------*/
+.options {
+    margin-bottom: 15px;
+    margin-top: 25px;
+    border-bottom: 2px solid #fff;
+    height: 150px;
+    overflow-y: auto; /* scroll các option theo chiều dọc */
+
+}
+
+/*--------------------------- option display-------------------------------------*/
+.option {
+    background-color: #fff;
+    font-size: 16;
+    transition: all 0.4s ease;
+    animation: all 0.4s ease;
+    width: 70px;
+    height: 30px;
+    border-radius: 2px;
+    border: none;
+    justify-content: space-between;
+    margin: 10px;
+    text-align: center;
+}
+
+.option:hover {
+    background-color: #43efdb;
+    border: none;
+}
+
+/*--------------------- Selected tags will appear here ---------------------*/
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto; /* scroll các option theo chiều ngang */
+}
+
+/*---------------------- tag create from javascript --------------------------------*/
+.tag {
+    background-color: #28e8d1;
+    border-radius: 4px;
+    padding: 2px 2px;
+    width: 90px;
+    height: 30px;
+    margin: 10px;
+    text-align: center;
+    font-size: 16;
+}
+
+/*---------------------- tag's close button create from javascript --------------------------------*/
+.tag-close {
+    cursor: pointer;
+}
+
+/*------------------------------exist button------------------*/
+.exist {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 2px 5px 2px 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 20;
+}
+

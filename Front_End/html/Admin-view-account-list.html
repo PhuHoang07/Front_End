@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Exam Schedule Managemnet System </title>
+    <link rel="stylesheet" href="../resource/css/Welcome.css">
+    <link rel="stylesheet" href="../resource/css/Table-Admin.css">
+    <link rel="stylesheet" href="../resource/css/animation.css">
+    <!-- Boxicons CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class="fa-solid fa-calendar icon"></i>
+            <div class="logo_name">F-ESMS</div>
+            <i class="fa-solid fa-bars" id="btn"></i>
+        </div>
+        <ul class="nav-list">
+            <li>
+                <a href="Admin.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="links_name">Home</span>
+                </a>
+                <span class="tooltip">Home</span>
+            </li>
+
+            <li>
+                <a href="Admin-view-account-list.html">
+                    <i class="fa-regular fa-address-book"></i>
+                    <span class="links_name">View Account List</span>
+                </a>
+                <span class="tooltip">View Account List</span>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <!-- Nav Horizontal-->
+
+        <div class="navbar">
+            <div class="dropdown">
+                <button class="dropbtn" onclick="myFunction()">Username
+                    <i class="fa-solid fa-chevron-down" id="dropdown-icon"></i>
+                </button>
+                <div class="dropdown-content" id="myDropdown">
+                    <a href="#"><i class="fa-regular fa-address-card"></i>Profile</a>
+                    <a href="#"><i class="fa-regular fa-pen-to-square"></i>Update Profile</a>
+                    <a href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a>
+                </div>
+            </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------->
+
+        <!-- Search + Button-->
+        <div class="search-background">
+            <input type="search" placeholder="Search Account Here" class="searchbar-admin">
+            <button class="searchbtn-admin">Search</button>
+        </div>
+
+
+        <!--Table section-->
+        <table id="user-table" class="content-table">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Member Code</th>
+                    <th>Full Name</th>
+                    <th>Role</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>quandnm123</td>
+                    <td>Đoàn Ngọc Minh QUân</td>
+                    <td>
+
+                        <select class="role-select" id="role-select" onchange="confirmRegistration(this)">
+                            <option value="student">Student</option>
+                            <option value="teacher">Teacher</option>
+                            <option value="admin">Admin</option>
+                            <option value="testing-admin">Testing Admin</option>
+                            <option value="staff">Staff</option>
+                        </select>
+
+                        <div id="myModal" class="modal">
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                                <p class="modal-text">Are You Sure to Set Role for this Account?</p>
+                                <span class="confirm">
+                                    <p class="cofirmbutton">Yes
+                                    </p>
+                                </span>
+                                <span class="close">
+                                    <p class="closebutton">No
+                                    </p>
+                                </span>
+                                <script type="text/javascript" src="../resource/javascript/admin-table.js"></script>
+                            </div>
+                            <!-- Modal content -->
+                        </div>
+
+                    </td>
+                    <td>
+                        <button class="view-list-button">Details</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>1</td>
+                    <td>quandnm123</td>
+                    <td>Đoàn Ngọc Minh QUân</td>
+                    <td>
+
+                        <select class="role-select" id="role-select" onchange="confirmRegistration(this)">
+                            <option value="student">Student</option>
+                            <option value="teacher">Teacher</option>
+                            <option value="admin">Admin</option>
+                            <option value="testing-admin">Testing Admin</option>
+                            <option value="staff">Staff</option>
+                        </select>
+
+                        <div id="myModal" class="modal">
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                                <p class="modal-text">Are You Sure to Set Role for this Account?</p>
+                                <span class="confirm">
+                                    <p class="cofirmbutton">Yes
+                                    </p>
+                                </span>
+                                <span class="close">
+                                    <p class="closebutton">No
+                                    </p>
+                                </span>
+                                <script type="text/javascript" src="../resource/javascript/admin-table.js"></script>
+                            </div>
+                            <!-- Modal content -->
+                        </div>
+
+                    </td>
+                    <td>
+                        <button class="view-list-button">Details</button>
+                    </td>
+                </tr>
+                <!-- Add more rows here if needed -->
+            </tbody>
+        </table>
+        <!------------------------------------------------------------------->
+
+
+
+    </section>
+    <script src="../resource/javascript/welcome.js"></script>
+</body>
+
+</html>

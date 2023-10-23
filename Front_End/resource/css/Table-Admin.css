@@ -1,0 +1,201 @@
+/*---------------------------Table-admin-----------------------------------------------------------------------------------------------*/
+section .content-table {
+  border-collapse: collapse;
+  top: 300px;
+  margin: 100px auto;
+  font-size: 16px;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.content-table thead tr {
+  background-color: #079073;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(odd) {
+  background-color: #fff;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid #079073;
+}
+
+.content-table tbody tr:hover {
+  background-color: #ddd;
+}
+
+/*Modal ------------------------------------------------------------------------------------------------------------------------------------*/
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+
+}
+
+/* Modal Content/Box ------------------------------------------------------------------------------------------------*/
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 100%;
+  /* Could be more or less, depending on screen size */
+  width: 450px;
+  height: 200px;
+  padding: 30px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 20px 117px;
+  flex-wrap: wrap;
+  border: 5px solid var(--Green, #079073);
+  background: #FFF;
+}
+
+/*modal text--------------------------------------------------------------------------------------------------------*/
+.modal-text {
+  color: var(--Green, #079073);
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+/* The Close Button -----------------------------------------------------------------------------------------------*/
+.close {
+  color: #FFFFFF;
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.confirm {
+  color: #FFFFFF;
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+
+}
+
+.cofirmbutton {
+  text-align: center;
+  display: flex;
+  width: 55px;
+  padding: 8px 38px 8px 33px;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 1px solid #FCFCFC;
+  background: var(--Green, #079073);
+  display: flex;
+  width: 92px;
+  padding: 8px 0px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.closebutton {
+  text-align: center;
+  display: flex;
+  width: 55px;
+  padding: 8px 38px 8px 33px;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 1px solid #FCFCFC;
+  background: var(--Red, #D02E2E);
+  display: flex;
+  width: 92px;
+  padding: 8px 0px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.confirm:hover,
+.confirm:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/*---------------------------------searchbar + searchbtn ------------------------------------------------------------------*/
+.home-section .searchbar-admin {
+  border-radius: 5px;
+  padding: 10px;
+  width: 400px;
+  height: 35px;
+  margin-left: auto;
+}
+
+.home-section .searchbtn-admin {
+  height: 35px;
+  width: 60px;
+  border-radius: 10px;
+  background-color: #079073;
+  margin-left: 50px;
+  border: none;
+  color: #fff;
+  margin-right: auto;
+  font-size: 20;
+}
+
+.home-section .search-background {
+  background: rgba(0, 0, 0, 0.3);
+  width: 600px;
+  height: 65px;
+  margin: 100px auto 50px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  transition: all 0.4s ease; animation: all 0.4s ease;
+}
+
+.home-section .search-background:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
