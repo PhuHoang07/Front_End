@@ -52,28 +52,29 @@ getDataAPI();
 //------------------------------------------------fectch data into table------------------------------------------------------------------ 
 async function getDataAPI() {
   try {
-    const responseAPI = await fetch("https://fakestoreapi.com/products");
-    const data = await responseAPI.json();
+    const responseAPI = await fetch("https://localhost:7212/api/admin/users");
+    const response = await responseAPI.json();
+    const data = response.data;
     console.log(data); // Check the response data structure
+
     const trow = document.createElement('tr');
     trow.innerHTML = '<td colspan="5">Loading ...</td>';
     list.appendChild(trow);
-    setTimeout(()=>{
-        list.innerHTML = " ";
-        data.forEach(result => {
-            const tablerow = document.createElement('tr');
-            listItem.push(tablerow);//đẩy vô để search ra data.
-            tablerow.innerHTML = `
-              <td>${result.title}</td>
-              <td>${result.description}</td>
-              <td>${result.price}</td>
-              <td><img src="${result.image}"/></td>
-              <td>${result.category}</td>
-            `;
-            list.appendChild(tablerow);
-          });
+
+    setTimeout(() => {
+      list.innerHTML = " ";
+      data.forEach((result) => {
+          // Creating table row for each result
+          const tablerow = document.createElement('tr');
+          listItem.push(tablerow);
+          tablerow.innerHTML = `
+            <td>${result.userName}</td>
+            <td>${result.name}</td>
+            <td>${result.email}</td>
+          `;
+          list.appendChild(tablerow);
+      });
     }, 2000);
-    
   } catch (error) {
     console.log(error);
   }
@@ -108,6 +109,43 @@ function filterInput(keySearch) {
   }
 }
 
-//---------------------------------------------------------selection for price -----------------------------------------------------------------
+// const list = document.getElementById("table_body");
+// const search = document.getElementById("search");
+// const listItem = [];
 
+// search.addEventListener('input', (e) => filterInput(e.target.value))
 
+// getDataAPI();
+// //------------------------------------------------fectch data into table------------------------------------------------------------------ 
+// async function getDataAPI() {
+//   try {
+//     const responseAPI = await fetch("https://fakestoreapi.com/products");
+//     const data = await responseAPI.json();
+//     console.log(data); // Check the response data structure
+//     //---------------------------------pagination------------------------------------------------------------------------------------------
+   
+
+//     //-------------------------------------------------------------------------------------------------------------------------------------------
+//     const trow = document.createElement('tr');
+//     trow.innerHTML = '<td colspan="5">Loading ...</td>';
+//     list.appendChild(trow);
+//     setTimeout(()=>{
+//         list.innerHTML = " ";
+//         data.forEach(result => {
+//             const tablerow = document.createElement('tr');
+//             listItem.push(tablerow);//đẩy vô để search ra data.
+//             tablerow.innerHTML = `
+//               <td>${result.title}</td>
+//               <td>${result.description}</td>
+//               <td>${result.price}</td>
+//               <td><img src="${result.image}"/></td>
+//               <td>${result.category}</td>
+//             `;
+//             list.appendChild(tablerow);
+//           });
+//     }, 2000);
+    
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
