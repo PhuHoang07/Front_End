@@ -52,7 +52,13 @@ getDataAPI();
 //------------------------------------------------fectch data into table------------------------------------------------------------------ 
 async function getDataAPI() {
   try {
-    const responseAPI = await fetch("https://localhost:7212/api/admin/users");
+    // Make an API request to the backend with the token
+    const responseAPI = await fetch("https://swp-esms-api.azurewebsites.net/api/admin/users", {
+      method: 'GET', // or 'POST', 'PUT', etc.
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem(token)}`,
+        'Content-Type': 'application/json',
+      }});
     const response = await responseAPI.json();
     const data = response.data;
     console.log(data); // Check the response data structure
@@ -60,7 +66,7 @@ async function getDataAPI() {
     const trow = document.createElement('tr');
     trow.innerHTML = '<td colspan="5">Loading ...</td>';
     list.appendChild(trow);
-
+    let numgrade = 1;
     setTimeout(() => {
       list.innerHTML = " ";
       data.forEach((result) => {
@@ -68,9 +74,11 @@ async function getDataAPI() {
           const tablerow = document.createElement('tr');
           listItem.push(tablerow);
           tablerow.innerHTML = `
+            <td>${numgrade++}</td>
             <td>${result.userName}</td>
             <td>${result.name}</td>
             <td>${result.email}</td>
+            <td> <button class="view-list-button">Details</button></td>
           `;
           list.appendChild(tablerow);
       });
