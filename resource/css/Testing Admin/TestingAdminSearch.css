@@ -114,7 +114,7 @@ tr:hover {
 
 
 .edit-button {
-    width: 80%;
+    width: 150%;
     height: 25px;
     background-color: rgb(82, 179, 82);
     color: white;
@@ -124,9 +124,8 @@ tr:hover {
 }
 
 .remove-button {
-    width: 67%;
+    width: 80%;
     height: 25px;
-    padding: 4px;
     background-color: red;
     color: white;
     border: none;

@@ -38,7 +38,8 @@ function renderExamTime() {
                 <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
                 <td>${examTime.publishDate}</td>
                 <td>${examTime.slot}</td>
-                <td><i class="fa-solid fa-square-caret-down btn-showExamSchedule"></i></td>
+                <td><i onclick="showTable2()" class="fa-solid fa-square-caret-down btn-showExamSchedule"></i></td>
+
               `;
 
             list.appendChild(tablerow);
