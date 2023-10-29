@@ -142,7 +142,9 @@ tr:hover {
     cursor: pointer;
     padding: 2px;
 }
-
+.btn-showExamSchedule{
+    cursor: pointer;
+}
 .button-exam {
     cursor: pointer;
     padding: 11px;
