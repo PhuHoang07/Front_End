@@ -10,6 +10,8 @@ const response = await fetchAPIData(
 
 const data = response.data;
 
+console.log(data);
+
 renderExamTime();
 
 //------------------------------------------------fectch data into table------------------------------------------------------------------
@@ -48,7 +50,8 @@ function renderExamTime() {
 
     Array.from(document.getElementsByClassName('btn-showExamSchedule')).forEach(
         (btn) => {
-            btn.addEventListener('click', renderExamSchedule);
+            const idt = btn.parentElement.parentElement.getAttribute('idt');
+            btn.addEventListener('click', () => renderExamSchedule(idt));
         }
     );
 }
@@ -56,7 +59,7 @@ function renderExamTime() {
 //--------------------------------------------- for student table ----------------------------------------------------------------------------------------
 
 //------------------------------------------------fetch data into table------------------------------------------------------------------
-function renderExamSchedule() {
+function renderExamSchedule(idt) {
     const list01 = document.getElementById('table_body_3');
     const listItem01 = [];
 
@@ -74,6 +77,8 @@ function renderExamSchedule() {
         const exams = data[semester];
 
         exams.forEach((exam) => {
+            if (exam.idt != idt) return;
+
             const examSchedules = exam.examSchedules;
             if (examSchedules.length == 0) {
                 const noScheduleRow = document.createElement('tr');
