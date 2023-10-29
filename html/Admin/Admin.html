@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Exam Schedule Managemnet System </title>
+    <link rel="stylesheet" href="../resource/css/Welcome.css">
+    <!-- Boxicons CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class="fa-solid fa-calendar icon"></i>
+            <div class="logo_name">F-ESMS</div>
+            <i class="fa-solid fa-bars" id="btn"></i>
+        </div>
+        <ul class="nav-list">
+            <li>
+                <a href="Admin.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="links_name">Home</span>
+                </a>
+                <span class="tooltip">Home</span>
+            </li>
+
+            <li>
+                <a href="Admin-view-account-list.html">
+                    <i class="fa-regular fa-address-book"></i>
+                    <span class="links_name">View Account List</span>
+                </a>
+                <span class="tooltip">View Account List</span>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <!-- Nav Horizontal-->
+
+        <div class="navbar">
+            <div class="dropdown">
+                <button class="dropbtn" onclick="myFunction()">Username
+                    <i class="fa-solid fa-chevron-down" id="dropdown-icon"></i>
+                </button>
+                <div class="dropdown-content" id="myDropdown">
+                    <a href="#"><i class="fa-regular fa-address-card"></i>Profile</a>
+                    <a href="#"><i class="fa-regular fa-pen-to-square"></i>Update Profile</a>
+                    <a href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a>
+                </div>
+            </div>
+        </div>
+        <!---->
+        <!--Welcome section-->
+        <div class="time-line">
+
+            <div class="container left-container">
+                <img src="../resource/Image/Screenshot 2023-10-10 134432.png" alt="">
+                <div class="text-box">
+                    <h1>Welcome to ESMS</h1>
+                    <h2>Your best Exam Schedule System</h2>
+                    <span class="left-container-arrow"></span>
+                </div>
+            </div>
+    
+            <div class="container right-container">
+                <img src="../resource/Image/Screenshot 2023-10-10 134432.png" alt="">
+                <div class="text-box">
+                    <i class="fa-brands fa-readme"></i>
+                    <h2>Tutorial:</h2>
+                    <p>Here are some tutorials for your system:</p>
+                    <span class="right-container-arrow"></span>
+                </div>
+            </div>
+    
+            <div class="container left-container">
+                <img src="../resource/Image/Screenshot 2023-10-10 134432.png" alt="">
+                <div class="text-box">
+                    <i class="fa-regular fa-address-book"></i>
+                    <h2>View Account List</h2>
+                    <p>Help you classify a list of account</p>
+                    <span class="left-container-arrow"></span>
+                </div>
+            </div>
+    
+            <div class="container right-container">
+                <img src="../resource/Image/Screenshot 2023-10-10 134432.png" alt="">
+                <div class="text-box">
+                    <i class="fa-regular fa-address-card"></i>
+                    <h2>Profile</h2>
+                    <p>Check your profile</p>
+                    <i class="fa-regular fa-pen-to-square"></i>
+                    <h2>  Edit Profile</h2>
+                    <p>You can edit your profile </p>
+                    <span class="right-container-arrow"></span>
+                </div>
+            </div>
+        </div>
+        <!------------------------------------------------------------------->
+        
+    </section>
+    <script src="/resource/javascript/Login-Google/welcome.js"></script>
+    <script src="/resource/javascript/FetchAPI-Authen/utils.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Exam Schedule Managemnet System</title>
+        <link rel="stylesheet" href="/resource/css/Login-Google/Welcome.css" />
+        <link rel="stylesheet" href="/resource/css/Admin/FetchAPI.css" />
+        <link rel="stylesheet" href="/resource/css/Admin/animation.css" />
+        <link rel="stylesheet" href="/resource/css/Folder Demo ứng dụng css/pagination.css" />
+        <!-- Boxicons CDN Link -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <style>
+        img {
+            width: 100px;
+        }
+    </style>
+
+    <body>
+        <div class="sidebar">
+            <div class="logo-details">
+                <i class="fa-solid fa-calendar icon"></i>
+                <div class="logo_name">F-ESMS</div>
+                <i class="fa-solid fa-bars" id="btn"></i>
+            </div>
+            <ul class="nav-list">
+                <li>
+                    <a href="Admin.html">
+                        <i class="fa-solid fa-house"></i>
+                        <span class="links_name">Home</span>
+                    </a>
+                    <span class="tooltip">Home</span>
+                </li>
+
+                <li>
+                    <a href="FetchAPI.html">
+                        <i class="fa-regular fa-address-book"></i>
+                        <span class="links_name">View Account List</span>
+                    </a>
+                    <span class="tooltip">View Account List</span>
+                </li>
+            </ul>
+        </div>
+        <section class="home-section">
+            <!-- Nav Horizontal-->
+
+            <div class="navbar">
+                <div class="dropdown">
+                    <button class="dropbtn" onclick="myFunction()">
+                        Username
+                        <i
+                            class="fa-solid fa-chevron-down"
+                            id="dropdown-icon"></i>
+                    </button>
+                    <div class="dropdown-content" id="myDropdown">
+                        <a href="#"
+                            ><i class="fa-regular fa-address-card"></i
+                            >Profile</a
+                        >
+                        <a href="#"
+                            ><i class="fa-regular fa-pen-to-square"></i>Update
+                            Profile</a
+                        >
+                        <a href="#"
+                            ><i class="fa-solid fa-arrow-right-from-bracket"></i
+                            >Logout</a
+                        >
+                    </div>
+                </div>
+            </div>
+            <!------------------------------------------------------------------------------------------------->
+
+            <!-- Search + Button-->
+            <div class="search-background">
+                <input
+                    type="search"
+                    placeholder="Search Account Here"
+                    class="searchbar-admin"
+                    id="search" />
+            </div>
+
+            <!--Table section-->
+            <table id="user-table" class="content-table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Member Code</th>
+                        <th>Full name</th>
+                        <th>Role</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="table_body"></tbody>
+            </table>
+            <!------------------------------------------------------------------->
+            <!-------------------------Pagination--------------------------------->
+            <div
+                class="Pagination-container home-section_pagination"
+                id="pagination">
+                <ul class="pagination">
+                    <li class="pagination-item">
+                        <a href="" class="pagination-item_link">
+                            <i
+                                class="pagination-item_icon fas fa-angle-left"></i>
+                        </a>
+                    </li>
+
+                    <li class="pagination-item pagination-item-active">
+                        <a href="" class="pagination-item_link">1</a>
+                    </li>
+                    <li class="pagination-item pagination-item-active">
+                        <a href="" class="pagination-item_link">2</a>
+                    </li>
+                    <li class="pagination-item pagination-item-active">
+                        <a href="" class="pagination-item_link">3</a>
+                    </li>
+                    <li class="pagination-item pagination-item-active">
+                        <a href="" class="pagination-item_link">...</a>
+                    </li>
+                    <li class="pagination-item pagination-item-active">
+                        <a href="" class="pagination-item_link">5</a>
+                    </li>
+                    <li class="pagination-item pagination-item-active">
+                        <a href="" class="pagination-item_link">6</a>
+                    </li>
+
+                    <li class="pagination-item">
+                        <a href="" class="pagination-item_link">
+                            <i
+                                class="pagination-item_icon fas fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!------------------------------------------------------------------->
+        </section>
+        <script src="/resource/javascript/Admin/fetchapi.js"></script>
+        <script src="/resource/javascript/Login-Google/welcome.js"></script>
+    </body>
+</html>

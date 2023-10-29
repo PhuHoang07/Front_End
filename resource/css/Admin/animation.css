@@ -1,0 +1,36 @@
+
+section .view-list-button{ 
+    transition: all 0.4s ease; animation: all 0.4s ease;
+    border-radius: 5px;
+    border: none;
+    width: 60px;
+    height: 25px;
+}
+.view-list-button:hover{
+    opacity: 0.75;
+    -webkit-animation-name: pulse;
+    animation-name: pulse;
+    background-color: #079073;
+color: #fff;
+    }
+.close{ transition: all 0.4s ease; animation: all 0.4s ease; }
+.close:hover{
+opacity: 0.9;
+-webkit-animation-name: pulse;
+animation-name: pulse;
+background-color: darkred;
+border-radius: 15%;
+}
+.confirm{ transition: all 0.4s ease; animation: all 0.4s ease; }
+.confirm:hover{
+opacity: 0.9;
+-webkit-animation-name: pulse;
+animation-name: pulse;
+background-color: darkgreen;
+border-radius: 15%;
+}
+
+.role-select{
+    border-radius: 5px;
+    width: 125px;
+}

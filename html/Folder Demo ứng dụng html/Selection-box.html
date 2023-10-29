@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Responsive Sidebar Menu | CodingLab </title>
+    <link rel="stylesheet" href="../resource/css/Welcome.css">
+    <link rel="stylesheet" href="../resource/css/Selection-box.css">
+    <!-- Boxicons CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class="fa-solid fa-calendar icon"></i>
+            <div class="logo_name">F-ESMS</div>
+            <i class="fa-solid fa-bars" id="btn"></i>
+        </div>
+        <ul class="nav-list">
+            <li class="active">
+                <a href="#">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="links_name">Home</span>
+                </a>
+                <span class="tooltip">Home</span>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-regular fa-calendar-days"></i>
+                    <span class="links_name">View Exam Schedule</span>
+                </a>
+                <span class="tooltip">View Exam Schedule</span>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <!-- Nav Horizontal-->
+
+        <div class="navbar">
+            <div class="dropdown">
+                <button class="dropbtn" onclick="myFunction()">Username
+                    <i class="fa-solid fa-chevron-down" id="dropdown-icon"></i>
+                </button>
+                <div class="dropdown-content" id="myDropdown">
+                    <a href="#"><i class="fa-regular fa-address-card"></i>Profile</a>
+                    <a href="#"><i class="fa-regular fa-pen-to-square"></i>Update Profile</a>
+                    <a href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a>
+                </div>
+            </div>
+        </div>
+        <!---->
+        <!--selection box-->
+        <button class="btn" onclick="selectSubject(this)">Subject</button>
+        <div class="overlay-background">
+            <div class="tag-board">
+                <div class="exist"><i class="fa-solid fa-xmark"></i></div>
+                <h3>Choose Subject you want to check</h3>
+                <div class="options">
+                    <button class="option">Option 1</button>
+                    <button class="option">Option 2</button>
+                    <button class="option">Option 3</button>
+                    <button class="option">Option 4</button>
+                    <button class="option">Option 5</button>
+                    <button class="option">Option 6</button>
+                    <button class="option">Option 7</button>
+                    <button class="option">Option 8</button>
+                    <!-- Add more options here -->
+                </div>
+
+                <div class="tags">
+                    <!-- Selected tags will appear here -->
+                </div>
+            </div>
+        </div>
+
+        <!------------------------------------------------------------------->
+
+    </section>
+    <script src="../resource/javascript/welcome.js"></script>
+    <script src="../resource/javascript/selection.js"></script>
+</body>
+
+</html>

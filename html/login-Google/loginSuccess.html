@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+
+    <body>
+        <h1>Login successfully</h1>
+    </body>
+
+    <script>
+        function fetchData(url, method, data) {
+            if (data) {
+                data = JSON.stringify(data);
+            }
+
+            return fetch(url, {
+                method,
+                body: data,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                mode: 'cors',
+            })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((response) => {
+                    return response;
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+
+        function parseFragment(fragmentString) {
+            const params = {};
+            const regex = /([^&=]+)=([^&]*)/g;
+            let match;
+
+            while ((match = regex.exec(fragmentString)) !== null) {
+                const key = decodeURIComponent(match[1]);
+                const value = decodeURIComponent(match[2]);
+                params[key] = value;
+            }
+
+            return params;
+        }
+
+        const fragmentString = window.location.hash.substring(1);
+        const params = parseFragment(fragmentString);
+        const accessToken = params.access_token;
+
+        if (accessToken) {
+            const googleUserInfoUrl = `https://openidconnect.googleapis.com/v1/userinfo?access_token=${accessToken}`;
+
+            let userData;
+            fetchData(googleUserInfoUrl, 'GET').then((response) => {
+                userData = response;
+
+                authenticateAPI(userData.email).then((response) => {
+                    localStorage.setItem('token', response.data.token);
+                    let role = response.data.role;
+
+                    redirectPage(role);
+                });
+            });
+        }
+
+        function authenticateAPI(email) {
+            const signInUrl =
+                'https://swp-esms-api.azurewebsites.net/api/auth/signin';
+            // 'https://localhost:7212/api/auth/signin';
+            const data = { email };
+
+            return fetchData(signInUrl, 'POST', data);
+        }
+
+        function redirectPage(role) {
+            let page;
+
+            if (role == 'Student') {
+                page = '../Student/Student.html';
+            } else if (role == 'Lecturer') {
+                page = '../Lecturer/Lecturer.html';
+            } else if (role == 'Testing Staff') {
+                page = '../Staff/Staff.html';
+            } else if (role == 'Testing Admin') {
+                page = '../Testing Admin/TestingAdmin.html';
+            } else {
+                page = '../Admin/Admin.html';
+            }
+
+            page = '../Testing Admin/TestingAdminSearch.html'; // for testing purposes, removing later
+            window.location.href = page;
+        }
+    </script>
+</html>

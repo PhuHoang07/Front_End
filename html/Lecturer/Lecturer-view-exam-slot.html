@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta http-equiv="content-type" content="text/html" charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title> Exam Schedule Managemnet System </title>
+    <link rel="stylesheet" href="../resource/css/Welcome.css">
+    <script src="https://secure.exportkit.com/cdn/js/ek_googlefonts.js?v=6"></script>
+    <script src="https://secure.exportkit.com/cdn/js/ek_interactions.js?v=032"></script>
+    <link rel="stylesheet" href="../resource/css/lecturer-table.css">
+    <link rel="stylesheet" href="../resource/css/animation.css">
+    <!-- Fontawesome Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class="fa-solid fa-calendar icon"></i>
+            <div class="logo_name">F-ESMS</div>
+            <i class="fa-solid fa-bars" id="btn"></i>
+        </div>
+        <ul class="nav-list">
+            <li>
+                <a href="Lecturer.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="links_name">Home</span>
+                </a>
+                <span class="tooltip">Home</span>
+            </li>
+
+            <li>
+                <a href="Lecturer-view-exam-slot.html">
+                    <i class="fa-regular fa-calendar-check"></i>
+                    <span class="links_name">View Available Exam Slot</span>
+                </a>
+                <span class="tooltip">View Available Exam Slot</span>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <!-- Nav Horizontal-->
+
+        <div class="navbar">
+            <div class="dropdown">
+                <button class="dropbtn" onclick="myFunction()">Username
+                    <i class="fa-solid fa-chevron-down" id="dropdown-icon"></i>
+                </button>
+                <div class="dropdown-content" id="myDropdown">
+                    <a href="#"><i class="fa-regular fa-address-card"></i>Profile</a>
+                    <a href="#"><i class="fa-regular fa-pen-to-square"></i>Update Profile</a>
+                    <a href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a>
+                </div>
+            </div>
+            <div class="headerandlogo">
+                <i class="element logo-head"></i>
+                <h1 class="Page_header">Available Exam Slots</h1>
+            </div>
+        </div>
+        <!---->
+        <!--Welcome section-->
+        
+        <div class="fui-table-ui-basic-linh table-wrap table">
+
+            <table id="mytable" class="center">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Allowance</th>
+                        <th>status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <td>15/07/2023</td>
+                        <td class="pcs">7:30 - 9:00</td>
+                        <td class="cur">100</td>
+                        <td class="per">20/30</td>
+                        <td class="popup">
+                            <!-- Trigger/Open The Modal -->
+                            <button class="buttn" onclick="confirmRegistration(this)">Register</button>
+                            <!--Modal-->
+                            <div id="myModal" class="modal">
+                                <!-- Modal content -->
+                                <div class="modal-content">
+                                    <p class="modal-text">Are You Sure to Register This Slot?</p>
+                                    <span class="confirm">
+                                        <p class="cofirmbutton">Yes
+                                        </p>
+                                    </span>
+                                    <span class="close">
+                                        <p class="closebutton">No
+                                        </p>
+                                    </span>
+                                    <script type="text/javascript" src="/resource/javascript/Lecturer/lecturer-table.js"></script>
+                                </div>
+                                <!-- Modal content -->
+                            </div>
+                            <!--Modal-->
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        <!------------------------------------------------------------------->
+
+    </section>
+    <script src="/resource/javascript/Login-Google/welcome.js"></script>
+    <script src="/resource/javascript/FetchAPI-Authen/utils.js"></script>
+</body>
+
+</html>
