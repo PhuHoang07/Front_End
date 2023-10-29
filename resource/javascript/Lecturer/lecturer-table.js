@@ -58,6 +58,4 @@ window.onclick = function(event) {
   }
 }
 
-/* -------------------auto time disable------------------ */
 
-/* -------------------auto time disable------------------ */
