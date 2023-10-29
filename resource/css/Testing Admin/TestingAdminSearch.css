@@ -114,12 +114,14 @@ tr:hover {
 
 
 .edit-button {
-    width: 150%;
+    width: 160%;
     height: 25px;
     background-color: rgb(82, 179, 82);
     color: white;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
+    
 
 }
 
@@ -130,6 +132,10 @@ tr:hover {
     color: white;
     border: none;
     cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 5px;
+    font-size: 13px;
+
 }
 
 .button-supervisor {
