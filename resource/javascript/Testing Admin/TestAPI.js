@@ -10,8 +10,6 @@ const response = await fetchAPIData(
 
 const data = response.data;
 
-console.log(data);
-
 renderExamTime();
 
 //------------------------------------------------fectch data into table------------------------------------------------------------------

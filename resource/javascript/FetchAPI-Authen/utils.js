@@ -1,4 +1,5 @@
 Authenticate(); // authentication before accessing website
+showUserName(); // show user name on header
 
 function Authenticate() {
     let token = localStorage.getItem('token');
@@ -20,6 +21,7 @@ function Authenticate() {
 
 function logOut() {
     localStorage.removeItem('token');
+    localStorage.removeItem('name');
     window.location.href = '../../../html/login-Google/index.html';
 }
 
@@ -48,4 +50,10 @@ function fetchAPIData(url, method, data = {}) {
             },
         }).then((response) => response.json());
     }
+}
+
+function showUserName() {
+    const userName = localStorage.getItem('name');
+    const userField = document.getElementById('user-name');
+    userField.innerText = userName;
 }
