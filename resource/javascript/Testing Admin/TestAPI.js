@@ -1,5 +1,4 @@
 const list = document.getElementById('table_body');
-const uname= document.getElementById('user-name');
 const search = document.getElementById('search');
 const listItem = [];
 
@@ -8,17 +7,11 @@ const response = await fetchAPIData(
     'https://swp-esms-api.azurewebsites.net/api/exams/current',
     'GET'
 );
-const responseuser = await fetchAPIData(
-    'https://swp-esms-api.azurewebsites.net/api/user/profile',
-    'GET'
-);
 
 const data = response.data;
-const datauser = responseuser.data;
-console.log(data);
-console.log(datauser);
+
 renderExamTime();
-fetchUsernameAndRender();
+
 //------------------------------------------------fectch data into table------------------------------------------------------------------
 function renderExamTime() {
     list.innerHTML = '';
