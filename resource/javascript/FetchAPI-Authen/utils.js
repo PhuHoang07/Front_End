@@ -12,7 +12,8 @@ function Authenticate() {
         .then((response) => response.text())
         .then((response) => {
             if (response == 'Invalid') {
-                logOutput();
+                // log out when token is invalid
+                logOut();
             }
         });
 }
@@ -22,15 +23,29 @@ function logOut() {
     window.location.href = '../../../html/login-Google/index.html';
 }
 
-function fetchAPIData(url, method, data) {
-    let token = localStorage.getItem('token');
+function fetchAPIData(url, method, data = {}) {
+    const token = localStorage.getItem('token');
 
-    return fetch(url, {
-        method: method, // or 'POST', 'PUT', etc.
-        body: JSON.stringify(data),
-        headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-        },
-    }).then((response) => response.json());
+    if (method === 'GET') {
+        const params = new URLSearchParams(data.params ?? '');
+
+        return fetch(url + `?${params}`, {
+            method: method, // or 'POST', 'PUT', etc.
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        }).then((response) => response.json());
+    } else {
+        const body = JSON.stringify(data.body ?? '');
+
+        return fetch(url, {
+            method: method, // or 'POST', 'PUT', etc.
+            body: body,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        }).then((response) => response.json());
+    }
 }

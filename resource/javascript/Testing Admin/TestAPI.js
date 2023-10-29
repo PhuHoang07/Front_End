@@ -1,8 +1,14 @@
-const list = document.getElementById("table_body");
-const search = document.getElementById("search");
+const list = document.getElementById('table_body');
+const search = document.getElementById('search');
 const listItem = [];
 
-const data = await fetchData();
+// call fetch function from utils.js file
+const response = await fetchAPIData(
+    'https://swp-esms-api.azurewebsites.net/api/exams/current',
+    'GET'
+);
+
+const data = response.data;
 
 renderExamTime();
 
@@ -11,20 +17,20 @@ function renderExamTime() {
     list.innerHTML = '';
 
     Object.keys(data).forEach((semester) => {
-      data[semester].forEach((examTime) => {
+        data[semester].forEach((examTime) => {
+            if (examTime.length == 0) {
+                const noScheduleRow = document.createElement('tr');
+                noScheduleRow.innerHTML =
+                    '<td colspan="8" class="no-schedule">No exam schedule</td>';
+                list01.appendChild(noScheduleRow);
+                return;
+            }
 
-        if (examTime.length == 0) {
-          const noScheduleRow = document.createElement('tr');
-          noScheduleRow.innerHTML = '<td colspan="8" class="no-schedule">No exam schedule</td>';
-          list01.appendChild(noScheduleRow);
-          return;
-        }
+            const tablerow = document.createElement('tr');
+            tablerow.setAttribute('idt', examTime.idt);
 
-        const tablerow = document.createElement('tr');
-        tablerow.setAttribute('idt', examTime.idt);
-
-        listItem.push(tablerow);
-        tablerow.innerHTML = `
+            listItem.push(tablerow);
+            tablerow.innerHTML = `
                 <td>${examTime.date}</td>
                 <td>${examTime.start} - ${examTime.end}</td>
                 <td><button class="button-supervisor" onclick="showTable()">20/35</button></td>
@@ -34,17 +40,14 @@ function renderExamTime() {
                 <td>${examTime.slot}</td>
                 <td><i onclick="renderExamSchedule()" class="fa-solid fa-square-caret-down"></i></td>
               `;
-        list.appendChild(tablerow);
-      });
+            list.appendChild(tablerow);
+        });
     });
 }
 
 //--------------------------------------------- for student table ----------------------------------------------------------------------------------------
 
-
-
-
-const list01 = document.getElementById("table_body_3");
+const list01 = document.getElementById('table_body_3');
 const listItem01 = [];
 
 //------------------------------------------------fetch data into table------------------------------------------------------------------
@@ -60,21 +63,22 @@ function renderExamSchedule() {
     const semesters = Object.keys(data);
 
     semesters.forEach((semester) => {
-      const exams = data[semester];
+        const exams = data[semester];
 
-      exams.forEach((exam) => {
-        const examSchedules = exam.examSchedules;
-        console.log(examSchedules);
-        if (examSchedules.length == 0) {
-          const noScheduleRow = document.createElement('tr');
-          noScheduleRow.innerHTML = '<td colspan="8" class="no-schedule">No exam schedule</td>';
-          list01.appendChild(noScheduleRow);
-        }
+        exams.forEach((exam) => {
+            const examSchedules = exam.examSchedules;
+            console.log(examSchedules);
+            if (examSchedules.length == 0) {
+                const noScheduleRow = document.createElement('tr');
+                noScheduleRow.innerHTML =
+                    '<td colspan="8" class="no-schedule">No exam schedule</td>';
+                list01.appendChild(noScheduleRow);
+            }
 
-        examSchedules.forEach((schedule) => {
-          const tablerow = document.createElement('tr');
-          listItem01.push(tablerow);
-          tablerow.innerHTML = `
+            examSchedules.forEach((schedule) => {
+                const tablerow = document.createElement('tr');
+                listItem01.push(tablerow);
+                tablerow.innerHTML = `
             <td>${numgrade++}</td>
             <td>${schedule.subject}</td>
             <td>${schedule.form}</td>
@@ -84,9 +88,8 @@ function renderExamSchedule() {
             <td><button class="edit-button">Edit</button></td>
             <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
           `;
-          list01.appendChild(tablerow);
+                list01.appendChild(tablerow);
+            });
         });
-      });
     });
 }
-
