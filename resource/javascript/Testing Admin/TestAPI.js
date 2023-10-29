@@ -22,7 +22,7 @@ function renderExamTime() {
                 const noScheduleRow = document.createElement('tr');
                 noScheduleRow.innerHTML =
                     '<td colspan="8" class="no-schedule">No exam schedule</td>';
-                list01.appendChild(noScheduleRow);
+                list.appendChild(noScheduleRow);
                 return;
             }
 
@@ -38,20 +38,27 @@ function renderExamTime() {
                 <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
                 <td>${examTime.publishDate}</td>
                 <td>${examTime.slot}</td>
-                <td><i onclick="renderExamSchedule()" class="fa-solid fa-square-caret-down"></i></td>
+                <td><i class="fa-solid fa-square-caret-down btn-showExamSchedule"></i></td>
               `;
+
             list.appendChild(tablerow);
         });
     });
+
+    Array.from(document.getElementsByClassName('btn-showExamSchedule')).forEach(
+        (btn) => {
+            btn.addEventListener('click', renderExamSchedule);
+        }
+    );
 }
 
 //--------------------------------------------- for student table ----------------------------------------------------------------------------------------
 
-const list01 = document.getElementById('table_body_3');
-const listItem01 = [];
-
 //------------------------------------------------fetch data into table------------------------------------------------------------------
 function renderExamSchedule() {
+    const list01 = document.getElementById('table_body_3');
+    const listItem01 = [];
+
     const trow = document.createElement('tr');
     list01.appendChild(trow);
 
@@ -67,7 +74,6 @@ function renderExamSchedule() {
 
         exams.forEach((exam) => {
             const examSchedules = exam.examSchedules;
-            console.log(examSchedules);
             if (examSchedules.length == 0) {
                 const noScheduleRow = document.createElement('tr');
                 noScheduleRow.innerHTML =
