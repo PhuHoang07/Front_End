@@ -329,10 +329,30 @@ async function addRowToTable2() {
     const dateValue = dateInput.value;
     const startTimeValue = startTimeInput.value;
     const endTimeValue = endTimeInput.value;
+<<<<<<< HEAD
     const publishDateValue = publishDateInput.value;
 
 
 
+=======
+    const publishDateValue = formatDate(publishDateInput.value); // Định dạng ngày tháng
+const publisdate = publishDateInput.value;
+console.log(publisdate);
+   const data = {
+    body:{
+        date: dateValue,
+  start: startTimeValue,
+  end: endTimeValue,
+  publishDate: publisdate
+    },
+   };
+   const res =  await fetchAPIData('https://swp-esms-api.azurewebsites.net/api/exams/add-time','POST',data);
+   console.log(res);
+   errorMessagetest.innerHTML=res.message;
+   if(!res.isSuccess){
+    console.log(res.message);
+   }
+>>>>>>> ffbd57caaf903179aef6c7360dff72a1a50e5821
     // Tạo một dòng mới trong table-container
     const tableContainer = document.querySelector(".table-container table tbody");
     const newRow = tableContainer.insertRow();
