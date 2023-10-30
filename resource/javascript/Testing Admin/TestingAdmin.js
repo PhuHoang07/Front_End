@@ -13,6 +13,7 @@ function showTable2() {
     const hiddenTable = document.getElementById("hiddenTable-2");
     if (hiddenTable.style.display === "none") {
         hiddenTable.style.display = "block";
+        
     } else {
         hiddenTable.style.display = "none";
     }
@@ -45,22 +46,12 @@ function showTable5() {
     }
 }
 
-function showConfirmationModal(button) {
-    var modal = document.getElementById("confirmationModal");
-    modal.style.display = "block";
-
-    // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
-    selectedButton = button;
-}
-
-function confirmRemove(confirmation) {
-    var modal = document.getElementById("confirmationModal");
-    modal.style.display = "none";
-
-    if (confirmation) {
-        // Thực hiện hành động xóa ở đây
-        var row = selectedButton.parentNode.parentNode;
-        row.remove();
+function showModalAddExamSchedule() {
+    const hiddenTable = document.getElementById("hiddenTable-addExamSchedule");
+    if (hiddenTable.style.display === "none") {
+        hiddenTable.style.display = "block";
+    } else {
+        hiddenTable.style.display = "none";
     }
 }
 
@@ -95,6 +86,11 @@ function closeTable5() {
     hiddenTable.style.display = "none";
 }
 
+function closeModalAddExamSchedule() {
+    const hiddenTable = document.getElementById("hiddenTable-addExamSchedule");
+    hiddenTable.style.display = "none";
+}
+
 function addNewTable() {
     const hiddenTable = document.getElementById("hiddenTable");
     const hiddenTable4 = document.getElementById("hiddenTable-4");
@@ -107,17 +103,17 @@ function addNewTable() {
     }
 }
 
-function addNewTable2() {
-    const hiddenTable2 = document.getElementById("hiddenTable-2");
-    const hiddenTable5 = document.getElementById("hiddenTable-5");
+// function openTableAddExamSchedule() {
+//     const hiddenTable2 = document.getElementById("hiddenTable-2");
+//     const hiddenTable5 = document.getElementById("hiddenTable-5");
 
-    if (hiddenTable2.style.display === "block") {
-        hiddenTable5.style.display = "block";
-        hiddenTable5.style.position = "absolute";
-        hiddenTable5.style.top = getComputedStyle(hiddenTable2).top;
-        hiddenTable5.style.left = (parseInt(getComputedStyle(hiddenTable2).left) + 250) + "px";
-    }
-}
+//     if (hiddenTable2.style.display === "block") {
+//         hiddenTable5.style.display = "block";
+//         hiddenTable5.style.position = "absolute";
+//         hiddenTable5.style.top = getComputedStyle(hiddenTable2).top;
+//         hiddenTable5.style.left = (parseInt(getComputedStyle(hiddenTable2).left) + 250) + "px";
+//     }
+// }
 
 function addAndRemoveRows() {
     const numToAdd = parseInt(document.getElementById("searchInput").value, 10);
@@ -189,91 +185,91 @@ function addAndRemoveRows() {
     }
 }
 
-function addAndRemoveRows2() {
-    const numToAdd = parseInt(document.getElementById("searchInput2").value, 10);
-    const hiddenTable4 = document.getElementById("hiddenTable-5");
-    const hiddenTable = document.getElementById("hiddenTable-2");
-    const hiddenTableBody = hiddenTable.querySelector("tbody");
+// function addExamSchedule() {
+//     const numToAdd = parseInt(document.getElementById("searchInput2").value, 10);
+//     const hiddenTable4 = document.getElementById("hiddenTable-5");
+//     const hiddenTable = document.getElementById("hiddenTable-2");
+//     const hiddenTableBody = hiddenTable.querySelector("tbody");
 
-    // Lấy tất cả các dòng trong hiddenTable-4
-    const rows4 = hiddenTable4.querySelectorAll("tbody tr");
+//     // Lấy tất cả các dòng trong hiddenTable-4
+//     const rows4 = hiddenTable4.querySelectorAll("tbody tr");
 
-    // Tính số thứ tự tiếp theo trong hiddenTable
-    const currentRowCount = hiddenTableBody.children.length;
-    let nextRowNumber = currentRowCount + 1;
+//     // Tính số thứ tự tiếp theo trong hiddenTable
+//     const currentRowCount = hiddenTableBody.children.length;
+//     let nextRowNumber = currentRowCount + 1;
 
-    for (let i = 0; i < numToAdd && i < rows4.length; i++) {
-        const row4 = rows4[i];
-        const cells4 = row4.querySelectorAll("td");
+//     for (let i = 0; i < numToAdd && i < rows4.length; i++) {
+//         const row4 = rows4[i];
+//         const cells4 = row4.querySelectorAll("td");
 
-        // Tạo một dòng mới trong hiddenTable
-        const newRow = document.createElement("tr");
+//         // Tạo một dòng mới trong hiddenTable
+//         const newRow = document.createElement("tr");
 
-        // Thêm số thứ tự vào dòng mới
-        const cellNo = document.createElement("td");
-        cellNo.textContent = nextRowNumber;
-        newRow.appendChild(cellNo);
-
-
-        for (let j = 1; j < 4; j++) {
-            const cell = document.createElement("td");
-            cell.textContent = cells4[j].textContent;
-            newRow.appendChild(cell);
-        }
-
-        const listStudent = document.createElement("button");
-        listStudent.className = "button-supervisor";
-        listStudent.onclick = function () {
-            showTable3(); // Đặt hàm xử lý sự kiện cho nút listStudent ở đây
-        };
-
-        const listCell = document.createElement("td");
-        listCell.appendChild(listStudent);
-        newRow.appendChild(listCell);
-
-        // Sau khi đã thêm button vào dòng, bạn có thể cập nhật số dòng ở đây
-        const hiddenTable3 = document.getElementById("hiddenTable-3");
-        if (hiddenTable3) {
-            // Truy cập tbody của bảng hiddenTable-3
-            const tbody = hiddenTable3.querySelector("tbody");
-            if (tbody) {
-                // Đếm số lượng dòng trong tbody
-                const rowCount = tbody.rows.length;
-                listStudent.textContent = `${rowCount}/35`;
-            }
-        }
+//         // Thêm số thứ tự vào dòng mới
+//         const cellNo = document.createElement("td");
+//         cellNo.textContent = nextRowNumber;
+//         newRow.appendChild(cellNo);
 
 
-        const editButton = document.createElement("button");
-        editButton.className = "edit-button";
-        editButton.textContent = "Edit";
-        editButton.onclick = function () {
-            showEditModal(this); // Đặt hàm xử lý sự kiện cho nút Edit ở đây
-        };
-        const editCell = document.createElement("td");
-        editCell.appendChild(editButton);
-        newRow.appendChild(editCell);
+//         for (let j = 1; j < 4; j++) {
+//             const cell = document.createElement("td");
+//             cell.textContent = cells4[j].textContent;
+//             newRow.appendChild(cell);
+//         }
 
-        // Tạo một nút "Remove" và thêm nó vào dòng mới
-        const removeButton = document.createElement("button");
-        removeButton.className = "remove-button";
-        removeButton.textContent = "Remove";
-        removeButton.onclick = function () {
-            showConfirmationModal(this); // Gọi hàm `showConfirmationModal` với nút "Remove" đã được ấn
-        };
-        const removeCell = document.createElement("td");
-        removeCell.appendChild(removeButton);
-        newRow.appendChild(removeCell);
+//         const listStudent = document.createElement("button");
+//         listStudent.className = "button-supervisor";
+//         listStudent.onclick = function () {
+//             showTable3(); // Đặt hàm xử lý sự kiện cho nút listStudent ở đây
+//         };
 
-        hiddenTableBody.appendChild(newRow);
+//         const listCell = document.createElement("td");
+//         listCell.appendChild(listStudent);
+//         newRow.appendChild(listCell);
 
-        // Tăng số thứ tự cho dòng tiếp theo
-        nextRowNumber++;
+//         // Sau khi đã thêm button vào dòng, bạn có thể cập nhật số dòng ở đây
+//         const hiddenTable3 = document.getElementById("hiddenTable-3");
+//         if (hiddenTable3) {
+//             // Truy cập tbody của bảng hiddenTable-3
+//             const tbody = hiddenTable3.querySelector("tbody");
+//             if (tbody) {
+//                 // Đếm số lượng dòng trong tbody
+//                 const rowCount = tbody.rows.length;
+//                 listStudent.textContent = `${rowCount}/35`;
+//             }
+//         }
 
-        // Loại bỏ dòng đã thêm vào hiddenTable-4
-        row4.remove();
-    }
-}
+
+//         const editButton = document.createElement("button");
+//         editButton.className = "edit-button";
+//         editButton.textContent = "Edit";
+//         editButton.onclick = function () {
+//             showEditModal(this); // Đặt hàm xử lý sự kiện cho nút Edit ở đây
+//         };
+//         const editCell = document.createElement("td");
+//         editCell.appendChild(editButton);
+//         newRow.appendChild(editCell);
+
+//         // Tạo một nút "Remove" và thêm nó vào dòng mới
+//         const removeButton = document.createElement("button");
+//         removeButton.className = "remove-button";
+//         removeButton.textContent = "Remove";
+//         removeButton.onclick = function () {
+//             showConfirmationModal(this); // Gọi hàm `showConfirmationModal` với nút "Remove" đã được ấn
+//         };
+//         const removeCell = document.createElement("td");
+//         removeCell.appendChild(removeButton);
+//         newRow.appendChild(removeCell);
+
+//         hiddenTableBody.appendChild(newRow);
+
+//         // Tăng số thứ tự cho dòng tiếp theo
+//         nextRowNumber++;
+
+//         // Loại bỏ dòng đã thêm vào hiddenTable-4
+//         row4.remove();
+//     }
+// }
 
 let idt;
 function showConfirmationModal(button) {
@@ -286,28 +282,38 @@ function showConfirmationModal(button) {
     idt = button.parentNode.parentNode.getAttribute('idt')
 }
 
-
 async function confirmRemove(confirmation) {
     console.log(idt);
     var modal = document.getElementById("confirmationModal");
     modal.style.display = "none";
     if (confirmation) {
-        // Thực hiện hành động xóa ở đây
+        // Perform delete action here
         var row = selectedButton.parentNode.parentNode;
         row.remove();
         const data = {
             body: {
-                'idt': idt
+                'idt': idt,
             }
         }
         const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/delete-time", "POST", data);
         if (res.isSuccess == true) {
-
             console.log(res.message);
-            // document.getElementById('messageRemove').innerText = res.message;
+
+            var messageElement = document.getElementById('messageRemove');
+            messageElement.innerHTML = res.message;
+            messageElement.style.display = "block";
+
+            // Close modal
+            document.addEventListener("click", function (event) {
+                if (event.target !== messageElement && !messageElement.contains(event.target)) {
+                    messageElement.style.display = "none";
+                }
+            });
         }
     }
 }
+
+
 
 async function addRowToTable2() {
     // Lấy giá trị từ các trường input/select trong hiddenTable-6
@@ -329,30 +335,10 @@ async function addRowToTable2() {
     const dateValue = dateInput.value;
     const startTimeValue = startTimeInput.value;
     const endTimeValue = endTimeInput.value;
-<<<<<<< HEAD
     const publishDateValue = publishDateInput.value;
 
 
 
-=======
-    const publishDateValue = formatDate(publishDateInput.value); // Định dạng ngày tháng
-const publisdate = publishDateInput.value;
-console.log(publisdate);
-   const data = {
-    body:{
-        date: dateValue,
-  start: startTimeValue,
-  end: endTimeValue,
-  publishDate: publisdate
-    },
-   };
-   const res =  await fetchAPIData('https://swp-esms-api.azurewebsites.net/api/exams/add-time','POST',data);
-   console.log(res);
-   errorMessagetest.innerHTML=res.message;
-   if(!res.isSuccess){
-    console.log(res.message);
-   }
->>>>>>> ffbd57caaf903179aef6c7360dff72a1a50e5821
     // Tạo một dòng mới trong table-container
     const tableContainer = document.querySelector(".table-container table tbody");
     const newRow = tableContainer.insertRow();
@@ -391,10 +377,6 @@ console.log(publisdate);
 
 
 }
-
-
-
-
 
 function selectRowToEdit(row) {
     editedRow = row; // Lưu dòng cần chỉnh sửa
