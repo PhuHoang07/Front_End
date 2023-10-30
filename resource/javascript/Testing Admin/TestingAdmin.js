@@ -1,4 +1,8 @@
-
+let idt;
+function getoption() {
+    const option = document.getElementById("subject-input");
+    option.innerHTML
+}
 function showTable() {
     const hiddenTable = document.getElementById("hiddenTable");
     if (hiddenTable.style.display === "none") {
@@ -8,9 +12,14 @@ function showTable() {
         hiddenTable.style.display = "none";
     }
 }
+function closeModalAddExamSchedule() {
+    const hiddenTable = document.getElementById("hiddenTable-addTableExamSchedule");
+    hiddenTable.style.display = "none";
+}
 
-function showTable2() {
+function showTable2(button) {
     const hiddenTable = document.getElementById("hiddenTable-2");
+    idt = button.parentNode.parentNode.getAttribute('idt');
     if (hiddenTable.style.display === "none") {
         hiddenTable.style.display = "block";
     } else {
@@ -18,13 +27,159 @@ function showTable2() {
     }
 }
 
-function showTable3() {
+async function showModalAddExamSchedule() {
+    const hiddenTable = document.getElementById("hiddenTable-addTableExamSchedule");
+    const data = {
+        body: {
+
+        }
+    }
+
+
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/subjects", "GET", data);
+    const selectElement = document.getElementById("subject-input");
+    res.data.forEach((item, index) => {
+        const optionElement = document.createElement("option");
+        optionElement.value = index; // Giá trị của option (có thể là một giá trị duy nhất hoặc index)
+        optionElement.text = item; // Nội dung của option
+        selectElement.appendChild(optionElement);
+    });
+    const selectElementr = document.getElementById("room-input");
+    selectElement.addEventListener("change", async function () {
+        const selectedIndex = selectElement.selectedIndex; // Lấy chỉ số của lựa chọn
+        const selectedOption = selectElement.options[selectedIndex]; // Lựa chọn đã chọn
+        const noiDungLuaChon = selectedOption.textContent; // Lấy nội dung của lựa chọn
+        const datar = {
+            params: {
+                'idt': idt,
+                'subjectId': noiDungLuaChon
+            }
+        }
+        const resr = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/available-rooms", "GET", datar);
+        resr.data.forEach((item, index) => {
+            const optionElement = document.createElement("option");
+            optionElement.value = index; // Giá trị của option (có thể là một giá trị duy nhất hoặc index)
+            optionElement.text = item; // Nội dung của option
+            selectElementr.appendChild(optionElement);
+        });
+    });
+
+    if (hiddenTable.style.display === "none") {
+        hiddenTable.style.display = "block";
+    } else {
+        hiddenTable.style.display = "none";
+    }
+
+}
+
+
+async function addRowToTablesch() {
+    // Lấy giá trị từ các trường input/select trong hiddenTable-6
+    const nameInput = document.querySelector('[name="name"]');
+    const enteredValue = nameInput.value;
+    console.log(enteredValue);
+    const selectRoom = document.querySelector('#room-input');
+    const selectedRIndex = selectRoom.selectedIndex;
+    const selectedROption = selectRoom.options[selectedRIndex];
+    const selectedROptionText = selectedROption.text;
+    console.log(selectedROptionText);
+    const selectSubject = document.querySelector('#subject-input');
+    const selectedIndex = selectSubject.selectedIndex;
+    const selectedOption = selectSubject.options[selectedIndex];
+    const selectedOptionText = selectedOption.text;
+    console.log(selectedOptionText);
+    
+
+    // const startTimeInput = document.querySelector("#hiddenTable-6 input[type='time']");
+    // const endTimeInput = document.querySelectorAll("#hiddenTable-6 input[type='time']")[1]; // Lấy thứ hai input[type='time']
+    // const publishDateInput = document.querySelectorAll("#hiddenTable-6 input[type='date']")[1]; // Lấy trường "Publish Date"
+    // // const slotInput = document.querySelectorAll("#hiddenTable-6");
+    // const errorMessage = document.querySelector("#error-message");
+    // const errorMessagetest = document.getElementById('error-message');
+    // // Kiểm tra xem tất cả các trường đã được điền đầy đủ
+    // if (!dateInput.value || !startTimeInput.value || !endTimeInput.value || !publishDateInput.value) {
+    //     errorMessage.style.display = "flex"; // Hiển thị thông báo
+    //     return; // Dừng việc thêm dòng mới nếu có trường không hợp lệ.
+    // } else {
+    //     errorMessage.style.display = "none"; // Ẩn thông báo nếu tất cả trường hợp lệ.
+    // }
+
+    // const dateValue = dateInput.value;
+    // const startTimeValue = startTimeInput.value;
+    // const endTimeValue = endTimeInput.value;
+
+
+
+    // const publisdate = publishDateInput.value;
+    // const data = {
+    //     body: {
+    //         date: dateValue,
+    //         start: startTimeValue,
+    //         end: endTimeValue,
+    //         publishDate: publisdate
+    //     },
+    // };
+    // const res = await fetchAPIData('https://swp-esms-api.azurewebsites.net/api/exams/add-time', 'POST', data);
+    // console.log(res);
+
+    // if (res.isSuccess == true) {
+    //     console.log(res.message);
+    //     errorMessagetest.style.display = "flex";
+    //     errorMessagetest.innerHTML = res.message;
+    // } else {
+    //     console.log(res.message);
+    //     errorMessagetest.style.display = "flex";
+    //     errorMessagetest.innerHTML = res.message;
+    // }
+
+
+    // function formatDate(date) {
+    //     const d = new Date(date);
+    //     const day = d.getDate().toString().padStart(2, '0');
+    //     const month = (d.getMonth() + 1).toString().padStart(2, '0');
+    //     const year = d.getFullYear();
+    //     return `${day}/${month}/${year}`;
+    // }
+}
+
+
+async function showTable3() {
+    const list = document.getElementById('add-tsu');
+    const listItem = [];
+
     const hiddenTable = document.getElementById("hiddenTable-3");
     if (hiddenTable.style.display === "none") {
         hiddenTable.style.display = "block";
     } else {
         hiddenTable.style.display = "none";
     }
+    const data = {
+        params: {
+            'idt': '27',
+            'subject': 'CSI104',
+            'room': '004'
+        }
+    }
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/students", "GET", data);
+    console.log(res);
+    console.log(res.data.studentList);
+    console.log(Object.keys(res.data).forEach(studentList));
+
+    Object.keys(res.data).forEach((studentList) => {
+        data[studentList].forEach((stu) => {
+            const tablerow = document.createElement('tr');
+            listItem.push(tablerow);
+            tablerow.innerHTML = `
+                <td>${stu.username}</td>
+                <td>${stu.name}</td>
+                <td>${stu.rollNumber}</td>
+              `;
+
+            list.appendChild(tablerow);
+        });
+    });
+
+
 }
 
 function showTable4() {
@@ -261,10 +416,9 @@ function addAndRemoveRows2() {
         row4.remove();
     }
 }
-hiddenTable-7
-let idt;
+hiddenTable - 7
 function showConfirmationModalEdit(button) {
-    const hiddenTable = document.getElementById("confirmationModal-2");
+    const hiddenTable = document.getElementById("hiddenTable-7");
     hiddenTable.style.display = "block";
     // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
     selectedButton = button;
@@ -279,12 +433,12 @@ async function confirmEdit(confirmation) {
             body: {
                 'idt': idt,
                 date: dateValue,
-            start: startTimeValue,
-            end: endTimeValue,
-            publishDate: publisdate
+                start: startTimeValue,
+                end: endTimeValue,
+                publishDate: publisdate
             }
         }
-        const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/update-time", "POST", data);
+        const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/update", "POST", data);
         console.log(res);
         modal.style.display = "none";
         // if (res.isSuccess == true) {
@@ -293,15 +447,6 @@ async function confirmEdit(confirmation) {
         //     document.getElementById('messageRemove').innerText = res.message;
         // }
     }
-}
-function showConfirmationModal(button) {
-    var modal = document.getElementById("confirmationModal");
-    modal.style.display = "block";
-
-    // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
-    selectedButton = button;
-
-    idt = button.parentNode.parentNode.getAttribute('idt')
 }
 async function editRow() {
     // Lấy giá trị từ các trường input/select trong hiddenTable-6
@@ -358,13 +503,22 @@ async function editRow() {
         return `${day}/${month}/${year}`;
     }
 }
+function showConfirmationModal(button) {
+    var modal = document.getElementById("confirmationModal");
+    modal.style.display = "block";
 
+    // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
+    selectedButton = button;
+
+    idt = button.parentNode.parentNode.getAttribute('idt');
+    console.log(idt);
+}
 async function confirmRemove(confirmation) {
     console.log(idt);
     var modal = document.getElementById("confirmationModal");
     modal.style.display = "none";
     if (confirmation) {
-        // Thực hiện hành động xóa ở đây
+        // Perform delete action here
         var row = selectedButton.parentNode.parentNode;
         row.remove();
         const data = {
@@ -372,11 +526,21 @@ async function confirmRemove(confirmation) {
                 'idt': idt
             }
         }
-        const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/delete-time", "POST", data);
-        if (res.isSuccess == true) {
 
+        const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/delete", "POST", data);
+        if (res.isSuccess == true) {
             console.log(res.message);
-            // document.getElementById('messageRemove').innerText = res.message;
+
+            var messageElement = document.getElementById('messageRemove');
+            messageElement.innerHTML = res.message;
+            messageElement.style.display = "block";
+
+            // Close modal
+            document.addEventListener("click", function (event) {
+                if (event.target !== messageElement && !messageElement.contains(event.target)) {
+                    messageElement.style.display = "none";
+                }
+            });
         }
     }
 }
@@ -413,7 +577,7 @@ async function addRowToTable2() {
             publishDate: publisdate
         },
     };
-    const res = await fetchAPIData('https://swp-esms-api.azurewebsites.net/api/exams/add-time', 'POST', data);
+    const res = await fetchAPIData('https://swp-esms-api.azurewebsites.net/api/exams/time/add', 'POST', data);
     console.log(res);
 
     if (res.isSuccess == true) {
@@ -545,7 +709,7 @@ async function confirmEdit(confirmation) {
                 'idt': idt
             }
         }
-        const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/delete-time", "POST", data);
+        const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/delete", "POST", data);
         if (res.isSuccess == true) {
 
             console.log(res.message);
@@ -651,7 +815,9 @@ function closeConfirmationModal() {
 }
 
 
+function getstudent(button) {
 
+}
 
 
 

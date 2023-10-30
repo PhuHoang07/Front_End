@@ -105,40 +105,26 @@
             </div>
 
             <!-- SUPERVISOR TABLE -->
-            <div
-                class="table-container-hidden-2"
-                id="hiddenTable"
-                style="display: none">
+            <div class="table-container-hidden-2" id="hiddenTable-2" style="display: none">
                 <table>
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Member Code</th>
-                            <th>Full Name</th>
+                            <th>Subject</th>
+                            <th>Form</th>
+                            <th>Room</th>
+                            <th>Type</th>
+                            <th>Student</th>
                             <th></th>
+                            <th><i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTable2()"></i></th>
+                            
                         </tr>
                     </thead>
-                    <tbody id="table_body_2">
-                        <tr>
-                            <td>1</td>
-                            <td>DuyLNPSE171722</td>
-                            <td>Luong Ngoc Phuong Duy</td>
-                            <td>
-                                <button
-                                    class="remove-button"
-                                    onclick="showConfirmationModal(this)">
-                                    Remove
-                                </button>
-                            </td>
-                        </tr>
-                        <!-- <button class="close-button" onclick="closeTable()">Close</button> -->
-                        <button class="add-button" onclick="addNewTable()">
-                            <i class="fa-solid fa-user-plus fa-lg"></i>
-                        </button>
-                        <i
-                            class="fa-regular fa-circle-xmark fa-lg close-button"
-                            onclick="closeTable()"></i>
-                    </tbody>
+                    <tbody id="table_body_3"></tbody>
+                    <button class="add-button" onclick="showModalAddExamSchedule(this)">
+                        <i class="fa-solid fa-user-plus fa-lg"></i>
+                    </button>
+                    
                 </table>
             </div>
 
@@ -184,7 +170,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="add-tsu">
                         <tr>
                             <td>1</td>
                             <td>nguyenlv</td>
@@ -249,18 +235,16 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Member Code</th>
+                            <th>code</th>
+                            <th>name</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody >
                         <tr>
                             <td>1</td>
                             <td>fn11</td>
-                            <td style="display: none">PE</td>
-                            <td style="display: none">223</td>
                             <td>
                                 <button
                                     class="button-supervisor"
@@ -387,7 +371,45 @@
                     </div>
                 </div>
             </div>
-
+            <div class="table-container-hidden-4" id="hiddenTable-addTableExamSchedule" style="display: none">
+                <div class="form-container">
+                    <div class="form-group">
+                        <label for="subject">Subject:</label>
+    
+                        <select id="subject-input">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="form">Form:</label>
+                        <input type="text" id="'form'" name="name" class="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="room">Room:</label>
+                        <select id="room-input">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Type:</label>
+                        <input type="text" id="type" name="name"class="name">
+                    </div>
+                    <div class="button-container">
+                        <button type="button" class="add_button" onclick="addRowToTablesch()">
+                            Add
+                        </button>
+                        <button type="button" class="cancel_button" onclick=" closeModalAddExamSchedule()">
+                            Cancel
+                        </button>
+                    </div>
+                    <div id="error-message" class="error-message" style="display: none">
+                        Please select complete information
+                    </div>
+                    <div id="error-message" class="error-message-2" style="display: none">
+                        start time must occur before end time
+                    </div>
+                </div>
+            </div>
             <div id="confirmationModal" class="modal">
                 <div class="modal-content">
                     <p>Are you sure you want to remove this item?</p>
