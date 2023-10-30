@@ -45,57 +45,8 @@ function showTable5() {
     }
 }
 
-function showConfirmationModal(button) {
-    var modal = document.getElementById("confirmationModal");
-    modal.style.display = "block";
-    // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
-    selectedButton = button;
-}
 
-let idt;
 
-function showConfirmationModalEdit(button) {
-    var modal = document.getElementById("confirmationModal-2");
-    modal.style.display = "block";
-    // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
-    selectedButton = button;
-    idt = button.parentNode.parentNode.getAttribute('idt')
-    console.log(idt);
-}
-async function confirmEdit(confirmation) {
-    console.log(idt);
-    var modal = document.getElementById("confirmationModal-2");
-    
-    if (confirmation) {
-        const data = {
-            body: {
-                'idt': idt,
-                date: dateValue,
-            start: startTimeValue,
-            end: endTimeValue,
-            publishDate: publisdate
-            }
-        }
-        const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/update-time", "POST", data);
-        console.log(res);
-        modal.style.display = "none";
-        // if (res.isSuccess == true) {
-
-        //     console.log(res.message);
-        //     document.getElementById('messageRemove').innerText = res.message;
-        // }
-    }
-}
-function confirmRemove(confirmation) {
-    var modal = document.getElementById("confirmationModal");
-    modal.style.display = "none";
-
-    if (confirmation) {
-        // Thực hiện hành động xóa ở đây
-        var row = selectedButton.parentNode.parentNode;
-        row.remove();
-    }
-}
 
 function closeTable() {
     const hiddenTable = document.getElementById("hiddenTable");
@@ -121,6 +72,7 @@ function closeTable3() {
 function closeTable4() {
     const hiddenTable = document.getElementById("hiddenTable-6");
     hiddenTable.style.display = "none";
+    location.reload();
 }
 
 function closeTable5() {
@@ -309,8 +261,39 @@ function addAndRemoveRows2() {
         row4.remove();
     }
 }
-
+hiddenTable-7
 let idt;
+function showConfirmationModalEdit(button) {
+    const hiddenTable = document.getElementById("confirmationModal-2");
+    hiddenTable.style.display = "block";
+    // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
+    selectedButton = button;
+    idt = button.parentNode.parentNode.getAttribute('idt')
+    console.log(idt);
+}
+async function confirmEdit(confirmation) {
+    console.log(idt);
+    var modal = document.getElementById("hiddenTable-7");
+    if (confirmation) {
+        const data = {
+            body: {
+                'idt': idt,
+                date: dateValue,
+            start: startTimeValue,
+            end: endTimeValue,
+            publishDate: publisdate
+            }
+        }
+        const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/update-time", "POST", data);
+        console.log(res);
+        modal.style.display = "none";
+        // if (res.isSuccess == true) {
+
+        //     console.log(res.message);
+        //     document.getElementById('messageRemove').innerText = res.message;
+        // }
+    }
+}
 function showConfirmationModal(button) {
     var modal = document.getElementById("confirmationModal");
     modal.style.display = "block";
@@ -320,7 +303,61 @@ function showConfirmationModal(button) {
 
     idt = button.parentNode.parentNode.getAttribute('idt')
 }
+async function editRow() {
+    // Lấy giá trị từ các trường input/select trong hiddenTable-6
+    const dateInput = document.querySelector("#hiddenTable-7 input[type='date']");
+    const startTimeInput = document.querySelector("#hiddenTable-7 input[type='time']");
+    const endTimeInput = document.querySelectorAll("#hiddenTable-7 input[type='time']")[1]; // Lấy thứ hai input[type='time']
+    const publishDateInput = document.querySelectorAll("#hiddenTable-7 input[type='date']")[1]; // Lấy trường "Publish Date"
+    // const slotInput = document.querySelectorAll("#hiddenTable-6");
+    const errorMessage = document.querySelector("#error-message");
+    const errorMessagetest = document.getElementById('error-message');
+    // Kiểm tra xem tất cả các trường đã được điền đầy đủ
+    if (!dateInput.value || !startTimeInput.value || !endTimeInput.value || !publishDateInput.value) {
+        errorMessage.style.display = "flex"; // Hiển thị thông báo
+        return; // Dừng việc thêm dòng mới nếu có trường không hợp lệ.
+    } else {
+        errorMessage.style.display = "none"; // Ẩn thông báo nếu tất cả trường hợp lệ.
+    }
 
+    const dateValue = dateInput.value;
+    const startTimeValue = startTimeInput.value;
+    const endTimeValue = endTimeInput.value;
+
+
+
+    const publisdate = publishDateInput.value;
+    const data = {
+        body: {
+            'idt': idt,
+            date: dateValue,
+            start: startTimeValue,
+            end: endTimeValue,
+            publishDate: publisdate
+        },
+    };
+    const res = await fetchAPIData('https://swp-esms-api.azurewebsites.net/api/exams/update-time', 'POST', data);
+    console.log(res);
+
+    if (res.isSuccess == true) {
+        console.log(res.message);
+        errorMessagetest.style.display = "flex";
+        errorMessagetest.innerHTML = res.message;
+    } else {
+        console.log(res.message);
+        errorMessagetest.style.display = "flex";
+        errorMessagetest.innerHTML = res.message;
+    }
+
+
+    function formatDate(date) {
+        const d = new Date(date);
+        const day = d.getDate().toString().padStart(2, '0');
+        const month = (d.getMonth() + 1).toString().padStart(2, '0');
+        const year = d.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+}
 
 async function confirmRemove(confirmation) {
     console.log(idt);
@@ -355,7 +392,7 @@ async function addRowToTable2() {
     const errorMessagetest = document.getElementById('error-message');
     // Kiểm tra xem tất cả các trường đã được điền đầy đủ
     if (!dateInput.value || !startTimeInput.value || !endTimeInput.value || !publishDateInput.value) {
-        errorMessage.style.display = "block"; // Hiển thị thông báo
+        errorMessage.style.display = "flex"; // Hiển thị thông báo
         return; // Dừng việc thêm dòng mới nếu có trường không hợp lệ.
     } else {
         errorMessage.style.display = "none"; // Ẩn thông báo nếu tất cả trường hợp lệ.
@@ -381,10 +418,11 @@ async function addRowToTable2() {
 
     if (res.isSuccess == true) {
         console.log(res.message);
-        location.reload();
+        errorMessagetest.style.display = "flex";
+        errorMessagetest.innerHTML = res.message;
     } else {
         console.log(res.message);
-        errorMessagetest.style.display = "block";
+        errorMessagetest.style.display = "flex";
         errorMessagetest.innerHTML = res.message;
     }
 
