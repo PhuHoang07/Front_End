@@ -364,13 +364,9 @@ async function addRowToTable2() {
     const dateValue = dateInput.value;
     const startTimeValue = startTimeInput.value;
     const endTimeValue = endTimeInput.value;
-<<<<<<< HEAD
-    const publishDateValue = publishDateInput.value;
 
 
 
-=======
-    const publishDateValue = formatDate(publishDateInput.value); // Định dạng ngày tháng
     const publisdate = publishDateInput.value;
     const data = {
         body: {
