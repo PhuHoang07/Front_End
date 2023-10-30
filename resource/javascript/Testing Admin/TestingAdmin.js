@@ -309,7 +309,7 @@ async function confirmRemove(confirmation) {
     }
 }
 
-function addRowToTable2() {
+async function addRowToTable2() {
     // Lấy giá trị từ các trường input/select trong hiddenTable-6
     const dateInput = document.querySelector("#hiddenTable-6 input[type='date']");
     const startTimeInput = document.querySelector("#hiddenTable-6 input[type='time']");
@@ -317,7 +317,7 @@ function addRowToTable2() {
     const publishDateInput = document.querySelectorAll("#hiddenTable-6 input[type='date']")[1]; // Lấy trường "Publish Date"
     // const slotInput = document.querySelectorAll("#hiddenTable-6");
     const errorMessage = document.querySelector("#error-message");
-
+    const errorMessagetest = document.getElementById('error-message');
     // Kiểm tra xem tất cả các trường đã được điền đầy đủ
     if (!dateInput.value || !startTimeInput.value || !endTimeInput.value || !publishDateInput.value) {
         errorMessage.style.display = "block"; // Hiển thị thông báo
@@ -330,6 +330,7 @@ function addRowToTable2() {
     const startTimeValue = startTimeInput.value;
     const endTimeValue = endTimeInput.value;
     const publishDateValue = publishDateInput.value;
+
 
 
     // Tạo một dòng mới trong table-container

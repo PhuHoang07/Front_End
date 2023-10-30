@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="/resource/css/Login-Google/Welcome.css">
     <script src="https://secure.exportkit.com/cdn/js/ek_googlefonts.js?v=6"></script>
     <script src="https://secure.exportkit.com/cdn/js/ek_interactions.js?v=032"></script>
-    <link rel="stylesheet" href="../resource/css/lecturer-table.css">
-    <link rel="stylesheet" href="../resource/css/animation.css">
+    <link rel="stylesheet" href="/resource/css/Lecturer/lecturer-table.css">
     <!-- Fontawesome Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,7 +46,8 @@
 
         <div class="navbar">
             <div class="dropdown">
-                <button class="dropbtn" onclick="myFunction()">Username
+                <button class="dropbtn" onclick="myFunction()">
+                    <span id="user-name">Username</span>
                     <i class="fa-solid fa-chevron-down" id="dropdown-icon"></i>
                 </button>
                 <div class="dropdown-content" id="myDropdown">
@@ -76,7 +76,7 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="table_body">
                     
                     <tr>
                         <td>15/07/2023</td>

@@ -388,7 +388,11 @@
     background-color: inherit;
     font-family: inherit;
     margin: 0;
+<<<<<<< HEAD
     width: 340px;
+=======
+    width: 260px;
+>>>>>>> ffbd57caaf903179aef6c7360dff72a1a50e5821
     border-left: #11101D;
     align-items: center;
 }
