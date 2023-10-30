@@ -293,6 +293,8 @@ select:focus {
     margin-left: 85px;
     
 }
-.last-th{
-    background-color: #333;
+
+.messageRemove{
+    background-color: #6bcabb;
+    width: 100%;
 }

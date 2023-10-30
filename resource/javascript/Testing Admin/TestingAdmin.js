@@ -260,9 +260,11 @@ function addAndRemoveRows2() {
             showTable3(); // Đặt hàm xử lý sự kiện cho nút listStudent ở đây
         };
 
+
         const listCell = document.createElement("td");
         listCell.appendChild(listStudent);
         newRow.appendChild(listCell);
+
 
         // Sau khi đã thêm button vào dòng, bạn có thể cập nhật số dòng ở đây
         const hiddenTable3 = document.getElementById("hiddenTable-3");
@@ -308,22 +310,37 @@ function addAndRemoveRows2() {
     }
 }
 
+let idt;
 function showConfirmationModal(button) {
     var modal = document.getElementById("confirmationModal");
     modal.style.display = "block";
 
     // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
     selectedButton = button;
+
+    idt = button.parentNode.parentNode.getAttribute('idt')
 }
 
-function confirmRemove(confirmation) {
+
+async function confirmRemove(confirmation) {
+    console.log(idt);
     var modal = document.getElementById("confirmationModal");
     modal.style.display = "none";
-
     if (confirmation) {
         // Thực hiện hành động xóa ở đây
         var row = selectedButton.parentNode.parentNode;
         row.remove();
+        const data = {
+            body: {
+                'idt': idt
+            }
+        }
+        const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/delete-time", "POST", data);
+        if (res.isSuccess == true) {
+
+            console.log(res.message);
+            // document.getElementById('messageRemove').innerText = res.message;
+        }
     }
 }
 
@@ -333,6 +350,7 @@ async function addRowToTable2() {
     const startTimeInput = document.querySelector("#hiddenTable-6 input[type='time']");
     const endTimeInput = document.querySelectorAll("#hiddenTable-6 input[type='time']")[1]; // Lấy thứ hai input[type='time']
     const publishDateInput = document.querySelectorAll("#hiddenTable-6 input[type='date']")[1]; // Lấy trường "Publish Date"
+    // const slotInput = document.querySelectorAll("#hiddenTable-6");
     const errorMessage = document.querySelector("#error-message");
     const errorMessagetest = document.getElementById('error-message');
     // Kiểm tra xem tất cả các trường đã được điền đầy đủ
@@ -346,6 +364,12 @@ async function addRowToTable2() {
     const dateValue = dateInput.value;
     const startTimeValue = startTimeInput.value;
     const endTimeValue = endTimeInput.value;
+<<<<<<< HEAD
+    const publishDateValue = publishDateInput.value;
+
+
+
+=======
     const publishDateValue = formatDate(publishDateInput.value); // Định dạng ngày tháng
     const publisdate = publishDateInput.value;
     const data = {
@@ -460,16 +484,16 @@ function editRow(button) {
 }
 
 
-// function selectRowToEdit(row) {
-//     editedRow = row; // Lưu dòng cần chỉnh sửa
-//     // Hiển thị thông tin dòng trong hiddenTable-7 để chỉnh sửa
-// }
+function selectRowToEdit(row) {
+    editedRow = row; // Lưu dòng cần chỉnh sửa
+    // Hiển thị thông tin dòng trong hiddenTable-7 để chỉnh sửa
+}
 
-// let editedRow = null; // Biến để theo dõi dòng đang được chỉnh sửa
-// let initialDateValue = ""; // Biến để lưu trữ giá trị ban đầu của trường Date
-// let initialStartTimeValue = ""; // Biến để lưu trữ giá trị ban đầu của trường Start Time
-// let initialEndTimeValue = ""; // Biến để lưu trữ giá trị ban đầu của trường End Time
-// let initialPublishDateValue = ""; // Biến để lưu trữ giá trị ban đầu của trường Publish Date
+let editedRow = null; // Biến để theo dõi dòng đang được chỉnh sửa
+let initialDateValue = ""; // Biến để lưu trữ giá trị ban đầu của trường Date
+let initialStartTimeValue = ""; // Biến để lưu trữ giá trị ban đầu của trường Start Time
+let initialEndTimeValue = ""; // Biến để lưu trữ giá trị ban đầu của trường End Time
+let initialPublishDateValue = ""; // Biến để lưu trữ giá trị ban đầu của trường Publish Date
 
 
 
@@ -540,6 +564,7 @@ async function editRowInTableContainer() {
 
 
 
+
     // if (publishDateValue !== initialPublishDateValue) {
     //     editedRow.cells[5].textContent = formatDateToDayMonthYear(publishDateValue);
     //     hasChanges = true;
@@ -591,13 +616,6 @@ function closeConfirmationModal() {
     confirmationModal.style.display = "none";
 }
 
-function formatDateToDayMonthYear(date) {
-    const dateObj = new Date(date);
-    const day = dateObj.getDate();
-    const month = dateObj.getMonth() + 1; // Tháng bắt đầu từ 0, nên cộng thêm 1
-    const year = dateObj.getFullYear();
-    return `${day}/${month}/${year}`;
-}
 
 
 
