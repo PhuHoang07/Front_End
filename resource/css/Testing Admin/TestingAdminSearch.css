@@ -295,3 +295,8 @@ select:focus {
     margin-left: 85px;
     
 }
+
+.messageRemove{
+    background-color: #6bcabb;
+    width: 100%;
+}

@@ -226,11 +226,11 @@ function addAndRemoveRows2() {
         listStudent.onclick = function () {
             showTable3(); // Đặt hàm xử lý sự kiện cho nút listStudent ở đây
         };
-        
+
         const listCell = document.createElement("td");
         listCell.appendChild(listStudent);
         newRow.appendChild(listCell);
-        
+
         // Sau khi đã thêm button vào dòng, bạn có thể cập nhật số dòng ở đây
         const hiddenTable3 = document.getElementById("hiddenTable-3");
         if (hiddenTable3) {
@@ -242,7 +242,7 @@ function addAndRemoveRows2() {
                 listStudent.textContent = `${rowCount}/35`;
             }
         }
-        
+
 
         const editButton = document.createElement("button");
         editButton.className = "edit-button";
@@ -275,22 +275,37 @@ function addAndRemoveRows2() {
     }
 }
 
+let idt;
 function showConfirmationModal(button) {
     var modal = document.getElementById("confirmationModal");
     modal.style.display = "block";
 
     // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
     selectedButton = button;
+
+    idt = button.parentNode.parentNode.getAttribute('idt')
 }
 
-function confirmRemove(confirmation) {
+
+async function confirmRemove(confirmation) {
+    console.log(idt);
     var modal = document.getElementById("confirmationModal");
     modal.style.display = "none";
-
     if (confirmation) {
         // Thực hiện hành động xóa ở đây
         var row = selectedButton.parentNode.parentNode;
         row.remove();
+        const data = {
+            body: {
+                'idt': idt
+            }
+        }
+        const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/delete-time", "POST", data);
+        if (res.isSuccess == true) {
+
+            console.log(res.message);
+            // document.getElementById('messageRemove').innerText = res.message;
+        }
     }
 }
 
@@ -300,6 +315,7 @@ function addRowToTable2() {
     const startTimeInput = document.querySelector("#hiddenTable-6 input[type='time']");
     const endTimeInput = document.querySelectorAll("#hiddenTable-6 input[type='time']")[1]; // Lấy thứ hai input[type='time']
     const publishDateInput = document.querySelectorAll("#hiddenTable-6 input[type='date']")[1]; // Lấy trường "Publish Date"
+    // const slotInput = document.querySelectorAll("#hiddenTable-6");
     const errorMessage = document.querySelector("#error-message");
 
     // Kiểm tra xem tất cả các trường đã được điền đầy đủ
@@ -313,7 +329,8 @@ function addRowToTable2() {
     const dateValue = dateInput.value;
     const startTimeValue = startTimeInput.value;
     const endTimeValue = endTimeInput.value;
-    const publishDateValue = formatDate(publishDateInput.value); // Định dạng ngày tháng
+    const publishDateValue = publishDateInput.value;
+
 
     // Tạo một dòng mới trong table-container
     const tableContainer = document.querySelector(".table-container table tbody");
@@ -325,20 +342,22 @@ function addRowToTable2() {
     const cell5 = newRow.insertCell(4);
     const cell6 = newRow.insertCell(5);
     const cell7 = newRow.insertCell(6);
-
-    // Thêm giá trị từ hiddenTable-6 vào dòng mới
-    cell1.innerHTML = dateValue;
+    const cell8 = newRow.insertCell(7);
 
     // Định dạng giờ để hiển thị "giờ:phút - giờ:phút"
     const formattedStartTime = startTimeValue;
     const formattedEndTime = endTimeValue;
 
+    // Thêm giá trị từ hiddenTable-6 vào dòng mới
+    cell1.innerHTML = dateValue;
     cell2.innerHTML = `${formattedStartTime} - ${formattedEndTime}`;
     cell3.innerHTML = '<button class="button-supervisor" onclick="showTable()">20/35</button>';
     cell4.innerHTML = `<button class="edit-button" onclick="editRow(this)">Edit</button>`;
     cell5.innerHTML = `<button class="remove-button" onclick="removeRow(this)">Remove</button>`;
     cell6.innerHTML = `${publishDateValue}`;
-    cell7.innerHTML = `<td><i onclick="showTable2()" class="fa-solid fa-square-caret-down"></i></td>`;
+    cell7.injnerHTML = `<td>1</td>`
+    cell8.innerHTML = `<td><i onclick="showTable2()" class="fa-solid fa-square-caret-down"></i></td>`;
+
 
     // Đặt giá trị của các trường trong hiddenTable-6 về giá trị mặc định
     dateInput.value = "";
@@ -349,95 +368,11 @@ function addRowToTable2() {
     // Đóng hiddenTable-6
     closeTable4();
 
-    function formatDate(date) {
-        const d = new Date(date);
-        const day = d.getDate().toString().padStart(2, '0');
-        const month = (d.getMonth() + 1).toString().padStart(2, '0');
-        const year = d.getFullYear();
-        return `${day}/${month}/${year}`;
-    }
+
 }
 
-function limitTimeSelection(startInputId, endInputId) {
-    const startTimeInput = document.getElementById(startInputId);
-    const endTimeInput = document.getElementById(endInputId);
 
-    if (startTimeInput && endTimeInput) {
-        const minTime = 7 * 60 + 30; // 7:30 AM in minutes
-        const maxTime = 19 * 60 + 20; // 7:20 PM in minutes
 
-        const selectedStartTime = getTimeInMinutes(startTimeInput.value);
-        const selectedEndTime = getTimeInMinutes(endTimeInput.value);
-
-        if (selectedStartTime < minTime) {
-            startTimeInput.value = "7:30";
-        } else if (selectedStartTime > maxTime) {
-            startTimeInput.value = "19:30";
-        }
-
-        if (selectedEndTime < minTime) {
-            endTimeInput.value = "7:30";
-        } else if (selectedEndTime > maxTime) {
-            endTimeInput.value = "19:30";
-        }
-
-        // Ensure Start Time is not later than End Time
-        if (selectedStartTime > selectedEndTime) {
-            startTimeInput.value = endTimeInput.value;
-        }
-    }
-}
-
-function getTimeInMinutes(timeStr) {
-    const [hours, minutes] = timeStr.split(':').map(Number);
-    return hours * 60 + minutes;
-}
-
-function limitTimeSelection2(startInputId2, endInputId2) {
-    const startTimeInput = document.getElementById(startInputId2);
-    const endTimeInput = document.getElementById(endInputId2);
-
-    if (startTimeInput && endTimeInput) {
-        const minTime = 7 * 60 + 30; // 7:30 AM in minutes
-        const maxTime = 19 * 60 + 20; // 7:20 PM in minutes
-
-        const selectedStartTime = getTimeInMinutes(startTimeInput.value);
-        const selectedEndTime = getTimeInMinutes(endTimeInput.value);
-
-        if (selectedStartTime < minTime) {
-            startTimeInput.value = "07:30";
-        } else if (selectedStartTime > maxTime) {
-            startTimeInput.value = "19:30";
-        }
-
-        if (selectedEndTime < minTime) {
-            endTimeInput.value = "07:30";
-        } else if (selectedEndTime > maxTime) {
-            endTimeInput.value = "19:30";
-        }
-
-        // Ensure Start Time is not later than End Time
-        if (selectedStartTime > selectedEndTime) {
-            startTimeInput.value = endTimeInput.value;
-        }
-    }
-}
-
-// Hàm để xóa dòng
-function removeRow(button) {
-    // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
-    selectedButton = button;
-
-    // Hiển thị modal xác nhận
-    var modal = document.getElementById("confirmationModal");
-    modal.style.display = "block";
-}
-
-// Hàm để chỉnh sửa dòng
-function editRow(button) {
-    // Viết mã để xử lý chỉnh sửa dòng ở đây
-    // Điều này có thể là một hộp thoại hoặc hiển thị các trường chỉnh sửa tùy thuộc vào yêu cầu của bạn.
-}
 
 
 function selectRowToEdit(row) {
@@ -493,7 +428,7 @@ function editRowInTableContainer() {
             hasChanges = true;
         }
 
-       
+
 
         if (publishDateValue !== initialPublishDateValue) {
             editedRow.cells[5].textContent = formatDateToDayMonthYear(publishDateValue);
@@ -523,13 +458,6 @@ function closeConfirmationModal() {
     confirmationModal.style.display = "none";
 }
 
-function formatDateToDayMonthYear(date) {
-    const dateObj = new Date(date);
-    const day = dateObj.getDate();
-    const month = dateObj.getMonth() + 1; // Tháng bắt đầu từ 0, nên cộng thêm 1
-    const year = dateObj.getFullYear();
-    return `${day}/${month}/${year}`;
-}
 
 
 
