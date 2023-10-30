@@ -201,12 +201,10 @@ tr:hover {
 }
 
 .close-button {
-    position: sticky;
-    left: 68%;
-    top: 8%;
+    position: relative;
+    left: 30px;
     color: white;
     cursor: pointer;
-
 }
 
 .add-button {
@@ -294,4 +292,7 @@ select:focus {
     margin-top: 10px;
     margin-left: 85px;
     
+}
+.last-th{
+    background-color: #333;
 }

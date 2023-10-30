@@ -28,7 +28,6 @@ function renderExamTime() {
 
             const tablerow = document.createElement('tr');
             tablerow.setAttribute('idt', examTime.idt);
-
             listItem.push(tablerow);
             tablerow.innerHTML = `
                 <td>${examTime.date}</td>

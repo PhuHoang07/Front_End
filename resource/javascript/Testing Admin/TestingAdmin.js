@@ -48,11 +48,44 @@ function showTable5() {
 function showConfirmationModal(button) {
     var modal = document.getElementById("confirmationModal");
     modal.style.display = "block";
-
     // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
     selectedButton = button;
 }
 
+let idt;
+
+function showConfirmationModalEdit(button) {
+    var modal = document.getElementById("confirmationModal-2");
+    modal.style.display = "block";
+    // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
+    selectedButton = button;
+    idt = button.parentNode.parentNode.getAttribute('idt')
+    console.log(idt);
+}
+async function confirmEdit(confirmation) {
+    console.log(idt);
+    var modal = document.getElementById("confirmationModal-2");
+    
+    if (confirmation) {
+        const data = {
+            body: {
+                'idt': idt,
+                date: dateValue,
+            start: startTimeValue,
+            end: endTimeValue,
+            publishDate: publisdate
+            }
+        }
+        const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/update-time", "POST", data);
+        console.log(res);
+        modal.style.display = "none";
+        // if (res.isSuccess == true) {
+
+        //     console.log(res.message);
+        //     document.getElementById('messageRemove').innerText = res.message;
+        // }
+    }
+}
 function confirmRemove(confirmation) {
     var modal = document.getElementById("confirmationModal");
     modal.style.display = "none";
@@ -226,11 +259,11 @@ function addAndRemoveRows2() {
         listStudent.onclick = function () {
             showTable3(); // Đặt hàm xử lý sự kiện cho nút listStudent ở đây
         };
-        
+
         const listCell = document.createElement("td");
         listCell.appendChild(listStudent);
         newRow.appendChild(listCell);
-        
+
         // Sau khi đã thêm button vào dòng, bạn có thể cập nhật số dòng ở đây
         const hiddenTable3 = document.getElementById("hiddenTable-3");
         if (hiddenTable3) {
@@ -242,7 +275,7 @@ function addAndRemoveRows2() {
                 listStudent.textContent = `${rowCount}/35`;
             }
         }
-        
+
 
         const editButton = document.createElement("button");
         editButton.className = "edit-button";
@@ -314,55 +347,27 @@ async function addRowToTable2() {
     const startTimeValue = startTimeInput.value;
     const endTimeValue = endTimeInput.value;
     const publishDateValue = formatDate(publishDateInput.value); // Định dạng ngày tháng
-const publisdate = publishDateInput.value;
-console.log(publisdate);
-   const data = {
-    body:{
-        date: dateValue,
-  start: startTimeValue,
-  end: endTimeValue,
-  publishDate: publisdate
-    },
-   };
-   const res =  await fetchAPIData('https://swp-esms-api.azurewebsites.net/api/exams/add-time','POST',data);
-   console.log(res);
-   errorMessagetest.innerHTML=res.message;
-   if(!res.isSuccess){
-    console.log(res.message);
-   }
-    // Tạo một dòng mới trong table-container
-    const tableContainer = document.querySelector(".table-container table tbody");
-    const newRow = tableContainer.insertRow();
-    const cell1 = newRow.insertCell(0);
-    const cell2 = newRow.insertCell(1);
-    const cell3 = newRow.insertCell(2);
-    const cell4 = newRow.insertCell(3);
-    const cell5 = newRow.insertCell(4);
-    const cell6 = newRow.insertCell(5);
-    const cell7 = newRow.insertCell(6);
+    const publisdate = publishDateInput.value;
+    const data = {
+        body: {
+            date: dateValue,
+            start: startTimeValue,
+            end: endTimeValue,
+            publishDate: publisdate
+        },
+    };
+    const res = await fetchAPIData('https://swp-esms-api.azurewebsites.net/api/exams/add-time', 'POST', data);
+    console.log(res);
 
-    // Thêm giá trị từ hiddenTable-6 vào dòng mới
-    cell1.innerHTML = dateValue;
+    if (res.isSuccess == true) {
+        console.log(res.message);
+        location.reload();
+    } else {
+        console.log(res.message);
+        errorMessagetest.style.display = "block";
+        errorMessagetest.innerHTML = res.message;
+    }
 
-    // Định dạng giờ để hiển thị "giờ:phút - giờ:phút"
-    const formattedStartTime = startTimeValue;
-    const formattedEndTime = endTimeValue;
-
-    cell2.innerHTML = `${formattedStartTime} - ${formattedEndTime}`;
-    cell3.innerHTML = '<button class="button-supervisor" onclick="showTable()">20/35</button>';
-    cell4.innerHTML = `<button class="edit-button" onclick="editRow(this)">Edit</button>`;
-    cell5.innerHTML = `<button class="remove-button" onclick="removeRow(this)">Remove</button>`;
-    cell6.innerHTML = `${publishDateValue}`;
-    cell7.innerHTML = `<td><i onclick="showTable2()" class="fa-solid fa-square-caret-down"></i></td>`;
-
-    // Đặt giá trị của các trường trong hiddenTable-6 về giá trị mặc định
-    dateInput.value = "";
-    startTimeInput.value = "";
-    endTimeInput.value = "";
-    publishDateInput.value = "";
-
-    // Đóng hiddenTable-6
-    closeTable4();
 
     function formatDate(date) {
         const d = new Date(date);
@@ -455,80 +460,128 @@ function editRow(button) {
 }
 
 
-function selectRowToEdit(row) {
-    editedRow = row; // Lưu dòng cần chỉnh sửa
-    // Hiển thị thông tin dòng trong hiddenTable-7 để chỉnh sửa
+// function selectRowToEdit(row) {
+//     editedRow = row; // Lưu dòng cần chỉnh sửa
+//     // Hiển thị thông tin dòng trong hiddenTable-7 để chỉnh sửa
+// }
+
+// let editedRow = null; // Biến để theo dõi dòng đang được chỉnh sửa
+// let initialDateValue = ""; // Biến để lưu trữ giá trị ban đầu của trường Date
+// let initialStartTimeValue = ""; // Biến để lưu trữ giá trị ban đầu của trường Start Time
+// let initialEndTimeValue = ""; // Biến để lưu trữ giá trị ban đầu của trường End Time
+// let initialPublishDateValue = ""; // Biến để lưu trữ giá trị ban đầu của trường Publish Date
+
+
+
+
+async function confirmEdit(confirmation) {
+    console.log(idt);
+    var modal = document.getElementById("confirmationModal");
+    modal.style.display = "none";
+    if (confirmation) {
+        // Thực hiện hành động xóa ở đây
+        var row = selectedButton.parentNode.parentNode;
+        row.remove();
+        const data = {
+            body: {
+                'idt': idt
+            }
+        }
+        const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/delete-time", "POST", data);
+        if (res.isSuccess == true) {
+
+            console.log(res.message);
+            document.getElementById('messageRemove').innerText = res.message;
+        }
+    }
 }
 
-let editedRow = null; // Biến để theo dõi dòng đang được chỉnh sửa
-let initialDateValue = ""; // Biến để lưu trữ giá trị ban đầu của trường Date
-let initialStartTimeValue = ""; // Biến để lưu trữ giá trị ban đầu của trường Start Time
-let initialEndTimeValue = ""; // Biến để lưu trữ giá trị ban đầu của trường End Time
-let initialPublishDateValue = ""; // Biến để lưu trữ giá trị ban đầu của trường Publish Date
+async function editRowInTableContainer() {
+    // if (editedRow === null) {
+    //     alert("Chọn một dòng để chỉnh sửa trước.");
+    //     return;
+    // }
 
-function editRowInTableContainer() {
-    if (editedRow === null) {
-        alert("Chọn một dòng để chỉnh sửa trước.");
-        return;
+    // // Hiển thị Confirmation Modal
+    // const confirmationModal = document.getElementById("confirmationModal-2");
+    // confirmationModal.style.display = "block";
+
+    // // Bấm nút "Yes" trong Confirmation Modal sẽ tiếp tục quá trình chỉnh sửa
+    // const confirmRemove = document.querySelector("#confirmationModal-2 .modal-button.yes");
+    // confirmRemove.onclick = function () {
+    //     // Tắt Confirmation Modal
+    //     confirmationModal.style.display = "none";
+
+    // Lấy thông tin từ hiddenTable-7
+    const dateInput = document.querySelector("#hiddenTable-7 input[type='date']");
+    const startTimeInput = document.querySelector("#hiddenTable-7 #start-time-input-2");
+    const endTimeInput = document.querySelector("#hiddenTable-7 #end-time-input-2");
+    const publishDateInput = document.querySelector("#hiddenTable-7 #publish-date-input"); // Lấy thông tin từ "Publish Date"
+    // const errorMessage = document.querySelector("#error-message-2");
+
+    // Lấy giá trị mới từ trường nhập liệu
+    const dateValue = dateInput.value;
+    const startTimeValue = startTimeInput.value;
+    const endTimeValue = endTimeInput.value;
+    const publishDateValue = publishDateInput.value; // Lấy giá trị "Publish Date" và định dạng lại
+
+    // // Kiểm tra xem giá trị đã thay đổi hay chưa
+    // let hasChanges = false;
+
+    // if (dateValue !== initialDateValue) {
+    //     editedRow.cells[0].textContent = formatDateToDayMonthYear(dateValue);
+    //     hasChanges = true;
+    // }
+
+    // if (startTimeValue !== initialStartTimeValue || endTimeValue !== initialEndTimeValue) {
+    //     editedRow.cells[1].textContent = `${startTimeValue} - ${endTimeValue}`;
+    //     hasChanges = true;
+    // }
+
+
+
+    // if (publishDateValue !== initialPublishDateValue) {
+    //     editedRow.cells[5].textContent = formatDateToDayMonthYear(publishDateValue);
+    //     hasChanges = true;
+    // }
+
+    // if (!hasChanges) {
+    //     alert("Không có thay đổi nào để cập nhật.");
+    // }
+
+    // Đóng hiddenTable-7 sau khi cập nhật
+
+    const publisdate = publishDateInput.value;
+    const data = {
+        body: {
+            date: dateValue,
+            start: startTimeValue,
+            end: endTimeValue,
+            publishDate: publisdate
+        },
+    };
+    const res = await fetchAPIData('https://swp-esms-api.azurewebsites.net/api/exams/update-time', 'POST', data);
+    console.log(res);
+
+    if (res.isSuccess == true) {
+        console.log(res.message);
+        location.reload();
+    } else {
+        console.log(res.message);
+        errorMessagetest.style.display = "block";
+        errorMessagetest.innerHTML = res.message;
     }
 
-    // Hiển thị Confirmation Modal
-    const confirmationModal = document.getElementById("confirmationModal-2");
-    confirmationModal.style.display = "block";
 
-    // Bấm nút "Yes" trong Confirmation Modal sẽ tiếp tục quá trình chỉnh sửa
-    const confirmRemove = document.querySelector("#confirmationModal-2 .modal-button.yes");
-    confirmRemove.onclick = function () {
-        // Tắt Confirmation Modal
-        confirmationModal.style.display = "none";
+    const hiddenTable = document.getElementById("hiddenTable-7");
+    hiddenTable.style.display = "none";
+};
 
-        // Lấy thông tin từ hiddenTable-7
-        const dateInput = document.querySelector("#hiddenTable-7 input[type='date']");
-        const startTimeInput = document.querySelector("#hiddenTable-7 #start-time-input-2");
-        const endTimeInput = document.querySelector("#hiddenTable-7 #end-time-input-2");
-        const publishDateInput = document.querySelector("#hiddenTable-7 #publish-date-input"); // Lấy thông tin từ "Publish Date"
-        // const errorMessage = document.querySelector("#error-message-2");
-
-        // Lấy giá trị mới từ trường nhập liệu
-        const dateValue = dateInput.value;
-        const startTimeValue = startTimeInput.value;
-        const endTimeValue = endTimeInput.value;
-        const publishDateValue = publishDateInput.value; // Lấy giá trị "Publish Date" và định dạng lại
-
-        // Kiểm tra xem giá trị đã thay đổi hay chưa
-        let hasChanges = false;
-
-        if (dateValue !== initialDateValue) {
-            editedRow.cells[0].textContent = formatDateToDayMonthYear(dateValue);
-            hasChanges = true;
-        }
-
-        if (startTimeValue !== initialStartTimeValue || endTimeValue !== initialEndTimeValue) {
-            editedRow.cells[1].textContent = `${startTimeValue} - ${endTimeValue}`;
-            hasChanges = true;
-        }
-
-       
-
-        if (publishDateValue !== initialPublishDateValue) {
-            editedRow.cells[5].textContent = formatDateToDayMonthYear(publishDateValue);
-            hasChanges = true;
-        }
-
-        if (!hasChanges) {
-            alert("Không có thay đổi nào để cập nhật.");
-        }
-
-        // Đóng hiddenTable-7 sau khi cập nhật
-        const hiddenTable = document.getElementById("hiddenTable-7");
-        hiddenTable.style.display = "none";
-    };
-
-    const confirmCancel = document.querySelector("#confirmationModal-2 .modal-button.no");
-    confirmCancel.onclick = function () {
-        confirmationModal.style.display = "none";
-    };
+const confirmCancel = document.querySelector("#confirmationModal-2 .modal-button.no");
+confirmCancel.onclick = function () {
+    confirmationModal.style.display = "none";
 }
+
 
 
 

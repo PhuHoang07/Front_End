@@ -168,25 +168,24 @@
                 style="display: none">
                 <table>
                     <thead>
-                        <tr>
+                        <tr class="last-th">
                             <th>No</th>
                             <th>Subject</th>
                             <th>Form</th>
                             <th>Room</th>
                             <th>Type</th>
                             <th>Student</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <th ></th>
+                            <th ><i
+                                class="fa-regular fa-circle-xmark fa-lg close-button"
+                                onclick="closeTable2()"></i></th>
                         </tr>
                     </thead>
                     <tbody id="table_body_3"></tbody>
                     <button class="add-button" onclick="addNewTable2()">
                         <i class="fa-solid fa-user-plus fa-lg"></i>
                     </button>
-                    <i
-                        class="fa-regular fa-circle-xmark fa-lg close-button"
-                        onclick="closeTable2()"></i>
+                    
                 </table>
             </div>
 
@@ -346,7 +345,7 @@
                     id="error-message"
                     class="error-message"
                     style="display: none">
-                    
+                    <span id="error-messagetest"></span>
                 </div>
                     <div
                         id="error-message"
@@ -389,7 +388,7 @@
                         <button
                             type="button"
                             class="add_button"
-                            onclick="editRowInTableContainer()">
+                            onclick="showConfirmationModalEdit(this)">
                             Edit
                         </button>
                         <button
@@ -430,8 +429,8 @@
                 <div class="modal-content">
                     <p>Are you sure you want to edit this item?</p>
                     <div class="modal-buttons">
-                        <button class="modal-button yes">Yes</button>
-                        <button class="modal-button no">No</button>
+                        <button class="modal-button yes" onclick="confirmEdit(true)">Yes</button>
+                        <button class="modal-button no"  onclick="confirmEdit(false)">No</button>
                     </div>
                 </div>
             </div>
