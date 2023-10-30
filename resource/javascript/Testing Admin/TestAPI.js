@@ -28,13 +28,12 @@ function renderExamTime() {
 
             const tablerow = document.createElement('tr');
             tablerow.setAttribute('idt', examTime.idt);
-
             listItem.push(tablerow);
             tablerow.innerHTML = `
                 <td>${examTime.date}</td>
                 <td>${examTime.start} - ${examTime.end}</td>
                 <td><button class="button-supervisor" onclick="showTable()">20/35</button></td>
-                <td><button class="edit-button" onclick="showTable5()">Edit</button></td>
+                <td><button class="edit-button" onclick="showTableEditTime()">Edit</button></td>
                 <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
                 <td>${examTime.publishDate}</td>
                 <td>${examTime.slot}</td>

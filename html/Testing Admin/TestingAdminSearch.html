@@ -237,20 +237,18 @@
                 </div>
                 <div class="form-group">
                     <label for="start-time">Start Time:</label>
-                    <input type="time" id="start-time-input"
-                        onchange="limitTimeSelection('start-time-input', 'end-time-input')" />
+                    <input type="time" id="start-time-input" />
                 </div>
                 <div class="form-group">
                     <label for="start-time">End Time:</label>
-                    <input type="time" id="end-time-input"
-                        onchange="limitTimeSelection('start-time-input', 'end-time-input')" />
+                    <input type="time" id="end-time-input" />
                 </div>
                 <div class="form-group">
                     <label for="date">Publish Date:</label>
                     <input type="date" />
                 </div>
                 <div class="button-container">
-                    <button type="button" class="add_button" onclick="addRowToTable2()">
+                    <button type="button" class="add_button" onclick="">
                         Add
                     </button>
                     <button type="button" class="cancel_button" onclick="closeTable4()">
@@ -269,81 +267,80 @@
             </div>
         </div>
 
+        <div class="table-container-hidden-4" id="hiddenTable-editTableTime" style="display: none;">
 
-        <div class="table-container-hidden-4" id="hiddenTable-7" style="display: none">
             <div class="form-container">
                 <div class="form-group">
-                    <label for="date">Date:</label>
+                    <label for="date"> Exam Date:</label>
                     <input type="date" />
                 </div>
                 <div class="form-group">
-                    <label for="start-time">Start Time:</label>
-                    <input type="time" id="start-time-input" />
+                    <label for="start-time"> Exam Start Time:</label>
+                    <input type="time" id="start-time-input-2" />
                 </div>
                 <div class="form-group">
-                    <label for="start-time">End Time:</label>
-                    <input type="time" id="end-time-input" />
+                    <label for="start-time"> Exam End Time:</label>
+                    <input type="time" id="end-time-input-2" />
                 </div>
                 <div class="form-group">
-                    <label for="date">Publish Date:</label>
-                    <input type="date" />
+                    <label for="date"> Exam Publish Date:</label>
+                    <input id="publish-date-input" type="date" />
                 </div>
                 <div class="button-container">
-                    <button type="button" class="add_button" onclick="addRowToTable2()">
-                        Add
-                    </button>
-                    <button type="button" class="cancel_button" onclick="closeTable5()">
-                        Cancel
-                    </button>
+                    <button type="button" class="add_button" onclick="editRowInTableContainer()">Edit</button>
+                    <button type="button" class="cancel_button" onclick="closeModalEditTableTime()">Cancel</button>
                 </div>
-                <div id="error-message" class="error-message" style="display: none">
-                    Please select complete information
+                <div id="error-message-2" class="error-message-3" style="display: none;">
+                    Please edit at least 1 field
                 </div>
-                <div id="error-message" class="error-message" style="display: none">
-
-                </div>
-                <div id="error-message" class="error-message-2" style="display: none">
-                    start time must occur before end time
+                <div id="error-message-same-2" class="error-message-2" style="display: none;">
+                    The start time and end time cannot be the same.
                 </div>
             </div>
+
         </div>
 
-        <!-- ADD EXAM SCHEDULE -->
-        <div class="table-container-hidden-4" id="hiddenTable-addExamSchedule" style="display: none">
+
+        <div class="table-container-hidden-4" id="hiddenTable-addTableExamSchedule" style="display: none">
             <div class="form-container">
                 <div class="form-group">
-                    <label for="subject">Subject Code:</label>
+                    <label for="subject">Subject:</label>
+
                     <select id="subject-input">
                         <option value=""></option>
-                  </select>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="form">Form:</label>
+                    <select id="form-input">
+                        <option value=""></option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="room">Room:</label>
                     <select id="room-input">
-                        <option value=""></option>     
-                  </select>
+                        <option value=""></option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="exam-type">Exam Type:</label>
-                    <select id="exam-type-input">
+                    <label for="type">Type:</label>
+                    <select id="type-input">
                         <option value=""></option>
-                  </select>
+                    </select>
                 </div>
-                <div class="form-group">
-                    <label for="exam-form">Exam Form:</label>
-                    <select id="exam-form-input">
-                        <option value=""></option>
-                  </select>
                 <div class="button-container">
                     <button type="button" class="add_button" onclick="">
                         Add
                     </button>
-                    <button type="button" class="cancel_button" onclick="closeModalAddExamSchedule()">
+                    <button type="button" class="cancel_button" onclick=" closeModalAddExamSchedule()">
                         Cancel
                     </button>
                 </div>
-                <div id="error-message-2" class="error-message" style="display: none">
+                <div id="error-message" class="error-message" style="display: none">
                     Please select complete information
+                </div>
+                <div id="error-message" class="error-message-2" style="display: none">
+                    start time must occur before end time
                 </div>
             </div>
         </div>

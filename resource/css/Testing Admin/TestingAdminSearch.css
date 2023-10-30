@@ -201,12 +201,10 @@ tr:hover {
 }
 
 .close-button {
-    position: sticky;
-    left: 68%;
-    top: 8%;
+    position: relative;
+    left: 20px;
     color: white;
     cursor: pointer;
-
 }
 
 .add-button {
@@ -292,8 +290,7 @@ select:focus {
 .error-message{
     color: red;
     margin-top: 10px;
-    margin-left: 85px;
-    
+    justify-content: center;    
 }
 
 #messageRemove{

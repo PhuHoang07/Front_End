@@ -37,8 +37,10 @@ function showTable4() {
     }
 }
 
-function showTable5() {
-    const hiddenTable = document.getElementById("hiddenTable-7");
+
+
+function showTableEditTime() {
+    const hiddenTable = document.getElementById("hiddenTable-editTableTime");
     if (hiddenTable.style.display === "none") {
         hiddenTable.style.display = "block";
     } else {
@@ -47,7 +49,7 @@ function showTable5() {
 }
 
 function showModalAddExamSchedule() {
-    const hiddenTable = document.getElementById("hiddenTable-addExamSchedule");
+    const hiddenTable = document.getElementById("hiddenTable-addTableExamSchedule");
     if (hiddenTable.style.display === "none") {
         hiddenTable.style.display = "block";
     } else {
@@ -81,13 +83,13 @@ function closeTable4() {
     hiddenTable.style.display = "none";
 }
 
-function closeTable5() {
-    const hiddenTable = document.getElementById("hiddenTable-7");
+function closeModalEditTableTime() {
+    const hiddenTable = document.getElementById("hiddenTable-editTableTime");
     hiddenTable.style.display = "none";
 }
 
 function closeModalAddExamSchedule() {
-    const hiddenTable = document.getElementById("hiddenTable-addExamSchedule");
+    const hiddenTable = document.getElementById("hiddenTable-addTableExamSchedule");
     hiddenTable.style.display = "none";
 }
 
@@ -166,15 +168,6 @@ function addAndRemoveRows() {
         // Loại bỏ dòng đã thêm vào hiddenTable-4
         row4.remove();
     }
-
-
-    //   let count = 0;
-    //   for (let i = 0; i < rows4.length; i++) {
-    //     const row4 = rows4[i];
-    //     const cells4 = row4.querySelectorAll("td");
-    //     count == 1;
-    //     cells4[0].textContent = count++; // Đặt số thứ tự thành 1
-    //   }
 
     let count = 1; // Bắt đầu từ số 1
     for (let i = 0; i < rows4.length; i++) {
@@ -292,7 +285,7 @@ async function confirmRemove(confirmation) {
         row.remove();
         const data = {
             body: {
-                'idt': idt,
+                'idt': idt
             }
         }
         const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/delete-time", "POST", data);
@@ -390,10 +383,7 @@ let initialEndTimeValue = ""; // Biến để lưu trữ giá trị ban đầu c
 let initialPublishDateValue = ""; // Biến để lưu trữ giá trị ban đầu của trường Publish Date
 
 function editRowInTableContainer() {
-    if (editedRow === null) {
-        alert("Chọn một dòng để chỉnh sửa trước.");
-        return;
-    }
+  
 
     // Hiển thị Confirmation Modal
     const confirmationModal = document.getElementById("confirmationModal-2");
@@ -406,10 +396,10 @@ function editRowInTableContainer() {
         confirmationModal.style.display = "none";
 
         // Lấy thông tin từ hiddenTable-7
-        const dateInput = document.querySelector("#hiddenTable-7 input[type='date']");
-        const startTimeInput = document.querySelector("#hiddenTable-7 #start-time-input-2");
-        const endTimeInput = document.querySelector("#hiddenTable-7 #end-time-input-2");
-        const publishDateInput = document.querySelector("#hiddenTable-7 #publish-date-input"); // Lấy thông tin từ "Publish Date"
+        const dateInput = document.querySelector("#hiddenTable-editTableTime input[type='date']");
+        const startTimeInput = document.querySelector("#hiddenTable-editTableTime #start-time-input-2");
+        const endTimeInput = document.querySelector("#hiddenTable-editTableTime #end-time-input-2");
+        const publishDateInput = document.querySelector("#hiddenTable-editTableTime #publish-date-input"); // Lấy thông tin từ "Publish Date"
         // const errorMessage = document.querySelector("#error-message-2");
 
         // Lấy giá trị mới từ trường nhập liệu
@@ -417,33 +407,14 @@ function editRowInTableContainer() {
         const startTimeValue = startTimeInput.value;
         const endTimeValue = endTimeInput.value;
         const publishDateValue = publishDateInput.value; // Lấy giá trị "Publish Date" và định dạng lại
-
-        // Kiểm tra xem giá trị đã thay đổi hay chưa
-        let hasChanges = false;
-
-        if (dateValue !== initialDateValue) {
+  
             editedRow.cells[0].textContent = formatDateToDayMonthYear(dateValue);
-            hasChanges = true;
-        }
-
-        if (startTimeValue !== initialStartTimeValue || endTimeValue !== initialEndTimeValue) {
+       
             editedRow.cells[1].textContent = `${startTimeValue} - ${endTimeValue}`;
-            hasChanges = true;
-        }
 
-
-
-        if (publishDateValue !== initialPublishDateValue) {
-            editedRow.cells[5].textContent = formatDateToDayMonthYear(publishDateValue);
-            hasChanges = true;
-        }
-
-        if (!hasChanges) {
-            alert("Không có thay đổi nào để cập nhật.");
-        }
-
-        // Đóng hiddenTable-7 sau khi cập nhật
-        const hiddenTable = document.getElementById("hiddenTable-7");
+            editedRow.cells[5].textContent = publishDateValue;
+    
+        const hiddenTable = document.getElementById("hiddenTable-editTableTime");
         hiddenTable.style.display = "none";
     };
 
