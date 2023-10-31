@@ -72,6 +72,8 @@ tr:hover {
     margin-top: 35px;
 }
 
+
+
 .table-container-hidden-2 {
     position: absolute;
     background-color: rgba(0, 0, 0, 0.5);
@@ -81,7 +83,7 @@ tr:hover {
     right: 0;
     bottom: 0;
     display: none;
-    padding-left: 230px;
+    padding-left: 300px;
     padding-top: 30px;
     max-height: 1000000000px;
     overflow-y: auto;
@@ -94,11 +96,10 @@ tr:hover {
     left: 0;
     right: 0;
     bottom: 0;
-    display: none;
-    margin-left: 930px;
-    margin-top: 29px;
+    /* display: none; */
+    margin-left: 860px;
+    margin-top: 39px;
     max-height: 1000000000px;
-    /* Đặt chiều cao tối đa cho bảng container */
     overflow-y: auto;
 
 }
@@ -132,7 +133,8 @@ tr:hover {
     color: white;
     border: none;
     cursor: pointer;
-    padding: 2px 4px;
+    /* padding: 2px 4px; */
+    padding: 2px 8px 2px 4px;
     border-radius: 5px;
     font-size: 13px;
 
@@ -301,7 +303,18 @@ select:focus {
     justify-content: center;    
 }
 
-.messageRemove{
-    background-color: #6bcabb;
-    width: 100%;
+#messageRemove{
+    background-color: #fff;
+    padding: 20px;
+    width: 50%;
+    text-align: center;
+    position: fixed;
+    top: 300px;
+    left: 26%;
+    border-radius: 30px;
+    border: 5px solid rgb(28, 126, 139);
+    color: red;
+    display: none;
+    z-index: 3;
+  
 }
