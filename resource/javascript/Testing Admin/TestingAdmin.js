@@ -75,71 +75,49 @@ async function showModalAddExamSchedule() {
 
 async function addRowToTablesch() {
     // Lấy giá trị từ các trường input/select trong hiddenTable-6
+    const errorMessage = document.querySelector("#error-messagesche");
+    const errorMessage2 = document.getElementById('error-messagesche2');
     const nameInput = document.querySelector('[name="name"]');
-    const enteredValue = nameInput.value;
-    console.log(enteredValue);
+    const typeInput = document.getElementById("type");
     const selectRoom = document.querySelector('#room-input');
     const selectedRIndex = selectRoom.selectedIndex;
     const selectedROption = selectRoom.options[selectedRIndex];
-    const selectedROptionText = selectedROption.text;
-    console.log(selectedROptionText);
     const selectSubject = document.querySelector('#subject-input');
     const selectedIndex = selectSubject.selectedIndex;
     const selectedOption = selectSubject.options[selectedIndex];
+
+    if (!nameInput.value || !typeInput.value || !selectRoom.value || !selectSubject.value) {
+        errorMessage.style.display = "none";
+        errorMessage2.style.display = "flex"; // Hiển thị thông báo
+        return; // Dừng việc thêm dòng mới nếu có trường không hợp lệ.
+    } else {
+        errorMessage2.style.display = "none"; // Ẩn thông báo nếu tất cả trường hợp lệ.
+    }
+
     const selectedOptionText = selectedOption.text;
-    console.log(selectedOptionText);
-    
-
-    // const startTimeInput = document.querySelector("#hiddenTable-6 input[type='time']");
-    // const endTimeInput = document.querySelectorAll("#hiddenTable-6 input[type='time']")[1]; // Lấy thứ hai input[type='time']
-    // const publishDateInput = document.querySelectorAll("#hiddenTable-6 input[type='date']")[1]; // Lấy trường "Publish Date"
-    // // const slotInput = document.querySelectorAll("#hiddenTable-6");
-    // const errorMessage = document.querySelector("#error-message");
-    // const errorMessagetest = document.getElementById('error-message');
-    // // Kiểm tra xem tất cả các trường đã được điền đầy đủ
-    // if (!dateInput.value || !startTimeInput.value || !endTimeInput.value || !publishDateInput.value) {
-    //     errorMessage.style.display = "flex"; // Hiển thị thông báo
-    //     return; // Dừng việc thêm dòng mới nếu có trường không hợp lệ.
-    // } else {
-    //     errorMessage.style.display = "none"; // Ẩn thông báo nếu tất cả trường hợp lệ.
-    // }
-
-    // const dateValue = dateInput.value;
-    // const startTimeValue = startTimeInput.value;
-    // const endTimeValue = endTimeInput.value;
-
-
-
-    // const publisdate = publishDateInput.value;
-    // const data = {
-    //     body: {
-    //         date: dateValue,
-    //         start: startTimeValue,
-    //         end: endTimeValue,
-    //         publishDate: publisdate
-    //     },
-    // };
-    // const res = await fetchAPIData('https://swp-esms-api.azurewebsites.net/api/exams/add-time', 'POST', data);
-    // console.log(res);
-
-    // if (res.isSuccess == true) {
-    //     console.log(res.message);
-    //     errorMessagetest.style.display = "flex";
-    //     errorMessagetest.innerHTML = res.message;
-    // } else {
-    //     console.log(res.message);
-    //     errorMessagetest.style.display = "flex";
-    //     errorMessagetest.innerHTML = res.message;
-    // }
-
-
-    // function formatDate(date) {
-    //     const d = new Date(date);
-    //     const day = d.getDate().toString().padStart(2, '0');
-    //     const month = (d.getMonth() + 1).toString().padStart(2, '0');
-    //     const year = d.getFullYear();
-    //     return `${day}/${month}/${year}`;
-    // }
+    const enteredValue = nameInput.value;
+    const selectedROptionText = selectedROption.text;
+    const enteredtype= typeInput.value;
+ const data = {
+    body : {
+        'idt': idt,
+        "subjectID":selectedOptionText,
+        "roomNumber":selectedROptionText,
+        "form":enteredValue,
+        "type":enteredtype
+    }
+ }
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/add","POST",data);
+   
+    if (res.isSuccess == true) {
+        console.log(res.message);
+        errorMessage.style.display = "flex";
+        errorMessage.innerHTML = res.message;
+    } else {
+        console.log(res.message);
+        errorMessage.style.display = "flex";
+        errorMessage.innerHTML = res.message;
+    }
 }
 
 
@@ -719,20 +697,6 @@ async function confirmEdit(confirmation) {
 }
 
 async function editRowInTableContainer() {
-    // if (editedRow === null) {
-    //     alert("Chọn một dòng để chỉnh sửa trước.");
-    //     return;
-    // }
-
-    // // Hiển thị Confirmation Modal
-    // const confirmationModal = document.getElementById("confirmationModal-2");
-    // confirmationModal.style.display = "block";
-
-    // // Bấm nút "Yes" trong Confirmation Modal sẽ tiếp tục quá trình chỉnh sửa
-    // const confirmRemove = document.querySelector("#confirmationModal-2 .modal-button.yes");
-    // confirmRemove.onclick = function () {
-    //     // Tắt Confirmation Modal
-    //     confirmationModal.style.display = "none";
 
     // Lấy thông tin từ hiddenTable-7
     const dateInput = document.querySelector("#hiddenTable-7 input[type='date']");
@@ -746,33 +710,6 @@ async function editRowInTableContainer() {
     const startTimeValue = startTimeInput.value;
     const endTimeValue = endTimeInput.value;
     const publishDateValue = publishDateInput.value; // Lấy giá trị "Publish Date" và định dạng lại
-
-    // // Kiểm tra xem giá trị đã thay đổi hay chưa
-    // let hasChanges = false;
-
-    // if (dateValue !== initialDateValue) {
-    //     editedRow.cells[0].textContent = formatDateToDayMonthYear(dateValue);
-    //     hasChanges = true;
-    // }
-
-    // if (startTimeValue !== initialStartTimeValue || endTimeValue !== initialEndTimeValue) {
-    //     editedRow.cells[1].textContent = `${startTimeValue} - ${endTimeValue}`;
-    //     hasChanges = true;
-    // }
-
-
-
-
-    // if (publishDateValue !== initialPublishDateValue) {
-    //     editedRow.cells[5].textContent = formatDateToDayMonthYear(publishDateValue);
-    //     hasChanges = true;
-    // }
-
-    // if (!hasChanges) {
-    //     alert("Không có thay đổi nào để cập nhật.");
-    // }
-
-    // Đóng hiddenTable-7 sau khi cập nhật
 
     const publisdate = publishDateInput.value;
     const data = {
