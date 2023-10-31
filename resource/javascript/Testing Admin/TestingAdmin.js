@@ -254,7 +254,10 @@ function closeTable2() {
 
 function closeTable3() {
     const hiddenTable = document.getElementById('hiddenTable-3');
+    const hiddenStudentListToAdd = document.getElementById('hiddenTable-StudentListToAdd');
     hiddenTable.style.display = 'none';
+    hiddenStudentListToAdd.style.display = 'none';
+
 }
 
 function closeTable4() {
@@ -271,6 +274,19 @@ function closeTable5() {
 function closeModalEditExamSchedule() {
     const hiddenTable = document.getElementById('hiddenTable-editTableExamSchedule');
     hiddenTable.style.display = 'none';
+}
+
+function showStudentListToAdd() {
+    const hiddenTable = document.getElementById('hiddenTable-3');
+    const hiddenTable4 = document.getElementById('hiddenTable-StudentListToAdd');
+
+    if (hiddenTable.style.display === 'block') {
+        hiddenTable4.style.display = 'block';
+        hiddenTable4.style.position = 'absolute';
+        hiddenTable4.style.top = getComputedStyle(hiddenTable).top;
+        hiddenTable4.style.left =
+            parseInt(getComputedStyle(hiddenTable).left) + 250 + 'px';
+    }
 }
 
 function addNewTable() {
@@ -350,14 +366,6 @@ function addAndRemoveRows() {
         // Loại bỏ dòng đã thêm vào hiddenTable-4
         row4.remove();
     }
-
-    //   let count = 0;
-    //   for (let i = 0; i < rows4.length; i++) {
-    //     const row4 = rows4[i];
-    //     const cells4 = row4.querySelectorAll("td");
-    //     count == 1;
-    //     cells4[0].textContent = count++; // Đặt số thứ tự thành 1
-    //   }
 
     let count = 1; // Bắt đầu từ số 1
     for (let i = 0; i < rows4.length; i++) {
@@ -645,27 +653,6 @@ async function addRowToTable2() {
     }
 }
 
-// Hàm để xóa dòng
-function removeRow(button) {
-    // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
-    selectedButton = button;
-
-    // Hiển thị modal xác nhận
-    var modal = document.getElementById('confirmationModal');
-    modal.style.display = 'block';
-}
-
-// Hàm để chỉnh sửa dòng
-function editRow(button) {
-    // Viết mã để xử lý chỉnh sửa dòng ở đây
-    // Điều này có thể là một hộp thoại hoặc hiển thị các trường chỉnh sửa tùy thuộc vào yêu cầu của bạn.
-}
-
-function selectRowToEdit(row) {
-    editedRow = row; // Lưu dòng cần chỉnh sửa
-    // Hiển thị thông tin dòng trong hiddenTable-7 để chỉnh sửa
-}
-
 let editedRow = null; // Biến để theo dõi dòng đang được chỉnh sửa
 let initialDateValue = ''; // Biến để lưu trữ giá trị ban đầu của trường Date
 let initialStartTimeValue = ''; // Biến để lưu trữ giá trị ban đầu của trường Start Time
@@ -758,10 +745,6 @@ function closeConfirmationModal() {
     confirmationModal.style.display = 'none';
 }
 
-
-function getstudent(button) {
-
-}
 
 
 
