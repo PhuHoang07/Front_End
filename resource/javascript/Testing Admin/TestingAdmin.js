@@ -227,6 +227,15 @@ function showTable5() {
     }
 }
 
+function showModalEditExamSchedule() {
+    const hiddenTable = document.getElementById('hiddenTable-editTableExamSchedule');
+    if (hiddenTable.style.display === 'none') {
+        hiddenTable.style.display = 'block';
+    } else {
+        hiddenTable.style.display = 'none';
+    }
+}
+
 function closeTable() {
     const hiddenTable = document.getElementById('hiddenTable');
     const hiddenTable4 = document.getElementById('hiddenTable-4');
@@ -256,6 +265,11 @@ function closeTable4() {
 
 function closeTable5() {
     const hiddenTable = document.getElementById('hiddenTable-7');
+    hiddenTable.style.display = 'none';
+}
+
+function closeModalEditExamSchedule() {
+    const hiddenTable = document.getElementById('hiddenTable-editTableExamSchedule');
     hiddenTable.style.display = 'none';
 }
 

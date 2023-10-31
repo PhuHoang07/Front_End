@@ -409,6 +409,45 @@
                     </div>
                 </div>
             </div>
+
+            <div class="table-container-hidden-4" id="hiddenTable-editTableExamSchedule" style="display: none">
+                <div class="form-container">
+                    <div class="form-group">
+                        <label for="subject">Subject:</label>
+    
+                        <select id="subject-input">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="form">Form:</label>
+                        <input type="text" id="'form'" name="name" class="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="room">Room:</label>
+                        <select id="room-input">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Type:</label>
+                        <input type="text" id="type" name="name"class="name">
+                    </div>
+                    <div class="button-container">
+                        <button type="button" class="add_button" onclick="">
+                            Edit
+                        </button>
+                        <button type="button" class="cancel_button" onclick=" closeModalEditExamSchedule()">
+                            Cancel
+                        </button>
+                    </div>
+                    <div id="error-messagesche" class="error-message" style="display: none">
+                    </div>
+                    <div id="error-messagesche2" class="error-message" style="display: none">
+                        Please input all the informations!
+                    </div>
+                </div>
+            </div>
             <div id="confirmationModal" class="modal">
                 <div class="modal-content">
                     <p>Are you sure you want to remove this item?</p>
