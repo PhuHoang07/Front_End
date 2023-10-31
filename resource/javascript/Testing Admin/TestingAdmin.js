@@ -19,12 +19,62 @@ function closeModalAddExamSchedule() {
 function showTable2(button) {
     const hiddenTable = document.getElementById("hiddenTable-2");
     idt = button.parentNode.parentNode.getAttribute('idt');
+    console.log(idt);
+
     if (hiddenTable.style.display === "none") {
         hiddenTable.style.display = "block";
     } else {
         hiddenTable.style.display = 'none';
     }
 }
+
+function showConfirmationModalExamSchedule(button) {
+    var modal = document.getElementById("confirmationModalExamSchedule");
+    modal.style.display = "block";
+
+    // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
+    selectedButton = button;
+    subject = button.parentNode.parentNode.cells[1].innerText; // Lấy giá trị từ cột thứ 2
+    room = button.parentNode.parentNode.cells[3].innerText;
+    console.log(idt);
+}
+async function confirmRemoveExamSchedule(confirmation) {
+    
+    console.log(idt);
+    var modal = document.getElementById("confirmationModalExamSchedule");
+    modal.style.display = "none";
+    if (confirmation) {
+        // Perform delete action here
+        var row = selectedButton.parentNode.parentNode;
+        row.remove();
+        const data = {
+            body: {
+                'idt': idt,
+                'subjectID': subject,
+                'roomNumber': room
+
+            }
+        }
+
+        const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/delete", "POST", data);
+        if (res.isSuccess == true) {
+            console.log(res.message);
+
+            var messageElement = document.getElementById('messageRemove');
+            messageElement.innerHTML = res.message;
+            messageElement.style.display = "block";
+
+            // Close modal
+            document.addEventListener("click", function (event) {
+                if (event.target !== messageElement && !messageElement.contains(event.target)) {
+                    messageElement.style.display = "none";
+                }
+            });
+        }
+    }
+}
+
+
 
 async function showModalAddExamSchedule() {
     const hiddenTable = document.getElementById("hiddenTable-addTableExamSchedule");
