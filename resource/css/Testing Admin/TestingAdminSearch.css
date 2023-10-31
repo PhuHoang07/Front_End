@@ -208,6 +208,7 @@ tr:hover {
 }
 
 .add-button {
+    background-color: rgb(57, 180, 205);
     border-radius: 10px;
     border: none;
     height: 35px;
