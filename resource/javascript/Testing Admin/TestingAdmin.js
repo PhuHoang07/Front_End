@@ -1,4 +1,5 @@
 let idt;
+
 function getoption() {
     const option = document.getElementById("subject-input");
     option.innerHTML
@@ -18,6 +19,17 @@ function closeModalAddExamSchedule() {
 
 function showTable2(button) {
     const hiddenTable = document.getElementById("hiddenTable-2");
+    idt = button.parentNode.parentNode.getAttribute('idt');
+    console.log(idt);
+
+    if (hiddenTable.style.display === "none") {
+        hiddenTable.style.display = "block";
+    } else {
+        hiddenTable.style.display = 'none';
+    }
+}
+function showSupervisor(button) {
+    const hiddenTable = document.getElementById("SupervisorTable");
     idt = button.parentNode.parentNode.getAttribute('idt');
     console.log(idt);
 
@@ -59,7 +71,6 @@ async function confirmRemoveExamSchedule(confirmation) {
         const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/delete", "POST", data);
         if (res.isSuccess == true) {
             console.log(res.message);
-
             var messageElement = document.getElementById('messageRemove');
             messageElement.innerHTML = res.message;
             messageElement.style.display = "block";
@@ -160,6 +171,7 @@ async function addRowToTablesch() {
         console.log(res.message);
         errorMessage.style.display = "flex";
         errorMessage.innerHTML = res.message;
+        renderExamSchedule(idt);
     } else {
         console.log(res.message);
         errorMessage.style.display = "flex";
@@ -189,7 +201,7 @@ async function showTable3(button) {
             'room': room
         }
     }
-
+console.log(data);
     const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/students", "GET", data);
     const table = document.getElementById("stu-list");
     console.log(res);
@@ -208,21 +220,35 @@ async function showTable3(button) {
 
 const getSelectedButton = document.getElementById("get-selected");
 // Add a click event listener to the "Get Selected" button
-function getSelectedData() {
-    const checkboxes = document.querySelectorAll(".data-checkbox");
-    const selectedNames = [];
-  const selectedData = [];
-  checkboxes.forEach(async checkbox => {
-    if (checkbox.checked) {
-        const row = checkbox.parentNode // Get the row containing the checkbox
-        const cells = row.querySelectorAll("td");
-        const index = cells[0].textContent;
-        const name = cells[1].textContent;
-        selectedNames.push(name);
-    
-      selectedData.push({ index,name });
+async function getSelectedData() {
+    const textarea = document.getElementById("inputStu");
+    const inputtedText = textarea.value;    
+    const usernameArray = inputtedText.split("\n").filter(username => username.trim() !== '');
+    console.log("Inputted Text:", usernameArray);
+    const data = {
+       body: {
+            'idt': 27,
+            "subject": "CSI104",
+            "room": "004",
+            "students": usernameArray
+          }
     }
-  });
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/students/add","POST",data);
+    console.log(res);
+//     const checkboxes = document.querySelectorAll(".data-checkbox");
+//     const selectedNames = [];
+//   const selectedData = [];
+//   checkboxes.forEach(async checkbox => {
+//     if (checkbox.checked) {
+//         const row = checkbox.parentNode // Get the row containing the checkbox
+//         const cells = row.querySelectorAll("td");
+//         const index = cells[0].textContent;
+//         const name = cells[1].textContent;
+//         selectedNames.push(name);
+    
+//       selectedData.push({ index,name });
+//     }
+//   });
 //   {
 //     "idt": 27,
 //     "subject": "CSI104",
@@ -246,8 +272,8 @@ function getSelectedData() {
 // Now yourObject.students will contain the selected names
 // console.log(yourObject);
   // Use the selectedData array as needed
-  console.log(selectedData);
-  console.log(selectedNames);
+//   console.log(selectedData);
+//   console.log(selectedNames);
 };
 function AddStudent(){
     getSelectedData();
@@ -293,6 +319,12 @@ function closeTable2() {
 
     hiddenTable2.style.display = 'none';
     hiddenTable5.style.display = 'none';
+}
+function closeSupervisorTable() {
+    const SPtable = document.getElementById('SupervisorTable');
+    const hiddenTable5 = document.getElementById('hiddenTable-5');
+
+    SPtable.style.display = 'none';
 }
 
 function closeTable3() {
