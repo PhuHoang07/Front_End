@@ -87,7 +87,7 @@
             </table>
         </div>
 
-        <!-- SUPERVISOR TABLE -->
+        <!-- TIME TABLE -->
         <div class="table-container-hidden-2" id="hiddenTable-2" style="display: none">
             <table>
                 <thead>
@@ -106,12 +106,34 @@
                 <tbody id="table_body_3"></tbody>
                 <div id="messageRemove" class="messageRemove"></div>
                 <button class="add-button" onclick="showModalAddExamSchedule(this)">
-                    <i class="fa-solid fa-user-plus fa-lg"></i>
+                    <i class="fa-solid fa-plus fa-xl"></i>
                 </button>
 
             </table>
         </div>
 
+ <!-- SUPERVISOR TABLE -->
+ <div class="table-container-hidden-2" id="SupervisorTable" style="display: none">
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Username</th>
+               
+                <th></th>
+                <th><i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeSupervisorTable()"></i></th>
+
+            </tr>
+        </thead>
+        <tbody id="table_body_3"></tbody>
+        <div id="messageRemove" class="messageRemove"></div>
+        <button class="add-button" onclick="showModalAddExamSchedule(this)">
+            <i class="fa-solid fa-plus fa-xl"></i>
+        </button>
+
+    </table>
+</div>
 
         <!-- VIEW STUDENT LIST TABLE -->
         <div class="table-container-hidden-2" id="hiddenTable-3" style="display: none">
@@ -131,15 +153,18 @@
                     <i class="fa-solid fa-user-plus fa-lg"></i>
                 </button>
                 <i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTable3()"></i>
+                <br/>
             </table>
         </div>
 
         <div class="table-container-hidden-3" id="hiddenTable-StudentListToAdd" style="display: none;">
+            <form>
+                <textarea id="inputStu" name="inputStu" placeholder="Username..."></textarea>
+              </form>
             <div class="search-field-2">
-                <input id="searchInput" type="number" placeholder="Search">
-                <button onclick="">Add</button>
+<a href="#" title="button shiny 3" onclick="AddStudent()"  class="fui-button-shiny-3"> Add +</a>
             </div>
-            <table>
+            <!-- <table>
                 <thead>
                     <tr>
                         <th>No</th>
@@ -149,8 +174,13 @@
                       
                     </tr>
                 </thead>
+<<<<<<< HEAD
                 <tbody id="stu-list" ></tbody>
             </table>
+=======
+                <tbody id="stu-list"></tbody>
+            </table> -->
+>>>>>>> b80f953bbc16bba45e75e38122684a59a6d0b974
 
         </div>
 
@@ -197,7 +227,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <!-- <tr>
                         <td>1</td>
                         <td>fn11</td>
                         <td>
@@ -206,7 +236,7 @@
                             </button>
                         </td>
                         <td><input type="radio" /></td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div> -->

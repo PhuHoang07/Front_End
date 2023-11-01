@@ -34,7 +34,7 @@ function renderExamTime() {
             tablerow.innerHTML = `
                 <td>${examTime.date}</td>
                 <td>${examTime.start} - ${examTime.end}</td>
-                <td><button class="button-supervisor" onclick="showTable()">20/35</button></td>
+                <td><button class="button-supervisor" onclick="showSupervisor(this)">${examTime.totalSupervisor}/${examTime.requireSupervisor}</button></td>
                 <td><button class="edit-button" onclick="showConfirmationModalEdit(this)">Edit</button></td>
                 <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
                 <td>${examTime.publishDate}</td>
@@ -59,7 +59,7 @@ function renderExamTime() {
 //--------------------------------------------- for student table ----------------------------------------------------------------------------------------
 
 //------------------------------------------------fetch data into table------------------------------------------------------------------
-function renderExamSchedule(idt) {
+export function renderExamSchedule(idt) {
     const list01 = document.getElementById('table_body_3');
     const listItem01 = [];
 
@@ -96,7 +96,11 @@ function renderExamSchedule(idt) {
             <td>${schedule.form}</td>
             <td>${schedule.room}</td>
             <td>${schedule.type}</td>
+<<<<<<< HEAD
             <td><button class="button-supervisor" onclick="showTable3(this)">2/35</button></td>
+=======
+            <td><button class="button-supervisor" onclick="showTable3(this)">20/35</button></td>
+>>>>>>> b80f953bbc16bba45e75e38122684a59a6d0b974
             <td><button class="edit-button" onclick="showModalEditExamSchedule()">Edit</button></td>
             <td><button class="remove-button" onclick="showConfirmationModalExamSchedule(this)">Remove</button></td>
           `;

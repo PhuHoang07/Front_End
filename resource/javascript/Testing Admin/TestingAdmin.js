@@ -1,4 +1,5 @@
 let idt;
+
 function getoption() {
     const option = document.getElementById("subject-input");
     option.innerHTML
@@ -18,6 +19,17 @@ function closeModalAddExamSchedule() {
 
 function showTable2(button) {
     const hiddenTable = document.getElementById("hiddenTable-2");
+    idt = button.parentNode.parentNode.getAttribute('idt');
+    console.log(idt);
+
+    if (hiddenTable.style.display === "none") {
+        hiddenTable.style.display = "block";
+    } else {
+        hiddenTable.style.display = 'none';
+    }
+}
+function showSupervisor(button) {
+    const hiddenTable = document.getElementById("SupervisorTable");
     idt = button.parentNode.parentNode.getAttribute('idt');
     console.log(idt);
 
@@ -59,7 +71,6 @@ async function confirmRemoveExamSchedule(confirmation) {
         const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/delete", "DELETE", data);
         if (res.isSuccess == true) {
             console.log(res.message);
-
             var messageElement = document.getElementById('messageRemove');
             messageElement.innerHTML = res.message;
             messageElement.style.display = "block";
@@ -142,7 +153,6 @@ async function addRowToTablesch() {
     } else {
         errorMessage2.style.display = "none"; // Ẩn thông báo nếu tất cả trường hợp lệ.
     }
-
     const selectedOptionText = selectedOption.text;
     const enteredValue = nameInput.value;
     const selectedROptionText = selectedROption.text;
@@ -157,11 +167,15 @@ async function addRowToTablesch() {
         }
     }
     const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/add", "POST", data);
+<<<<<<< HEAD
 
+=======
+>>>>>>> b80f953bbc16bba45e75e38122684a59a6d0b974
     if (res.isSuccess == true) {
         console.log(res.message);
         errorMessage.style.display = "flex";
         errorMessage.innerHTML = res.message;
+        renderExamSchedule(idt);
     } else {
         console.log(res.message);
         errorMessage.style.display = "flex";
@@ -170,6 +184,7 @@ async function addRowToTablesch() {
 }
 
 
+<<<<<<< HEAD
 // async function showTable3() {
 //     const list = document.getElementById('add-tsu');
 //     const listItem = [];
@@ -234,6 +249,16 @@ async function showTable3(button) {
     console.log(subject);
 
 
+=======
+async function showTable3(button) {
+    selectedButton = button;
+    subject = button.parentNode.parentNode.cells[1].innerText; // Lấy giá trị từ cột thứ 2
+    room = button.parentNode.parentNode.cells[3].innerText;
+    console.log(subject);
+    console.log(room);
+    const list = document.getElementById('add-tsu');
+    const listItem = [];
+>>>>>>> b80f953bbc16bba45e75e38122684a59a6d0b974
     const hiddenTable = document.getElementById("hiddenTable-3");
     if (hiddenTable.style.display === "none") {
         hiddenTable.style.display = "block";
@@ -247,16 +272,23 @@ async function showTable3(button) {
             'room': room
         }
     }
+<<<<<<< HEAD
     console.log(data);
     
     const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/students", "GET", data);
     // const table = document.getElementById("stu-list")
     const tableBody = hiddenTable.querySelector('#add-tsu');
+=======
+console.log(data);
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/students", "GET", data);
+    const table = document.getElementById("stu-list");
+>>>>>>> b80f953bbc16bba45e75e38122684a59a6d0b974
     console.log(res);
     res.data.studentList.forEach((item, index) => {
         const tablerow = document.createElement('tr');
         listItem.push(tablerow);
         tablerow.innerHTML = `
+<<<<<<< HEAD
     <td>${index + 1}</td>
     <td>${item.rollNumber}</td>
     <td>${item.name}</td>
@@ -279,6 +311,77 @@ async function showTable3(button) {
 }
 
 
+=======
+                <td>${index}</td>
+                <td>${item.name}</td>
+                <input type="checkbox" class="data-checkbox">
+              `;
+        table.appendChild(tablerow);
+    });
+}
+
+
+const getSelectedButton = document.getElementById("get-selected");
+// Add a click event listener to the "Get Selected" button
+async function getSelectedData() {
+    const textarea = document.getElementById("inputStu");
+    const inputtedText = textarea.value;    
+    const usernameArray = inputtedText.split("\n").filter(username => username.trim() !== '');
+    console.log("Inputted Text:", usernameArray);
+    const data = {
+       body: {
+            'idt': 27,
+            "subject": "CSI104",
+            "room": "004",
+            "students": usernameArray
+          }
+    }
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/students/add","POST",data);
+    console.log(res);
+//     const checkboxes = document.querySelectorAll(".data-checkbox");
+//     const selectedNames = [];
+//   const selectedData = [];
+//   checkboxes.forEach(async checkbox => {
+//     if (checkbox.checked) {
+//         const row = checkbox.parentNode // Get the row containing the checkbox
+//         const cells = row.querySelectorAll("td");
+//         const index = cells[0].textContent;
+//         const name = cells[1].textContent;
+//         selectedNames.push(name);
+    
+//       selectedData.push({ index,name });
+//     }
+//   });
+//   {
+//     "idt": 27,
+//     "subject": "CSI104",
+//     "room": "004",
+//     "students": [
+//       {
+//           "userName": "HiepNTSE171646",
+//           "name": "Ngo Tung Hiep",
+//           "rollNumber": "SE171646"
+//         }
+//     ]
+//   }
+//   const yourObject = {
+//     idt: 0,
+//     subject: "string",
+//     room: "string",
+//     students: ["string"],
+//   };
+//   yourObject.students = selectedNames;
+
+// Now yourObject.students will contain the selected names
+// console.log(yourObject);
+  // Use the selectedData array as needed
+//   console.log(selectedData);
+//   console.log(selectedNames);
+};
+function AddStudent(){
+    getSelectedData();
+}
+>>>>>>> b80f953bbc16bba45e75e38122684a59a6d0b974
 function showTable4() {
     const hiddenTable = document.getElementById('hiddenTable-6');
     if (hiddenTable.style.display === 'none') {
@@ -321,7 +424,14 @@ function closeTable2() {
     hiddenTable2.style.display = 'none';
     hiddenTable5.style.display = 'none';
 }
+function closeSupervisorTable() {
+    const SPtable = document.getElementById('SupervisorTable');
+    const hiddenTable5 = document.getElementById('hiddenTable-5');
 
+    SPtable.style.display = 'none';
+}
+
+<<<<<<< HEAD
 // function closeTable3() {
 //     const hiddenTable = document.getElementById('hiddenTable-3');
 //     const hiddenStudentListToAdd = document.getElementById('hiddenTable-StudentListToAdd');
@@ -338,6 +448,16 @@ function closeTable3() {
         table.innerHTML = ``;
     }
     
+=======
+function closeTable3() {
+    const hiddenTable = document.getElementById('hiddenTable-3');
+    const hiddenStudentListToAdd = document.getElementById('hiddenTable-StudentListToAdd');
+    hiddenTable.style.display = 'none';
+    hiddenStudentListToAdd.style.display = 'none';
+    const table = document.getElementById("stu-list");
+    table.innerHTML = ``;
+}
+>>>>>>> b80f953bbc16bba45e75e38122684a59a6d0b974
 
 function closeTable4() {
     const hiddenTable = document.getElementById('hiddenTable-6');
@@ -738,26 +858,26 @@ let initialStartTimeValue = ''; // Biến để lưu trữ giá trị ban đầu
 let initialEndTimeValue = ''; // Biến để lưu trữ giá trị ban đầu của trường End Time
 let initialPublishDateValue = ''; // Biến để lưu trữ giá trị ban đầu của trường Publish Date
 
-async function confirmEdit(confirmation) {
-    console.log(idt);
-    var modal = document.getElementById('confirmationModal');
-    modal.style.display = 'none';
-    if (confirmation) {
-        // Thực hiện hành động xóa ở đây
-        var row = selectedButton.parentNode.parentNode;
-        row.remove();
-        const data = {
-            body: {
-                'idt': idt
-            }
-        }
-        const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/delete", "POST", data);
-        if (res.isSuccess == true) {
-            console.log(res.message);
-            document.getElementById('messageRemove').innerText = res.message;
-        }
-    }
-}
+// async function confirmEdit(confirmation) {
+//     console.log(idt);
+//     var modal = document.getElementById('confirmationModal');
+//     modal.style.display = 'none';
+//     if (confirmation) {
+//         // Thực hiện hành động xóa ở đây
+//         var row = selectedButton.parentNode.parentNode;
+//         row.remove();
+//         const data = {
+//             body: {
+//                 'idt': idt
+//             }
+//         }
+//         const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/delete", "POST", data);
+//         if (res.isSuccess == true) {
+//             console.log(res.message);
+//             document.getElementById('messageRemove').innerText = res.message;
+//         }
+//     }
+// }
 
 async function editRowInTableContainer() {
 
