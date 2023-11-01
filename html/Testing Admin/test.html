@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Member Code</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="stu-list">
+          <tr>
+            <td>0</td>
+            <td>Nguyễn Văn Hiếu</td>
+            <td><input type="checkbox" class="data-checkbox"></td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Nguyễn Thanh Hoàng</td>
+            <td><input type="checkbox" class="data-checkbox"></td>
+          </tr>
+        </tbody>
+      </table>
+      <button id="get-selected">Get Selected</button>
+</body>
+<script>
+    const checkboxes = document.querySelectorAll(".data-checkbox");
+const getSelectedButton = document.getElementById("get-selected");
+
+getSelectedButton.addEventListener("click", function () {
+  const selectedData = [];
+
+  checkboxes.forEach((checkbox, index) => {
+    if (checkbox.checked) {
+      const row = checkbox.parentNode.parentNode; // Get the closest row to the checkbox
+      const cells = row.querySelectorAll("td");
+      const no = cells[0].textContent;
+      const memberCode = cells[1].textContent;
+
+      selectedData.push({ no, memberCode });
+    }
+  });
+
+  // Use the selectedData array as needed
+  console.log(selectedData);
+});
+
+</script>
+</html>

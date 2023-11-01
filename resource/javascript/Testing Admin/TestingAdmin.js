@@ -39,7 +39,7 @@ function showConfirmationModalExamSchedule(button) {
     console.log(idt);
 }
 async function confirmRemoveExamSchedule(confirmation) {
-    
+
     console.log(idt);
     var modal = document.getElementById("confirmationModalExamSchedule");
     modal.style.display = "none";
@@ -142,22 +142,20 @@ async function addRowToTablesch() {
     } else {
         errorMessage2.style.display = "none"; // Ẩn thông báo nếu tất cả trường hợp lệ.
     }
-
     const selectedOptionText = selectedOption.text;
     const enteredValue = nameInput.value;
     const selectedROptionText = selectedROption.text;
-    const enteredtype= typeInput.value;
- const data = {
-    body : {
-        'idt': idt,
-        "subjectID":selectedOptionText,
-        "roomNumber":selectedROptionText,
-        "form":enteredValue,
-        "type":enteredtype
+    const enteredtype = typeInput.value;
+    const data = {
+        body: {
+            'idt': idt,
+            "subjectID": selectedOptionText,
+            "roomNumber": selectedROptionText,
+            "form": enteredValue,
+            "type": enteredtype
+        }
     }
- }
-    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/add","POST",data);
-   
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/add", "POST", data);
     if (res.isSuccess == true) {
         console.log(res.message);
         errorMessage.style.display = "flex";
@@ -170,10 +168,14 @@ async function addRowToTablesch() {
 }
 
 
-async function showTable3() {
+async function showTable3(button) {
+    selectedButton = button;
+    subject = button.parentNode.parentNode.cells[1].innerText; // Lấy giá trị từ cột thứ 2
+    room = button.parentNode.parentNode.cells[3].innerText;
+    console.log(subject);
+    console.log(room);
     const list = document.getElementById('add-tsu');
     const listItem = [];
-
     const hiddenTable = document.getElementById("hiddenTable-3");
     if (hiddenTable.style.display === "none") {
         hiddenTable.style.display = "block";
@@ -182,33 +184,74 @@ async function showTable3() {
     }
     const data = {
         params: {
-            'idt': '27',
-            'subject': 'CSI104',
-            'room': '004'
+            'idt': idt,
+            'subject': subject,
+            'room': room
         }
     }
-    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/students", "GET", data);
+
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/students", "GET", data);
+    const table = document.getElementById("stu-list");
     console.log(res);
-    console.log(res.data.studentList);
-    console.log(Object.keys(res.data).forEach(studentList));
-
-    Object.keys(res.data).forEach((studentList) => {
-        data[studentList].forEach((stu) => {
-            const tablerow = document.createElement('tr');
-            listItem.push(tablerow);
-            tablerow.innerHTML = `
-                <td>${stu.username}</td>
-                <td>${stu.name}</td>
-                <td>${stu.rollNumber}</td>
+    res.data.studentList.forEach((item, index) => {
+        const tablerow = document.createElement('tr');
+        listItem.push(tablerow);
+        tablerow.innerHTML = `
+                <td>${index}</td>
+                <td>${item.name}</td>
+                <input type="checkbox" class="data-checkbox">
               `;
-
-            list.appendChild(tablerow);
-        });
+        table.appendChild(tablerow);
     });
-
-
 }
 
+
+const getSelectedButton = document.getElementById("get-selected");
+// Add a click event listener to the "Get Selected" button
+function getSelectedData() {
+    const checkboxes = document.querySelectorAll(".data-checkbox");
+    const selectedNames = [];
+  const selectedData = [];
+  checkboxes.forEach(async checkbox => {
+    if (checkbox.checked) {
+        const row = checkbox.parentNode // Get the row containing the checkbox
+        const cells = row.querySelectorAll("td");
+        const index = cells[0].textContent;
+        const name = cells[1].textContent;
+        selectedNames.push(name);
+    
+      selectedData.push({ index,name });
+    }
+  });
+//   {
+//     "idt": 27,
+//     "subject": "CSI104",
+//     "room": "004",
+//     "students": [
+//       {
+//           "userName": "HiepNTSE171646",
+//           "name": "Ngo Tung Hiep",
+//           "rollNumber": "SE171646"
+//         }
+//     ]
+//   }
+//   const yourObject = {
+//     idt: 0,
+//     subject: "string",
+//     room: "string",
+//     students: ["string"],
+//   };
+//   yourObject.students = selectedNames;
+
+// Now yourObject.students will contain the selected names
+// console.log(yourObject);
+  // Use the selectedData array as needed
+  console.log(selectedData);
+  console.log(selectedNames);
+};
+function AddStudent(){
+    getSelectedData();
+}
 function showTable4() {
     const hiddenTable = document.getElementById('hiddenTable-6');
     if (hiddenTable.style.display === 'none') {
@@ -257,7 +300,8 @@ function closeTable3() {
     const hiddenStudentListToAdd = document.getElementById('hiddenTable-StudentListToAdd');
     hiddenTable.style.display = 'none';
     hiddenStudentListToAdd.style.display = 'none';
-
+    const table = document.getElementById("stu-list");
+    table.innerHTML = ``;
 }
 
 function closeTable4() {
@@ -659,26 +703,26 @@ let initialStartTimeValue = ''; // Biến để lưu trữ giá trị ban đầu
 let initialEndTimeValue = ''; // Biến để lưu trữ giá trị ban đầu của trường End Time
 let initialPublishDateValue = ''; // Biến để lưu trữ giá trị ban đầu của trường Publish Date
 
-async function confirmEdit(confirmation) {
-    console.log(idt);
-    var modal = document.getElementById('confirmationModal');
-    modal.style.display = 'none';
-    if (confirmation) {
-        // Thực hiện hành động xóa ở đây
-        var row = selectedButton.parentNode.parentNode;
-        row.remove();
-        const data = {
-            body: {
-                'idt': idt
-            }
-        }
-        const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/delete", "POST", data);
-        if (res.isSuccess == true) {
-            console.log(res.message);
-            document.getElementById('messageRemove').innerText = res.message;
-        }
-    }
-}
+// async function confirmEdit(confirmation) {
+//     console.log(idt);
+//     var modal = document.getElementById('confirmationModal');
+//     modal.style.display = 'none';
+//     if (confirmation) {
+//         // Thực hiện hành động xóa ở đây
+//         var row = selectedButton.parentNode.parentNode;
+//         row.remove();
+//         const data = {
+//             body: {
+//                 'idt': idt
+//             }
+//         }
+//         const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/delete", "POST", data);
+//         if (res.isSuccess == true) {
+//             console.log(res.message);
+//             document.getElementById('messageRemove').innerText = res.message;
+//         }
+//     }
+// }
 
 async function editRowInTableContainer() {
 
