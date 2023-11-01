@@ -28,10 +28,32 @@ function showTable2(button) {
         hiddenTable.style.display = 'none';
     }
 }
-function showSupervisor(button) {
+async function showSupervisor(button) {
+    const listItem=[];
     const hiddenTable = document.getElementById("SupervisorTable");
     idt = button.parentNode.parentNode.getAttribute('idt');
     console.log(idt);
+const table = document.getElementById("table_body_super");
+const data = {
+    params :{
+        'idt': idt
+    }
+}
+const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/proctors","GET",data);
+console.log(res);
+
+res.data.forEach((item, index) => {
+    const tablerow = document.createElement('tr');
+    listItem.push(tablerow);
+    tablerow.innerHTML = `
+            <td>${index}</td>
+            <td>${item.name}</td>
+            <td>${item.username}</td>
+            <td>${item.email}</td>
+            <td><button class="remove-button" onclick="">Remove</button></td>
+          `;
+    table.appendChild(tablerow);
+});
 
     if (hiddenTable.style.display === "none") {
         hiddenTable.style.display = "block";
@@ -85,7 +107,18 @@ async function confirmRemoveExamSchedule(confirmation) {
     }
 }
 
+function textEreaAddSup(){
+    const hiddenTable = document.getElementById('hiddenTable-3');
+    const hiddenTable4 = document.getElementById('hiddenTable-StudentListToAdd');
 
+    if (hiddenTable.style.display === 'block') {
+        hiddenTable4.style.display = 'block';
+        hiddenTable4.style.position = 'absolute';
+        hiddenTable4.style.top = getComputedStyle(hiddenTable).top;
+        hiddenTable4.style.left =
+            parseInt(getComputedStyle(hiddenTable).left) + 250 + 'px';
+    }
+}
 
 async function showModalAddExamSchedule() {
     const hiddenTable = document.getElementById("hiddenTable-addTableExamSchedule");

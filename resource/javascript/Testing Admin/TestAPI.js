@@ -94,7 +94,7 @@ export function renderExamSchedule(idt) {
             <td>${schedule.form}</td>
             <td>${schedule.room}</td>
             <td>${schedule.type}</td>
-            <td><button class="button-supervisor" onclick="showTable3(this)">20/35</button></td>
+            <td><button class="button-supervisor" onclick="showTable3(this)">${schedule.totalStudent}/${schedule.capacity}</button></td>
             <td><button class="edit-button" onclick="showModalEditExamSchedule()">Edit</button></td>
             <td><button class="remove-button" onclick="showConfirmationModalExamSchedule(this)">Remove</button></td>
           `;
