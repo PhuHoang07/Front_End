@@ -200,10 +200,6 @@ async function addRowToTablesch() {
         }
     }
     const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/add", "POST", data);
-<<<<<<< HEAD
-
-=======
->>>>>>> b80f953bbc16bba45e75e38122684a59a6d0b974
     if (res.isSuccess == true) {
         console.log(res.message);
         errorMessage.style.display = "flex";
@@ -217,61 +213,11 @@ async function addRowToTablesch() {
 }
 
 
-<<<<<<< HEAD
-// async function showTable3() {
-//     const list = document.getElementById('add-tsu');
-//     const listItem = [];
-
-//     const hiddenTable = document.getElementById("hiddenTable-3");
-//     if (hiddenTable.style.display === "none") {
-//         hiddenTable.style.display = "block";
-//     } else {
-//         hiddenTable.style.display = 'none';
-//     }
-//     const data = {
-//         params: {
-//             'idt': '27',
-//             'subject': 'CSI104',
-//             'room': '004'
-//         }
-//     }
-//     const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/students", "GET", data);
-//     console.log(res);
-//     console.log(res.data.studentList);
-//     console.log(Object.keys(res.data).forEach(studentList));
-
-//     Object.keys(res.data).forEach((studentList) => {
-//         data[studentList].forEach((stu) => {
-//             const tablerow = document.createElement('tr');
-//             listItem.push(tablerow);
-//             tablerow.innerHTML = `
-//                 <td>${stu.username}</td>
-//                 <td>${stu.name}</td>
-//                 <td>${stu.rollNumber}</td>
-//               `;
-
-//             list.appendChild(tablerow);
-//         });
-//     });
-
-
-// }
-
-// function showTable3(button) {
-//     const hiddenTable = document.getElementById("hiddenTable-3");
-//     idt = button.parentNode.parentNode.getAttribute('idt');
-//     console.log(idt);
-
-//     if (hiddenTable.style.display === "none") {
-//         hiddenTable.style.display = "block";
-//     } else {
-//         hiddenTable.style.display = 'none';
-//     }
-// }
-
 async function showTable3(button) {
     // const list = document.getElementById('add-tsu');
 
+    const table = document.getElementById("add-tsu");
+    table.innerHTML = ``;
     const listItem = [];
    
     selectedButton = button;
@@ -282,16 +228,6 @@ async function showTable3(button) {
     console.log(subject);
 
 
-=======
-async function showTable3(button) {
-    selectedButton = button;
-    subject = button.parentNode.parentNode.cells[1].innerText; // Lấy giá trị từ cột thứ 2
-    room = button.parentNode.parentNode.cells[3].innerText;
-    console.log(subject);
-    console.log(room);
-    const list = document.getElementById('add-tsu');
-    const listItem = [];
->>>>>>> b80f953bbc16bba45e75e38122684a59a6d0b974
     const hiddenTable = document.getElementById("hiddenTable-3");
     if (hiddenTable.style.display === "none") {
         hiddenTable.style.display = "block";
@@ -305,54 +241,50 @@ async function showTable3(button) {
             'room': room
         }
     }
-<<<<<<< HEAD
     console.log(data);
     
     const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/students", "GET", data);
     // const table = document.getElementById("stu-list")
     const tableBody = hiddenTable.querySelector('#add-tsu');
-=======
-console.log(data);
-    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/students", "GET", data);
-    const table = document.getElementById("stu-list");
->>>>>>> b80f953bbc16bba45e75e38122684a59a6d0b974
     console.log(res);
     res.data.studentList.forEach((item, index) => {
         const tablerow = document.createElement('tr');
         listItem.push(tablerow);
         tablerow.innerHTML = `
-<<<<<<< HEAD
-    <td>${index + 1}</td>
-    <td>${item.rollNumber}</td>
-    <td>${item.name}</td>
-    <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
-    `;
-        tableBody.appendChild(tablerow);
-
-    });
-    // res.data.studentList.forEach(item, index => {
-    //     const tablerow = document.createElement('tr');
-    //     listItem.push(tablerow);
-    //     tablerow.innerHTML = `
-    // <td>${index}</td>
-    //  <td>${item.name}</td>
-    // `;
-    // table.appendChild(tablerow);
-    // });
-
-
-}
-
-
-=======
-                <td>${index}</td>
+                <td>${index+1}</td>
+                <td>${item.rollNumber}</td>
                 <td>${item.name}</td>
-                <input type="checkbox" class="data-checkbox">
+                <td><button class="remove-button" onclick="">Remove</button></td>
               `;
-        table.appendChild(tablerow);
+              tableBody.appendChild(tablerow);
     });
 }
-
+async function reFetch(){
+    const data = {
+        params: {
+            'idt': idt,
+            'subject': subject,
+            'room': room
+        }
+    }
+    const listItem = [];
+    const hiddenTable = document.getElementById("hiddenTable-3");
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/students", "GET", data);
+    // const table = document.getElementById("stu-list")
+    const tableBody = hiddenTable.querySelector('#add-tsu');
+    console.log(res);
+    res.data.studentList.forEach((item, index) => {
+        const tablerow = document.createElement('tr');
+        listItem.push(tablerow);
+        tablerow.innerHTML = `
+                <td>${index+1}</td>
+                <td>${item.rollNumber}</td>
+                <td>${item.name}</td>
+                <td><button class="remove-button" onclick="">Remove</button></td>
+              `;
+              tableBody.appendChild(tablerow);
+    });
+}
 
 const getSelectedButton = document.getElementById("get-selected");
 // Add a click event listener to the "Get Selected" button
@@ -371,50 +303,13 @@ async function getSelectedData() {
     }
     const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/students/add","POST",data);
     console.log(res);
-//     const checkboxes = document.querySelectorAll(".data-checkbox");
-//     const selectedNames = [];
-//   const selectedData = [];
-//   checkboxes.forEach(async checkbox => {
-//     if (checkbox.checked) {
-//         const row = checkbox.parentNode // Get the row containing the checkbox
-//         const cells = row.querySelectorAll("td");
-//         const index = cells[0].textContent;
-//         const name = cells[1].textContent;
-//         selectedNames.push(name);
     
-//       selectedData.push({ index,name });
-//     }
-//   });
-//   {
-//     "idt": 27,
-//     "subject": "CSI104",
-//     "room": "004",
-//     "students": [
-//       {
-//           "userName": "HiepNTSE171646",
-//           "name": "Ngo Tung Hiep",
-//           "rollNumber": "SE171646"
-//         }
-//     ]
-//   }
-//   const yourObject = {
-//     idt: 0,
-//     subject: "string",
-//     room: "string",
-//     students: ["string"],
-//   };
-//   yourObject.students = selectedNames;
-
-// Now yourObject.students will contain the selected names
-// console.log(yourObject);
-  // Use the selectedData array as needed
-//   console.log(selectedData);
-//   console.log(selectedNames);
+    
 };
 function AddStudent(){
     getSelectedData();
+    reFetch();
 }
->>>>>>> b80f953bbc16bba45e75e38122684a59a6d0b974
 function showTable4() {
     const hiddenTable = document.getElementById('hiddenTable-6');
     if (hiddenTable.style.display === 'none') {
@@ -464,33 +359,12 @@ function closeSupervisorTable() {
     SPtable.style.display = 'none';
 }
 
-<<<<<<< HEAD
-// function closeTable3() {
-//     const hiddenTable = document.getElementById('hiddenTable-3');
-//     const hiddenStudentListToAdd = document.getElementById('hiddenTable-StudentListToAdd');
-//     hiddenTable.style.display = 'none';
-//     hiddenStudentListToAdd.style.display = 'none';
-//     const table = document.getElementById("stu-list");
-//     table.innerHTML = ``;
-// }
-
-function closeTable3() {
-        const hiddenTable = document.getElementById('hiddenTable-3');
-        hiddenTable.style.display = 'none';
-        const table = document.getElementById("add-tsu");
-        table.innerHTML = ``;
-    }
-    
-=======
 function closeTable3() {
     const hiddenTable = document.getElementById('hiddenTable-3');
     const hiddenStudentListToAdd = document.getElementById('hiddenTable-StudentListToAdd');
     hiddenTable.style.display = 'none';
     hiddenStudentListToAdd.style.display = 'none';
-    const table = document.getElementById("stu-list");
-    table.innerHTML = ``;
 }
->>>>>>> b80f953bbc16bba45e75e38122684a59a6d0b974
 
 function closeTable4() {
     const hiddenTable = document.getElementById('hiddenTable-6');
@@ -521,179 +395,6 @@ function showStudentListToAdd() {
     }
 }
 
-// function addNewTable() {
-//     const hiddenTable = document.getElementById('hiddenTable');
-//     const hiddenTable4 = document.getElementById('hiddenTable-4');
-
-//     if (hiddenTable.style.display === 'block') {
-//         hiddenTable4.style.display = 'block';
-//         hiddenTable4.style.position = 'absolute';
-//         hiddenTable4.style.top = getComputedStyle(hiddenTable).top;
-//         hiddenTable4.style.left =
-//             parseInt(getComputedStyle(hiddenTable).left) + 250 + 'px';
-//     }
-// }
-
-// function addNewTable2() {
-//     const hiddenTable2 = document.getElementById('hiddenTable-2');
-//     const hiddenTable5 = document.getElementById('hiddenTable-5');
-
-//     if (hiddenTable2.style.display === 'block') {
-//         hiddenTable5.style.display = 'block';
-//         hiddenTable5.style.position = 'absolute';
-//         hiddenTable5.style.top = getComputedStyle(hiddenTable2).top;
-//         hiddenTable5.style.left =
-//             parseInt(getComputedStyle(hiddenTable2).left) + 250 + 'px';
-//     }
-// }
-
-// function addAndRemoveRows() {
-//     const numToAdd = parseInt(document.getElementById('searchInput').value, 10);
-//     const hiddenTable4 = document.getElementById('hiddenTable-4');
-//     const hiddenTable = document.getElementById('hiddenTable');
-//     const hiddenTableBody = hiddenTable.querySelector('tbody');
-
-//     // Lấy tất cả các dòng trong hiddenTable-4
-//     const rows4 = hiddenTable4.querySelectorAll('tbody tr');
-
-//     // Tính số thứ tự tiếp theo trong hiddenTable
-//     const currentRowCount = hiddenTableBody.children.length;
-//     let nextRowNumber = currentRowCount + 1;
-
-//     for (let i = 0; i < numToAdd && i < rows4.length; i++) {
-//         const row4 = rows4[i];
-//         const cells4 = row4.querySelectorAll('td');
-
-//         // Tạo một dòng mới trong hiddenTable
-//         const newRow = document.createElement('tr');
-
-//         // Thêm số thứ tự vào dòng mới
-//         const cellNo = document.createElement('td');
-//         cellNo.textContent = nextRowNumber;
-//         newRow.appendChild(cellNo);
-
-//         // Sao chép các cột (ngoại trừ cột "No") từ hiddenTable-4
-//         for (let j = 1; j < 3; j++) {
-//             const cell = document.createElement('td');
-//             cell.textContent = cells4[j].textContent;
-//             newRow.appendChild(cell);
-//         }
-
-//         // Tạo một nút "Remove" và thêm nó vào dòng mới
-//         const removeButton = document.createElement('button');
-//         removeButton.className = 'remove-button';
-//         removeButton.textContent = 'Remove';
-//         removeButton.onclick = function () {
-//             showConfirmationModal(this); // Gọi hàm `showConfirmationModal` với nút "Remove" đã được ấn
-//         };
-//         const removeCell = document.createElement('td');
-//         removeCell.appendChild(removeButton);
-//         newRow.appendChild(removeCell);
-
-//         hiddenTableBody.appendChild(newRow);
-
-//         // Tăng số thứ tự cho dòng tiếp theo
-//         nextRowNumber++;
-
-//         // Loại bỏ dòng đã thêm vào hiddenTable-4
-//         row4.remove();
-//     }
-
-//     let count = 1; // Bắt đầu từ số 1
-//     for (let i = 0; i < rows4.length; i++) {
-//         const row4 = rows4[i];
-//         const cells4 = row4.querySelectorAll('td');
-//         cells4[0].textContent = count;
-//         count++; // Tăng giá trị của count sau mỗi lần sử dụng
-//     }
-// }
-
-// function addAndRemoveRows2() {
-//     const numToAdd = parseInt(
-//         document.getElementById('searchInput2').value,
-//         10
-//     );
-//     const hiddenTable4 = document.getElementById('hiddenTable-5');
-//     const hiddenTable = document.getElementById('hiddenTable-2');
-//     const hiddenTableBody = hiddenTable.querySelector('tbody');
-
-//     // Lấy tất cả các dòng trong hiddenTable-4
-//     const rows4 = hiddenTable4.querySelectorAll('tbody tr');
-
-//     // Tính số thứ tự tiếp theo trong hiddenTable
-//     const currentRowCount = hiddenTableBody.children.length;
-//     let nextRowNumber = currentRowCount + 1;
-
-//     for (let i = 0; i < numToAdd && i < rows4.length; i++) {
-//         const row4 = rows4[i];
-//         const cells4 = row4.querySelectorAll('td');
-
-//         // Tạo một dòng mới trong hiddenTable
-//         const newRow = document.createElement('tr');
-
-//         // Thêm số thứ tự vào dòng mới
-//         const cellNo = document.createElement('td');
-//         cellNo.textContent = nextRowNumber;
-//         newRow.appendChild(cellNo);
-
-//         for (let j = 1; j < 4; j++) {
-//             const cell = document.createElement('td');
-//             cell.textContent = cells4[j].textContent;
-//             newRow.appendChild(cell);
-//         }
-
-//         const listStudent = document.createElement('button');
-//         listStudent.className = 'button-supervisor';
-//         listStudent.onclick = function () {
-//             showTable3(); // Đặt hàm xử lý sự kiện cho nút listStudent ở đây
-//         };
-
-//         const listCell = document.createElement('td');
-//         listCell.appendChild(listStudent);
-//         newRow.appendChild(listCell);
-
-//         // Sau khi đã thêm button vào dòng, bạn có thể cập nhật số dòng ở đây
-//         const hiddenTable3 = document.getElementById('hiddenTable-3');
-//         if (hiddenTable3) {
-//             // Truy cập tbody của bảng hiddenTable-3
-//             const tbody = hiddenTable3.querySelector('tbody');
-//             if (tbody) {
-//                 // Đếm số lượng dòng trong tbody
-//                 const rowCount = tbody.rows.length;
-//                 listStudent.textContent = `${rowCount}/35`;
-//             }
-//         }
-
-//         const editButton = document.createElement('button');
-//         editButton.className = 'edit-button';
-//         editButton.textContent = 'Edit';
-//         editButton.onclick = function () {
-//             showEditModal(this); // Đặt hàm xử lý sự kiện cho nút Edit ở đây
-//         };
-//         const editCell = document.createElement('td');
-//         editCell.appendChild(editButton);
-//         newRow.appendChild(editCell);
-
-//         // Tạo một nút "Remove" và thêm nó vào dòng mới
-//         const removeButton = document.createElement('button');
-//         removeButton.className = 'remove-button';
-//         removeButton.textContent = 'Remove';
-//         removeButton.onclick = function () {
-//             showConfirmationModal(this); // Gọi hàm `showConfirmationModal` với nút "Remove" đã được ấn
-//         };
-//         const removeCell = document.createElement('td');
-//         removeCell.appendChild(removeButton);
-//         newRow.appendChild(removeCell);
-
-//         hiddenTableBody.appendChild(newRow);
-
-//         // Tăng số thứ tự cho dòng tiếp theo
-//         nextRowNumber++;
-
-//         // Loại bỏ dòng đã thêm vào hiddenTable-4
-//         row4.remove();
-//     }
-// }
 function showConfirmationModalEdit(button) {
     const hiddenTable = document.getElementById("hiddenTable-7");
     hiddenTable.style.display = "block";
