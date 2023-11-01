@@ -122,20 +122,11 @@
                         <th>Member Code</th>
                         <th>Full Name</th>
                         <th></th>
+                      
+                   
                     </tr>
                 </thead>
-                <tbody id="add-tsu">
-                    <tr>
-                        <td>1</td>
-                        <td>nguyenlv</td>
-                        <td>Lê Văn Nguyên</td>
-                        <td>
-                            <button class="remove-button" onclick="showConfirmationModal(this)">
-                                Remove
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
+                <tbody id="add-tsu"></tbody>
                 <button class="add-button" onclick="showStudentListToAdd()">
                     <i class="fa-solid fa-user-plus fa-lg"></i>
                 </button>
@@ -153,10 +144,12 @@
                     <tr>
                         <th>No</th>
                         <th>Member Code</th>
-                        <th></th>
+                        <th>Full Name</th>
+
+                      
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody id="stu-list" ></tbody>
             </table>
 
         </div>
@@ -189,7 +182,7 @@
             </table>
         </div>
 
-        <div class="table-container-hidden-3" id="hiddenTable-5" style="display: none">
+        <!-- <div class="table-container-hidden-3" id="hiddenTable-5" style="display: none">
             <div class="search-field-2">
                 <input id="searchInput2" type="number" placeholder="Search" />
                 <button onclick="addAndRemoveRows2()">Add</button>
@@ -216,7 +209,7 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div> -->
 
         <!-- ADD -->
         <div class="table-container-hidden-4" id="hiddenTable-6" style="display: none">
