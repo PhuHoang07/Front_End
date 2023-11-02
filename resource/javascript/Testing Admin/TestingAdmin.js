@@ -64,7 +64,6 @@ res.data.forEach((item, index) => {
             <td>${item.name}</td>
             <td>${item.username}</td>
             <td>${item.email}</td>
-            <td><button class="remove-button" onclick="">Remove</button></td>
           `;
     table.appendChild(tablerow);
 });
@@ -96,7 +95,6 @@ res.data.forEach((item, index) => {
             <td>${item.name}</td>
             <td>${item.username}</td>
             <td>${item.email}</td>
-            <td><button class="remove-button" onclick="">Remove</button></td>
           `;
     table.appendChild(tablerow);
 });
@@ -326,7 +324,7 @@ async function reFetch(){
     const tableBody = hiddenTable.querySelector('#add-tsu');
     console.log(res);
     res.data.studentList.forEach((item, index) => {
-        const tablerow = document.createElement('tr');
+        const tablerow = document.createElement('tr');  
         listItem.push(tablerow);
         tablerow.innerHTML = `
                 <td>${index+1}</td>
@@ -337,12 +335,18 @@ async function reFetch(){
               tableBody.appendChild(tablerow);
     });
 }
+
+
 const textarea = document.getElementById("inputStu");
+const textareasuper = document.getElementById("inputSuper");
 const clearButton = document.getElementById("clearButton");
+
 clearButton.addEventListener("click", function() {
     // Clear the textarea by setting its value to an empty string
     textarea.value = "";
+    textareasuper.value = "";
   });
+
 
 const getSelectedButton = document.getElementById("get-selected");
 // Add a click event listener to the "Get Selected" button
@@ -407,13 +411,28 @@ function AddStudent(){
 
 function addSuper(){
     getSelectedDataSup();
-    reFetchSup();
 }
 async function getSelectedDataSup() {
+    const notificationContainer = document.getElementById("notificationContainerSup");
     const textarea = document.getElementById("inputSuper");
     const inputtedText = textarea.value;    
     const usernameArray = inputtedText.split("\n").filter(username => username.trim() !== '');
     console.log("Inputted Text:", usernameArray);
+    if(usernameArray.length === 0){
+        console.log("Empty Array");
+        const notification = document.createElement("div");
+        notification.className = "notification";
+        notification.innerText = "Please Input UserName!";
+        notificationContainer.appendChild(notification);
+  
+        // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
+        setTimeout(function() {
+          notification.style.display = "none"; // Ẩn thông báo
+        }, 3000);
+      
+        return;
+
+    }else{
     const data = {
        body: {
             'idt': idt,
@@ -422,6 +441,31 @@ async function getSelectedDataSup() {
 }
     const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/proctors/add","POST",data);
     console.log(res);
+    if(res.isSuccess = true){
+        const notification = document.createElement("div");
+        notification.className = "notification";
+        notification.innerText = res.message;
+        notificationContainer.appendChild(notification);
+  
+        // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
+        setTimeout(function() {
+          notification.style.display = "none"; // Ẩn thông báo
+        }, 3000);
+        const table = document.getElementById("table_body_super");
+    table.innerHTML=``;
+    reFetchSup();
+    }else{
+        const notification = document.createElement("div");
+        notification.className = "notification";
+        notification.innerText = res.message;
+        notificationContainer.appendChild(notification);
+  
+        // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
+        setTimeout(function() {
+          notification.style.display = "none"; // Ẩn thông báo
+        }, 3000);
+    }
+    }
     
     
 };
@@ -637,6 +681,8 @@ function closeTable3() {
 function closeTable4() {
     const hiddenTable = document.getElementById('hiddenTable-6');
     hiddenTable.style.display = 'none';
+    const message = document.getElementById('error-message');
+    message.style.display = 'none';
 }
 
 function closeTable5() {

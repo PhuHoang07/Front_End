@@ -119,9 +119,9 @@
                         <th>No</th>
                         <th>Name</th>
                         <th>Username</th>
-                        <th>Email</th>
-                        <th><i class="fa-regular fa-circle-xmark fa-lg close-button"
+                        <th>Email<i class="fa-regular fa-circle-xmark fa-lg close-button"
                                 onclick="closeSupervisorTable()"></i></th>
+                        
 
                     </tr>
                 </thead>
@@ -137,9 +137,11 @@
                 <form>
                     <textarea id="inputSuper" name="inputSuper" placeholder="Username..."></textarea>
                 </form>
-                <div class="search-field-2">
+                <div class="AddstudentButton">
                     <a href="#" title="button shiny 3" onclick="addSuper()" class="fui-button-shiny-3"> Add +</a>
+                    <button id="clearButton" class="fui-button-shiny-3">Clear Text</button>
                 </div>
+                <div class="notification-container" id="notificationContainerSup"></div>
                 </div>
         </div>
         
