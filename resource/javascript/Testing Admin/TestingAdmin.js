@@ -34,6 +34,9 @@ async function showSupervisor(button) {
     idt = button.parentNode.parentNode.getAttribute('idt');
     console.log(idt);
 const table = document.getElementById("table_body_super");
+
+table.innerHTML=``;
+
 const data = {
     params :{
         'idt': idt
@@ -41,12 +44,23 @@ const data = {
 }
 const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/proctors","GET",data);
 console.log(res);
-
+if(res.data.length === 0){
+    const noSupRow = document.createElement('tr');
+        listItem.push(noSupRow);
+        noSupRow.innerHTML =`<td colspan="8" class="no-Supervisor">No Supervisor</td>`;
+            table.appendChild(noSupRow);
+            if (hiddenTable.style.display === "none") {
+                hiddenTable.style.display = "block";
+            } else {
+                hiddenTable.style.display = 'none';
+            }
+            return;
+}
 res.data.forEach((item, index) => {
     const tablerow = document.createElement('tr');
     listItem.push(tablerow);
     tablerow.innerHTML = `
-            <td>${index}</td>
+            <td>${index+1}</td>
             <td>${item.name}</td>
             <td>${item.username}</td>
             <td>${item.email}</td>
@@ -60,6 +74,34 @@ res.data.forEach((item, index) => {
     } else {
         hiddenTable.style.display = 'none';
     }
+}
+async function reFetchSup(button) {
+    const listItem=[];
+    const hiddenTable = document.getElementById("SupervisorTable");
+    console.log(idt);
+const table = document.getElementById("table_body_super");
+const data = {
+    params :{
+        'idt': idt
+    }
+}
+const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/proctors","GET",data);
+console.log(res);
+
+res.data.forEach((item, index) => {
+    const tablerow = document.createElement('tr');
+    listItem.push(tablerow);
+    tablerow.innerHTML = `
+            <td>${index+1}</td>
+            <td>${item.name}</td>
+            <td>${item.username}</td>
+            <td>${item.email}</td>
+            <td><button class="remove-button" onclick="">Remove</button></td>
+          `;
+    table.appendChild(tablerow);
+});
+hiddenTable.style.display = "block";
+    
 }
 
 function showConfirmationModalExamSchedule(button) {
@@ -108,8 +150,8 @@ async function confirmRemoveExamSchedule(confirmation) {
 }
 
 function textEreaAddSup(){
-    const hiddenTable = document.getElementById('hiddenTable-3');
-    const hiddenTable4 = document.getElementById('hiddenTable-StudentListToAdd');
+    const hiddenTable = document.getElementById('SupervisorTable');
+    const hiddenTable4 = document.getElementById('superTextToAdd');
 
     if (hiddenTable.style.display === 'block') {
         hiddenTable4.style.display = 'block';
@@ -246,7 +288,17 @@ async function showTable3(button) {
     const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/students", "GET", data);
     // const table = document.getElementById("stu-list")
     const tableBody = hiddenTable.querySelector('#add-tsu');
-    console.log(res);
+    console.log(res.data.studentList);
+    if(res.data.studentList.length === 0){
+        const noSupRow = document.createElement('tr');
+        listItem.push(noSupRow);
+        noSupRow.innerHTML =`<td colspan="8" class="no-Student">No Student...</td>`;
+            table.appendChild(noSupRow);
+           
+                hiddenTable.style.display = "block";
+           
+            return;
+    }
     res.data.studentList.forEach((item, index) => {
         const tablerow = document.createElement('tr');
         listItem.push(tablerow);
@@ -295,9 +347,9 @@ async function getSelectedData() {
     console.log("Inputted Text:", usernameArray);
     const data = {
        body: {
-            'idt': 27,
-            "subject": "CSI104",
-            "room": "004",
+            'idt': idt,
+            "subject": subject,
+            "room": room,
             "students": usernameArray
           }
     }
@@ -310,6 +362,29 @@ function AddStudent(){
     getSelectedData();
     reFetch();
 }
+
+function addSuper(){
+    getSelectedDataSup();
+    reFetchSup();
+}
+async function getSelectedDataSup() {
+    const textarea = document.getElementById("inputSuper");
+    const inputtedText = textarea.value;    
+    const usernameArray = inputtedText.split("\n").filter(username => username.trim() !== '');
+    console.log("Inputted Text:", usernameArray);
+    const data = {
+       body: {
+            'idt': idt,
+            "proctorList": usernameArray
+    }
+}
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/proctors/add","POST",data);
+    console.log(res);
+    
+    
+};
+
+
 function showTable4() {
     const hiddenTable = document.getElementById('hiddenTable-6');
     if (hiddenTable.style.display === 'none') {

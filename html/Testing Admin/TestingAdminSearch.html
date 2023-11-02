@@ -112,28 +112,38 @@
             </table>
         </div>
 
- <!-- SUPERVISOR TABLE -->
- <div class="table-container-hidden-2" id="SupervisorTable" style="display: none">
-    <table>
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Name</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th><i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeSupervisorTable()"></i></th>
+        <!-- SUPERVISOR TABLE -->
+        <div class="table-container-hidden-2" id="SupervisorTable" style="display: none">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th><i class="fa-regular fa-circle-xmark fa-lg close-button"
+                                onclick="closeSupervisorTable()"></i></th>
 
-            </tr>
-        </thead>
-        <tbody id="table_body_super"></tbody>
-        <div id="messageRemove" class="messageRemove"></div>
-        <button class="add-button" onclick="textEreaAddSup()">
-            <i class="fa-solid fa-plus fa-xl"></i>
-        </button>
+                    </tr>
+                </thead>
+                <tbody id="table_body_super"></tbody>
+                <div id="messageRemove" class="messageRemove"></div>
+                <button class="add-button" onclick="textEreaAddSup()">
+                    <i class="fa-solid fa-plus fa-xl"></i>
+                </button>
 
-    </table>
-</div>
+            </table>
 
+            <div class="table-container-hidden-3" id="superTextToAdd" style="display: none;">
+                <form>
+                    <textarea id="inputSuper" name="inputSuper" placeholder="Username..."></textarea>
+                </form>
+                <div class="search-field-2">
+                    <a href="#" title="button shiny 3" onclick="addSuper()" class="fui-button-shiny-3"> Add +</a>
+                </div>
+                </div>
+        </div>
+        
         <!-- VIEW STUDENT LIST TABLE -->
         <div class="table-container-hidden-2" id="hiddenTable-3" style="display: none">
             <table>
@@ -143,25 +153,25 @@
                         <th>Member Code</th>
                         <th>Full Name</th>
                         <th><i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTable3()"></i></th>
-                      
-                   
+
+
                     </tr>
                 </thead>
                 <tbody id="add-tsu"></tbody>
                 <button class="add-button" onclick="showStudentListToAdd()">
                     <i class="fa-solid fa-user-plus fa-lg"></i>
                 </button>
-                
-                <br/>
+
+                <br />
             </table>
         </div>
 
         <div class="table-container-hidden-3" id="hiddenTable-StudentListToAdd" style="display: none;">
             <form>
                 <textarea id="inputStu" name="inputStu" placeholder="Username..."></textarea>
-              </form>
+            </form>
             <div class="search-field-2">
-<a href="#" title="button shiny 3" onclick="AddStudent()"  class="fui-button-shiny-3"> Add +</a>
+                <a href="#" title="button shiny 3" onclick="AddStudent()" class="fui-button-shiny-3"> Add +</a>
             </div>
             <!-- <table>
                 <thead>
@@ -231,8 +241,8 @@
                         </td>
                         <td><input type="radio" /></td>
                     </tr> -->
-                </tbody>
-            </table>
+        </tbody>
+        </table>
         </div> -->
 
         <!-- ADD -->
