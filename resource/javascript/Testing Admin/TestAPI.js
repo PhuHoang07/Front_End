@@ -1,18 +1,13 @@
 const list = document.getElementById('table_body');
 const search = document.getElementById('search');
 const listItem = [];
-const listItemview = [];
-const listview = document.getElementById('table_bodyview');
 // call fetch function from utils.js file
 const response = await fetchAPIData(
     'https://swp-esms-api.azurewebsites.net/api/exams/current',
     'GET'
 );
 const data = response.data;
-
-
 renderExamTime();
-renderExamTimeview();
 
 //------------------------------------------------fectch data into table------------------------------------------------------------------
 function renderExamTime() {
@@ -59,7 +54,7 @@ function renderExamTime() {
 //--------------------------------------------- for student table ----------------------------------------------------------------------------------------
 
 //------------------------------------------------fetch data into table------------------------------------------------------------------
-export function renderExamSchedule(idt) {
+function renderExamSchedule(idt) {
     const list01 = document.getElementById('table_body_3');
     const listItem01 = [];
 
@@ -106,44 +101,6 @@ export function renderExamSchedule(idt) {
     });
 }
 
-function renderExamTimeview() {
-    listview.innerHTML = '';
-
-    Object.keys(data).forEach((semester) => {
-        data[semester].forEach((examTime) => {
-            if (examTime.length == 0) {
-                const noScheduleRow = document.createElement('tr');
-                noScheduleRow.innerHTML =
-                    '<td colspan="8" class="no-schedule">No exam schedule</td>';
-                listview.appendChild(noScheduleRow);
-                return;
-            }
-
-            const tablerow = document.createElement('tr');
-            tablerow.setAttribute('idt', examTime.idt);
-            listItemview.push(tablerow);
-            tablerow.innerHTML = `
-                <td>${examTime.date}</td>
-                <td>${examTime.start} - ${examTime.end}</td>
-                <td><button class="button-supervisor" onclick="showTable()">20/35</button></td>
-                <td>${examTime.publishDate}</td>
-                <td>${examTime.slot}</td>
-                <td><i onclick="showTable2() "class="fa-solid fa-square-caret-down fa-2xl btn-showExamSchedule"></i></td>
-
-
-              `;
-
-            listview.appendChild(tablerow);
-        });
-    });
-
-    Array.from(document.getElementsByClassName('btn-showExamSchedule')).forEach(
-        (btn) => {
-            const idt = btn.parentElement.parentElement.getAttribute('idt');
-            btn.addEventListener('click', () => renderExamSchedule(idt));
-        }
-    );
-}
 
 // const studentList = document.getElementById('add-tsu');
 // const responseStudent = await fetchAPIData(

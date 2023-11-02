@@ -306,7 +306,7 @@ async function showTable3(button) {
                 <td>${index+1}</td>
                 <td>${item.rollNumber}</td>
                 <td>${item.name}</td>
-                <td><button class="remove-button" onclick="">Remove</button></td>
+                <td>${item.userName}</td>
               `;
               tableBody.appendChild(tablerow);
     });
@@ -332,11 +332,17 @@ async function reFetch(){
                 <td>${index+1}</td>
                 <td>${item.rollNumber}</td>
                 <td>${item.name}</td>
-                <td><button class="remove-button" onclick="">Remove</button></td>
+                <td>${item.userName}</td>
               `;
               tableBody.appendChild(tablerow);
     });
 }
+const textarea = document.getElementById("inputStu");
+const clearButton = document.getElementById("clearButton");
+clearButton.addEventListener("click", function() {
+    // Clear the textarea by setting its value to an empty string
+    textarea.value = "";
+  });
 
 const getSelectedButton = document.getElementById("get-selected");
 // Add a click event listener to the "Get Selected" button
@@ -344,7 +350,28 @@ async function getSelectedData() {
     const textarea = document.getElementById("inputStu");
     const inputtedText = textarea.value;    
     const usernameArray = inputtedText.split("\n").filter(username => username.trim() !== '');
+    if(usernameArray.length === 0){
+        console.log("Empty Array");
+        const notificationContainer = document.getElementById("notificationContainer");
+
+        const notification = document.createElement("div");
+        notification.className = "notification";
+        notification.innerText = "Please Input UserName!";
+  
+        notificationContainer.appendChild(notification);
+  
+        // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
+        setTimeout(function() {
+          notification.style.display = "none"; // Ẩn thông báo
+        }, 3000);
+      
+        return;
+
+    }else{
+
+    
     console.log("Inputted Text:", usernameArray);
+
     const data = {
        body: {
             'idt': idt,
@@ -355,12 +382,27 @@ async function getSelectedData() {
     }
     const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/students/add","POST",data);
     console.log(res);
-    
-    
+
+    const notificationContainer = document.getElementById("notificationContainer");
+    const notification = document.createElement("div");
+
+    notification.className = "notification";
+    notification.innerText = res.message;
+    notificationContainer.appendChild(notification);
+
+    // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
+    setTimeout(function() {
+      notification.style.display = "none"; // Ẩn thông báo
+    }, 3000);
+}
 };
 function AddStudent(){
     getSelectedData();
+    const hiddenTable = document.getElementById("hiddenTable-3");
+    const tableBody = hiddenTable.querySelector('#add-tsu');
+    tableBody.innerHTML = ``;
     reFetch();
+    
 }
 
 function addSuper(){
@@ -444,7 +486,6 @@ function closeTable3() {
 function closeTable4() {
     const hiddenTable = document.getElementById('hiddenTable-6');
     hiddenTable.style.display = 'none';
-    location.reload();
 }
 
 function closeTable5() {
@@ -654,6 +695,7 @@ async function addRowToTable2() {
         console.log(res.message);
         errorMessagetest.style.display = 'flex';
         errorMessagetest.innerHTML = res.message;
+        renderExamTime();
     } else {
         console.log(res.message);
         errorMessagetest.style.display = 'flex';
@@ -759,4 +801,103 @@ function closeConfirmationModal() {
 
 
 
+async function renderExamTime() {
+    const list = document.getElementById('table_body');
+const listItem = [];
+// call fetch function from utils.js file
+const response = await fetchAPIData(
+    'https://swp-esms-api.azurewebsites.net/api/exams/current',
+    'GET'
+);
+const data = response.data;
 
+    list.innerHTML = '';
+
+    Object.keys(data).forEach((semester) => {
+        data[semester].forEach((examTime) => {
+            if (examTime.length == 0) {
+                const noScheduleRow = document.createElement('tr');
+                noScheduleRow.innerHTML =
+                    '<td colspan="8" class="no-schedule">No exam schedule</td>';
+                list.appendChild(noScheduleRow);
+                return;
+            }
+
+            const tablerow = document.createElement('tr');
+            tablerow.setAttribute('idt', examTime.idt);
+            listItem.push(tablerow);
+            tablerow.innerHTML = `
+                <td>${examTime.date}</td>
+                <td>${examTime.start} - ${examTime.end}</td>
+                <td><button class="button-supervisor" onclick="showSupervisor(this)">${examTime.totalSupervisor}/${examTime.requireSupervisor}</button></td>
+                <td><button class="edit-button" onclick="showConfirmationModalEdit(this)">Edit</button></td>
+                <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
+                <td>${examTime.publishDate}</td>
+                <td>${examTime.slot}</td>
+                <td><i onclick="showTable2(this) "class="fa-solid fa-square-caret-down fa-2xl btn-showExamSchedule"></i></td>
+
+
+              `;
+
+            list.appendChild(tablerow);
+        });
+    });
+
+    Array.from(document.getElementsByClassName('btn-showExamSchedule')).forEach(
+        (btn) => {
+            const idt = btn.parentElement.parentElement.getAttribute('idt');
+            btn.addEventListener('click', () => renderExamSchedule(idt));
+        }
+    );
+}
+async function renderExamSchedule(idt) {
+    const response = await fetchAPIData(
+        'https://swp-esms-api.azurewebsites.net/api/exams/current',
+        'GET'
+    );
+    const data = response.data;
+    const list01 = document.getElementById('table_body_3');
+    const listItem01 = [];
+
+    const trow = document.createElement('tr');
+    list01.appendChild(trow);
+
+    let numgrade = 1;
+
+    list01.innerHTML = '';
+
+    // Retrieve the semester values from the API response
+    const semesters = Object.keys(data);
+
+    semesters.forEach((semester) => {
+        const exams = data[semester];
+
+        exams.forEach((exam) => {
+            if (exam.idt != idt) return;
+
+            const examSchedules = exam.examSchedules;
+            if (examSchedules.length == 0) {
+                const noScheduleRow = document.createElement('tr');
+                noScheduleRow.innerHTML =
+                    '<td colspan="8" class="no-schedule">No exam schedule</td>';
+                list01.appendChild(noScheduleRow);
+            }
+
+            examSchedules.forEach((schedule) => {
+                const tablerow = document.createElement('tr');
+                listItem01.push(tablerow);
+                tablerow.innerHTML = `
+            <td>${numgrade++}</td>
+            <td>${schedule.subject}</td>
+            <td>${schedule.form}</td>
+            <td>${schedule.room}</td>
+            <td>${schedule.type}</td>
+            <td><button class="button-supervisor" onclick="showTable3(this)">${schedule.totalStudent}/${schedule.capacity}</button></td>
+            <td><button class="edit-button" onclick="showModalEditExamSchedule()">Edit</button></td>
+            <td><button class="remove-button" onclick="showConfirmationModalExamSchedule(this)">Remove</button></td>
+          `;
+                list01.appendChild(tablerow);
+            });
+        });
+    });
+}
