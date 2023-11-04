@@ -62,8 +62,67 @@
         <!--Welcome section-->
         <div class="title">
             <h2>VIEW EXAM SLOTS</h2>
+            <!-------------------------------------------------------SEARCH-------------------------------------------->
+        </div>
+        <div>
+            <div class="selectSearch-container">
+
+                <div class="search-group"><label>Semester:</label>
+                    <select class="Search_Select" id="Semester_Select"></select>
+                </div>
+                <div class="search-group"><label>Subjects:</label>
+                    <div class="custom-dropdown">
+                        <button class="Search_Select Filter_Bt" id="open-dropdown">Open Dropdown</button>
+                        <div class="Select_Subject_overLap" id="dropdown-Search">
+                            <div>
+                                <select class="option_window_left" id="Subject_filter_Left" multiple>
+                                    <!-- Options in the left select go here -->
+                                </select>
+                            </div>
+
+                            <div>
+                                <select class="option_window_right" id="Subject_filter_Right" multiple>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
+        </div>
+
+        <div class="selectSearch-container" id="Filter_Date">
+
+            <div class="search-group">
+                <label for="date">Date:</label>
+                <input type="date" />
+            </div>
+            <div class="search-group">
+                <label for="start-time">Start Time:</label>
+                <input type="time" id="start-time-input"
+                   />
+            </div>
+
+            <div class="search-group">
+                <label for="start-time">End Time:</label>
+                <input type="time" id="end-time-input"
+                   />
+            </div>
+
+            <div class="search-group">
+                <label for="date">Publish Date:</label>
+                <input type="date" />
+            </div>
+
+        </div>
+        </div>
+        <div class="selectSearch-container">
+            <button class="Search_Select Filter_Bt" onclick="StartFilter()"> Filter!</button>
+        </div>
+        </div>
+        <!-------------------------------------------------------SEARCH END-------------------------------------------->
         <div class="table-container">
             <table>
                 <thead>
@@ -92,17 +151,15 @@
                         <th>Form</th>
                         <th>Room</th>
                         <th>Type</th>
-                        <th>Student</th>
-                        <th></th>
-                        <th><i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTable2()"></i></th>
+                        <th>Student<i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTable2()"></i>
+                        </th>
+
 
                     </tr>
                 </thead>
                 <tbody id="table_body_3"></tbody>
                 <div id="messageRemove" class="messageRemove"></div>
-                <button class="add-button" onclick="showModalAddExamSchedule(this)">
-                    <i class="fa-solid fa-plus fa-xl"></i>
-                </button>
+
 
             </table>
         </div>
@@ -136,9 +193,9 @@
                 <div class="search-field-2">
                     <a href="#" title="button shiny 3" onclick="addSuper()" class="fui-button-shiny-3"> Add +</a>
                 </div>
-                </div>
+            </div>
         </div>
-        
+
         <!-- VIEW STUDENT LIST TABLE -->
         <div class="table-container-hidden-2" id="hiddenTable-3" style="display: none">
             <table>
@@ -146,16 +203,14 @@
                     <tr>
                         <th>No</th>
                         <th>Member Code</th>
-                        <th>Full Name</th>
-                        <th><i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTable3()"></i></th>
+                        <th>Full name</th>
+                        <th>User name<i class="fa-regular fa-circle-xmark fa-lg close-button"
+                                onclick="closeTable3()"></i></th>
 
 
                     </tr>
                 </thead>
                 <tbody id="add-tsu"></tbody>
-                <button class="add-button" onclick="showStudentListToAdd()">
-                    <i class="fa-solid fa-user-plus fa-lg"></i>
-                </button>
 
                 <br />
             </table>
@@ -226,7 +281,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- <tr>
+                     <tr>
                         <td>1</td>
                         <td>fn11</td>
                         <td>
@@ -238,7 +293,30 @@
                     </tr> -->
         </tbody>
         </table>
-        </div> -->
+        </div> 
+
+
+<!--  FILTER   TIME TABLE -->
+<div class="table-container-hidden-2 follow_Scroll" id="filtered_time_table" style="display: none">
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Subject</th>
+                <th>Form</th>
+                <th>Room</th>
+                <th>Type</th>
+                <th>Student<i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeFIlteredTimeTable()"></i></th>
+
+            </tr>
+        </thead>
+        <tbody id="table_body_Filtered_Time"></tbody>
+        <div id="messageRemove" class="messageRemove"></div>
+            <i class="fa-solid fa-plus fa-xl"></i>
+        </button>
+
+    </table>
+</div>
 
         <!-- ADD -->
         <div class="table-container-hidden-4" id="hiddenTable-6" style="display: none">

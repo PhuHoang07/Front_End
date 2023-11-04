@@ -337,16 +337,18 @@ async function reFetch(){
 }
 
 
-const textarea = document.getElementById("inputStu");
+const textareaStu = document.getElementById("inputStu");
 const textareasuper = document.getElementById("inputSuper");
-const clearButton = document.getElementById("clearButton");
-
-clearButton.addEventListener("click", function() {
+const clearButtonStu = document.getElementById("clearButtonStu");
+const clearButtonSup = document.getElementById("clearButtonSup");
+clearButtonStu.addEventListener("click", function() {
     // Clear the textarea by setting its value to an empty string
-    textarea.value = "";
+    textareaStu.value = "";
+  });
+  clearButtonSup.addEventListener("click", function() {
+    // Clear the textarea by setting its value to an empty string
     textareasuper.value = "";
   });
-
 
 const getSelectedButton = document.getElementById("get-selected");
 // Add a click event listener to the "Get Selected" button

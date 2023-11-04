@@ -353,6 +353,7 @@ textarea {
     text-transform: capitalize;
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     text-decoration: none;
+    cursor: pointer;
   }
   select:invalid{
     color: gray;
@@ -367,6 +368,7 @@ textarea {
     left: 0;
     top: 0;
     opacity: 0.5s;
+    cursor: pointer;
     filter: blur(30px);
     transform: translateX(-130px) skewX(-15deg);
   }
@@ -380,21 +382,25 @@ textarea {
     left: 30px;
     top: 0;
     opacity: 0;
+    cursor: pointer;
     filter: blur(30px);
     transform: translateX(-100px) skewX(-15deg);
   }
   .fui-button-shiny-3:hover {
     background-color: #1dc071;
     color: #fff;
+    cursor: pointer;
   }
   .fui-button-shiny-3:hover::before {
     transform: translateX(300px) skewX(-15deg);
     opacity: 0.6;
+    cursor: pointer;
     transition: all linear 0.5s;
   }
   .fui-button-shiny-3:hover::after {
     transform: translateX(300px) skewX(-15deg);
     opacity: 0.6;
+    cursor: pointer;
     transition: all linear 0.5s;
   }
   .AddstudentButton{
@@ -433,4 +439,98 @@ textarea {
       transform: translateY(0);
       opacity: 1;
     }
+  }
+  .selectSearch-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 80px;
+  }
+  #search-input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  .search-group{
+    display: flex;
+    padding-right: 10px;
+  }
+  .search-group label{
+    padding-right: 10px;
+  }
+ .Search_Select{
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+  
+  .Search_Select option {
+    background-color: #fff;
+    color: #333;
+  }
+ .Filter_Bt {
+    background: #0074d9;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+  }
+
+  #searchInput {
+    width: 100%;
+    padding: 5px;
+  }
+  .search-Addgroup{
+    display: block;
+  }
+ .follow_Scroll{
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+  }
+
+  .Select_Subject_overLap{
+    display: flex;
+    position: absolute;
+    width: 40%;
+    left: 53%;
+    top: 140px;
+    height: 100px;
+ display: none;
+  }
+  .option_window_left{
+    background-color: #ffffff;
+    width: 10cm;
+    height: 10cm;
+    border-radius: 20px;
+    border-style: solid;
+  border-color: rgb(0, 0, 0);
+  overflow: auto;
+  
+  }
+  .option_window_right{
+    background-color: #ffffff;
+    width: 10cm;
+    height: 10cm;
+    border-radius: 20px;
+    border-style: solid;
+  border-color: rgb(0, 0, 0);
+  overflow: auto;
+  }
+  .option_window_left::-webkit-scrollbar {
+    display: none;
+  }
+  .option_window_right::-webkit-scrollbar {
+    display: none;
   }
