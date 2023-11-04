@@ -39,6 +39,13 @@
                 </a>
                 <span class="tooltip">View Exam Slots</span>
             </li>
+            <li>
+                <a href="testingadminview.html">
+                    <i class="fa-solid fa-bars-progress"></i>
+                    <span class="links_name">View Exam Schedule</span>
+                </a>
+                <span class="tooltip">View Exam Plan</span>
+            </li>
         </ul>
     </div>
     <section class="home-section">
@@ -64,7 +71,7 @@
             <h2>VIEW EXAM SLOTS</h2>
         </div>
 
-        <div class="table-container">
+        <div class="table-container ">
             <table>
                 <thead>
                     <tr>
@@ -87,7 +94,7 @@
         </div>
 
         <!-- TIME TABLE -->
-        <div class="table-container-hidden-2" id="hiddenTable-2" style="display: none">
+        <div class="table-container-hidden-2 follow_Scroll" id="hiddenTable-2" style="display: none">
             <table>
                 <thead>
                     <tr>
@@ -112,20 +119,21 @@
         </div>
 
         <!-- SUPERVISOR TABLE -->
-        <div class="table-container-hidden-2" id="SupervisorTable" style="display: none">
+        <div class="table-container-hidden-2 follow_Scroll" id="SupervisorTable" style="display: none">
             <table>
                 <thead>
                     <tr>
                         <th>No</th>
                         <th>Name</th>
                         <th>Username</th>
-                        <th>Email</th>
-                        <th><i class="fa-regular fa-circle-xmark fa-lg close-button"
+                        <th>Email<i class="fa-regular fa-circle-xmark fa-lg close-button"
                                 onclick="closeSupervisorTable()"></i></th>
+                        
 
                     </tr>
                 </thead>
                 <tbody id="table_body_super"></tbody>
+
                 <div id="messageRemove" class="messageRemove"></div>
                 <button class="add-button" onclick="textEreaAddSup()">
                     <i class="fa-solid fa-plus fa-xl"></i>
@@ -137,14 +145,16 @@
                 <form>
                     <textarea id="inputSuper" name="inputSuper" placeholder="Username..."></textarea>
                 </form>
-                <div class="search-field-2">
+                <div class="AddstudentButton">
                     <a href="#" title="button shiny 3" onclick="addSuper()" class="fui-button-shiny-3"> Add +</a>
+                    <button id="clearButtonSup" class="fui-button-shiny-3">Clear Text</button>
                 </div>
+                <div class="notification-container" id="notificationContainerSup"></div>
                 </div>
         </div>
         
         <!-- VIEW STUDENT LIST TABLE -->
-        <div class="table-container-hidden-2" id="hiddenTable-3" style="display: none">
+        <div class="table-container-hidden-2 follow_Scroll" id="hiddenTable-3" style="display: none">
             <table>
                 <thead>
                     <tr>
@@ -161,17 +171,18 @@
 
                 <br />
             </table>
-        </div>
-
-        <div class="table-container-hidden-3" id="hiddenTable-StudentListToAdd" style="display: none;">
+             <div class="table-container-hidden-3" id="hiddenTable-StudentListToAdd" style="display: none;">
             <form>
                 <textarea id="inputStu" name="inputStu" placeholder="Username..."></textarea>
             </form>
             <div class="AddstudentButton">
                 <a href="#" title="button shiny 3" onclick="AddStudent()" class="fui-button-shiny-3"> Add +</a>
-                <button id="clearButton" class="fui-button-shiny-3">Clear Text</button>
+                <button id="clearButtonStu" class="fui-button-shiny-3" onclick="ClearTextStu()">Clear Text</button>
             </div>
             <div class="notification-container" id="notificationContainer"></div>
+        </div>
+
+       
             <!-- <table>
                 <thead>
                     <tr>
@@ -187,7 +198,7 @@
 
         </div>
 
-        <div class="table-container-hidden-3" id="hiddenTable-4" style="display: none">
+        <div class="table-container-hidden-3 follow_Scroll" id="hiddenTable-4" style="display: none">
             <div class="search-field-2">
                 <input id="searchInput" type="number" placeholder="Search" />
                 <button onclick="addAndRemoveRows()">Add</button>
@@ -245,7 +256,7 @@
         </div> -->
 
         <!-- ADD -->
-        <div class="table-container-hidden-4" id="hiddenTable-6" style="display: none">
+        <div class="table-container-hidden-4 follow_Scroll" id="hiddenTable-6" style="display: none">
             <div class="form-container">
                 <div class="form-group">
                     <label for="date">Date:</label>
@@ -286,7 +297,7 @@
         </div>
 
         <!-- EDIT TIME--------------------------------------------------------------------------------------- -->
-        <div class="table-container-hidden-4" id="hiddenTable-7" style="display: none">
+        <div class="table-container-hidden-4 follow_Scroll" id="hiddenTable-7" style="display: none">
             <div class="form-container">
                 <div class="form-group">
                     <label for="date"> Exam Date:</label>
@@ -326,7 +337,7 @@
         </div>
         
         </div>
-        <div class="table-container-hidden-4" id="hiddenTable-addTableExamSchedule" style="display: none">
+        <div class="table-container-hidden-4 follow_Scroll" id="hiddenTable-addTableExamSchedule" style="display: none">
             <div class="form-container">
                 <div class="form-group">
                     <label for="subject">Subject:</label>
@@ -366,7 +377,7 @@
         </div>
 
          <!--------------------------------------------------------------------------Edit ExamSchedule Form------------------------------------------------------------------------------------------------->
-         <div class="table-container-hidden-4" id="hiddenTable-editTableExamSchedule" style="display: none">
+         <div class="table-container-hidden-4 follow_Scroll" id="hiddenTable-editTableExamSchedule" style="display: none">
             <div class="form-container">
                 <div class="form-group">
                     <label for="subject">Subject:</label>
@@ -405,7 +416,7 @@
             </div>
         </div>
         <!--============================================================================================================================================================================================-->
-        <div id="confirmationModal" class="modal">
+        <div id="confirmationModal " class="modal">
             <div class="modal-content">
                 <p>Are you sure you want to remove this item?</p>
                 <div class="modal-buttons">
