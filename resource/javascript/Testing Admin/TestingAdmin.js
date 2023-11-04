@@ -499,8 +499,7 @@ async function showModalEditExamSchedule(button) { // do chung async nên nó ch
     if (!button) {
         console.error("Button is undefined.");
         return;
-      }
-    
+      }   
     //------------------------------------------------------lấy data từ thằng schedule đc chọn ----------------------------------------------------------------------------
     selectedButton = button;
     subject = button.parentNode?.parentNode?.cells[1].innerText; // Lấy giá trị từ cột thứ 2
@@ -540,8 +539,7 @@ async function showModalEditExamSchedule(button) { // do chung async nên nó ch
            body: {
    
            }
-       }
-   
+       }  
        const response = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/subjects", "GET", data);
        const selectElement = document.getElementById("subject-input-edit");
        response.data.forEach((item, index) => {
@@ -571,59 +569,54 @@ async function showModalEditExamSchedule(button) { // do chung async nên nó ch
                selectElementr.appendChild(optionElement);
            });
        });
-       editRowToTableSchedule(subject, room);  
+    //    editRowToTableSchedule(subject, room);  
    }
    //============================================================Điền những thằng cần update ==================================================================================================
-async function editRowToTableSchedule(subject, room){
-    
-    const subjectRow = subject;
-    const roomRow = room;
-    console.log(subjectRow, roomRow);
+// async function editRowToTableSchedule(subject, room){ 
+//     const subjectRow = subject;
+//     const roomRow = room;
+//     console.log(subjectRow, roomRow);
 
-    const errorMessage = document.getElementById("error-messagesche-Edit");
-    const errorMessage2 = document.getElementById("error-messagesche-Edit2");
-    const nameInput = document.querySelector('[name="name-edit"]'); // form input
-    const typeInput = document.getElementById("type-edit");
-    const selectRoom = document.querySelector('#room-input-edit');
-    const selectedRIndex = selectRoom.selectedIndex;
-    const selectedROption = selectRoom.options[selectedRIndex];
-    const selectSubject = document.querySelector('#subject-input-edit');
-    const selectedIndex = selectSubject.selectedIndex;
-    const selectedOption = selectSubject.options[selectedIndex];
+//     const errorMessage = document.getElementById("error-messagesche-Edit");
+//     const errorMessage2 = document.getElementById("error-messagesche-Edit2");
+//     const nameInput = document.querySelector('[name="name-edit"]'); // form input
+//     const typeInput = document.getElementById("type-edit");
+//     const selectRoom = document.querySelector('#room-input-edit');
+//     const selectedRIndex = selectRoom.selectedIndex;
+//     const selectedROption = selectRoom.options[selectedRIndex];
+//     const selectSubject = document.querySelector('#subject-input-edit');
+//     const selectedIndex = selectSubject.selectedIndex;
+//     const selectedOption = selectSubject.options[selectedIndex];
 
-    if (!nameInput.value || !typeInput.value || !selectRoom.value || !selectSubject.value) {
-        errorMessage2.style.display = "flex";// Hiển thị thông báo
-        errorMessage.style.display = "none"; // Dừng việc thêm dòng mới nếu có trường không hợp lệ.
+//     if (!nameInput.value || !typeInput.value || !selectRoom.value || !selectSubject.value) {
+//         errorMessage2.style.display = "flex";// Hiển thị thông báo
+//         errorMessage.style.display = "none"; // Dừng việc thêm dòng mới nếu có trường không hợp lệ.
         
-        return;
-    } else {
-        errorMessage2.style.display = "none"; // Ẩn thông báo nếu tất cả trường hợp lệ.
-    }   
-    console.log(subjectRow,roomRow);
-    const selectedOptionText = selectedOption.text;
-    const enteredValue = nameInput.value;
-    const selectedROptionText = selectedROption.text;
-    const enteredtype= typeInput.value; 
+//         return;
+//     } else {
+//         errorMessage2.style.display = "none"; // Ẩn thông báo nếu tất cả trường hợp lệ.
+//     }   
+//     console.log(subjectRow,roomRow);
+//     const selectedOptionText = selectedOption.text;
+//     const enteredValue = nameInput.value;
+//     const selectedROptionText = selectedROption.text;
+//     const enteredtype= typeInput.value; 
 
-    const data = {
-        body : {
-            'idt': idt,
-            "subjectID":subjectRow,
-            "roomNumber":roomRow,
-            "updSubjectID":selectedOptionText,
-            "updRoomNumber": selectedROptionText,
-            "updForm":enteredValue,
-            "updType":enteredtype
-        }
-     }
-     console.log(data);
+//     const data = {
+//         body : {
+//             'idt': idt,
+//             "subjectID":subjectRow,
+//             "roomNumber":roomRow,
+//             "updSubjectID":selectedOptionText,
+//             "updRoomNumber": selectedROptionText,
+//             "updForm":enteredValue,
+//             "updType":enteredtype
+//         }
+//      }
+//      console.log(data);
      
-    //  confirmEditExamSchedule(true, subjectRow, roomRow, selectedOptionText, selectedROptionText, enteredValue, enteredtype);
-    
-    
-      
-    
-}
+//     //  confirmEditExamSchedule(true, subjectRow, roomRow, selectedOptionText, selectedROptionText, enteredValue, enteredtype);     
+// }
 
 //==============================================================confirmation để truyền dô update API=========================================================================================
 

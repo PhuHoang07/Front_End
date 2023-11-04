@@ -6,7 +6,7 @@ const list = document.getElementById("table_body");
   async function fetchDataFromApi(){
     try{
       const response = await fetchAPIData(
-        'https://swp-esms-api.azurewebsites.net/api/student/exams/schedule/own',
+        'https://swp-esms-api.azurewebsites.net/api/student/exams/schedule/preview',
         'GET'
       );
     const data = response.data;
@@ -43,11 +43,11 @@ async function renderAccountList(data) {
             tablerow.innerHTML = `
             <td>${numgrade++}</td>
             <td>${schedule.subjectId}</td>
-            <td>${schedule.subjectName}</td>
             <td>${schedule.date}</td>
             <td>${schedule.type} </td>
             <td>${schedule.form}</td>
             <td>${schedule.time}</td>
+            <td>${schedule.publishDate}</td>
             `;
             list.appendChild(tablerow);
     });}
