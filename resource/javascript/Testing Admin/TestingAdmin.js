@@ -506,8 +506,7 @@ async function showModalEditExamSchedule(button) { // do chung async nên nó ch
     if (!button) {
         console.error("Button is undefined.");
         return;
-    }
-
+      }   
     //------------------------------------------------------lấy data từ thằng schedule đc chọn ----------------------------------------------------------------------------
     selectedButton = button;
     subject = button.parentNode?.parentNode?.cells[1].innerText; // Lấy giá trị từ cột thứ 2
@@ -543,94 +542,88 @@ async function showModalEditExamSchedule(button) { // do chung async nên nó ch
     }
     console.log(dataRow);
     //------------------------------------------------------dùng để lấy môn học mới ra nha --------------------------------------------------------------------------------      
-    const data = {
-        body: {
+       const data = {
+           body: {
+   
+           }
+       }  
+       const response = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/subjects", "GET", data);
+       const selectElement = document.getElementById("subject-input-edit");
+       response.data.forEach((item, index) => {
+           const optionElement = document.createElement("option");
+           optionElement.value = index; // Giá trị của option (có thể là một giá trị duy nhất hoặc index)
+           optionElement.text = item; // Nội dung của option
+           selectElement.appendChild(optionElement);
+       });
+       console.log(response.data);
+       const selectElementr = document.getElementById("room-input-edit");
+       selectElement.addEventListener("change", async function () {
+           const selectedIndex = selectElement.selectedIndex; // Lấy chỉ số của lựa chọn
+           const selectedOption = selectElement.options[selectedIndex]; // Lựa chọn đã chọn
+           const noiDungLuaChon = selectedOption.textContent; // Lấy nội dung của lựa chọn
+           const datar = {
+               params: {
+                   'idt': idt,
+                   'subjectId': noiDungLuaChon
+               }
+           }
+           console.log(datar);
+           const resr = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/available-rooms", "GET", datar);
+           resr.data.forEach((item, index) => {
+               const optionElement = document.createElement("option");
+               optionElement.value = index; // Giá trị của option (có thể là một giá trị duy nhất hoặc index)
+               optionElement.text = item; // Nội dung của option
+               selectElementr.appendChild(optionElement);
+           });
+       });
+    //    editRowToTableSchedule(subject, room);  
+   }
+   //============================================================Điền những thằng cần update ==================================================================================================
+// async function editRowToTableSchedule(subject, room){ 
+//     const subjectRow = subject;
+//     const roomRow = room;
+//     console.log(subjectRow, roomRow);
 
-        }
-    }
+//     const errorMessage = document.getElementById("error-messagesche-Edit");
+//     const errorMessage2 = document.getElementById("error-messagesche-Edit2");
+//     const nameInput = document.querySelector('[name="name-edit"]'); // form input
+//     const typeInput = document.getElementById("type-edit");
+//     const selectRoom = document.querySelector('#room-input-edit');
+//     const selectedRIndex = selectRoom.selectedIndex;
+//     const selectedROption = selectRoom.options[selectedRIndex];
+//     const selectSubject = document.querySelector('#subject-input-edit');
+//     const selectedIndex = selectSubject.selectedIndex;
+//     const selectedOption = selectSubject.options[selectedIndex];
 
-    const response = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/subjects", "GET", data);
-    const selectElement = document.getElementById("subject-input-edit");
-    response.data.forEach((item, index) => {
-        const optionElement = document.createElement("option");
-        optionElement.value = index; // Giá trị của option (có thể là một giá trị duy nhất hoặc index)
-        optionElement.text = item; // Nội dung của option
-        selectElement.appendChild(optionElement);
-    });
-    console.log(response.data);
-    const selectElementr = document.getElementById("room-input-edit");
-    selectElement.addEventListener("change", async function () {
-        const selectedIndex = selectElement.selectedIndex; // Lấy chỉ số của lựa chọn
-        const selectedOption = selectElement.options[selectedIndex]; // Lựa chọn đã chọn
-        const noiDungLuaChon = selectedOption.textContent; // Lấy nội dung của lựa chọn
-        const datar = {
-            params: {
-                'idt': idt,
-                'subjectId': noiDungLuaChon
-            }
-        }
-        console.log(datar);
-        const resr = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/available-rooms", "GET", datar);
-        resr.data.forEach((item, index) => {
-            const optionElement = document.createElement("option");
-            optionElement.value = index; // Giá trị của option (có thể là một giá trị duy nhất hoặc index)
-            optionElement.text = item; // Nội dung của option
-            selectElementr.appendChild(optionElement);
-        });
-    });
-    editRowToTableSchedule(subject, room);
-}
-//============================================================Điền những thằng cần update ==================================================================================================
-async function editRowToTableSchedule(subject, room) {
+//     if (!nameInput.value || !typeInput.value || !selectRoom.value || !selectSubject.value) {
+//         errorMessage2.style.display = "flex";// Hiển thị thông báo
+//         errorMessage.style.display = "none"; // Dừng việc thêm dòng mới nếu có trường không hợp lệ.
+        
+//         return;
+//     } else {
+//         errorMessage2.style.display = "none"; // Ẩn thông báo nếu tất cả trường hợp lệ.
+//     }   
+//     console.log(subjectRow,roomRow);
+//     const selectedOptionText = selectedOption.text;
+//     const enteredValue = nameInput.value;
+//     const selectedROptionText = selectedROption.text;
+//     const enteredtype= typeInput.value; 
 
-    const subjectRow = subject;
-    const roomRow = room;
-    console.log(subjectRow, roomRow);
-
-    const errorMessage = document.getElementById("error-messagesche-Edit");
-    const errorMessage2 = document.getElementById("error-messagesche-Edit2");
-    const nameInput = document.querySelector('[name="name-edit"]'); // form input
-    const typeInput = document.getElementById("type-edit");
-    const selectRoom = document.querySelector('#room-input-edit');
-    const selectedRIndex = selectRoom.selectedIndex;
-    const selectedROption = selectRoom.options[selectedRIndex];
-    const selectSubject = document.querySelector('#subject-input-edit');
-    const selectedIndex = selectSubject.selectedIndex;
-    const selectedOption = selectSubject.options[selectedIndex];
-
-    if (!nameInput.value || !typeInput.value || !selectRoom.value || !selectSubject.value) {
-        errorMessage2.style.display = "flex";// Hiển thị thông báo
-        errorMessage.style.display = "none"; // Dừng việc thêm dòng mới nếu có trường không hợp lệ.
-
-        return;
-    } else {
-        errorMessage2.style.display = "none"; // Ẩn thông báo nếu tất cả trường hợp lệ.
-    }
-    console.log(subjectRow, roomRow);
-    const selectedOptionText = selectedOption.text;
-    const enteredValue = nameInput.value;
-    const selectedROptionText = selectedROption.text;
-    const enteredtype = typeInput.value;
-
-    const data = {
-        body: {
-            'idt': idt,
-            "subjectID": subjectRow,
-            "roomNumber": roomRow,
-            "updSubjectID": selectedOptionText,
-            "updRoomNumber": selectedROptionText,
-            "updForm": enteredValue,
-            "updType": enteredtype
-        }
-    }
-    console.log(data);
-
-    //  confirmEditExamSchedule(true, subjectRow, roomRow, selectedOptionText, selectedROptionText, enteredValue, enteredtype);
-
-
-
-
-}
+//     const data = {
+//         body : {
+//             'idt': idt,
+//             "subjectID":subjectRow,
+//             "roomNumber":roomRow,
+//             "updSubjectID":selectedOptionText,
+//             "updRoomNumber": selectedROptionText,
+//             "updForm":enteredValue,
+//             "updType":enteredtype
+//         }
+//      }
+//      console.log(data);
+     
+//     //  confirmEditExamSchedule(true, subjectRow, roomRow, selectedOptionText, selectedROptionText, enteredValue, enteredtype);     
+// }
 
 //==============================================================confirmation để truyền dô update API=========================================================================================
 
