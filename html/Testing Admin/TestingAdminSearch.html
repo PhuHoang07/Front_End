@@ -123,13 +123,13 @@
             <table>
                 <thead>
                     <tr>
+                        <th></th>
                         <th>No</th>
                         <th>Name</th>
                         <th>Username</th>
-                        <th>Email<i class="fa-regular fa-circle-xmark fa-lg close-button"
-                                onclick="closeSupervisorTable()"></i></th>
-                        
-
+                        <th>Email</th>
+                        <th><i class="fa-regular fa-circle-xmark fa-lg close-button-supervisor"
+                            onclick="closeSupervisorTable()"></i></th>
                     </tr>
                 </thead>
                 <tbody id="table_body_super"></tbody>
@@ -137,6 +137,12 @@
                 <div id="messageRemove" class="messageRemove"></div>
                 <button class="add-button" onclick="textEreaAddSup()">
                     <i class="fa-solid fa-plus fa-xl"></i>
+                </button>
+
+                <button id="select-all-checkbox-supervisor" class="select-all-button">Select All</button>
+
+                <button class="delete-button" onclick="showConfirmationModalRemoveSupervisorByButtonSelect(this)">
+                    <i class="fa-solid fa-user-minus fa-lg"></i>
                 </button>
 
             </table>
@@ -150,18 +156,20 @@
                     <button id="clearButtonSup" class="fui-button-shiny-3">Clear Text</button>
                 </div>
                 <div class="notification-container" id="notificationContainerSup"></div>
-                </div>
+            </div>
         </div>
-        
+
         <!-- VIEW STUDENT LIST TABLE -->
         <div class="table-container-hidden-2 follow_Scroll" id="hiddenTable-3" style="display: none">
             <table>
                 <thead>
                     <tr>
+                        <th></th>
                         <th>No</th>
                         <th>Member code</th>
                         <th>Full name</th>
-                        <th>User name<i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTable3()"></i></th>
+                        <th>User name</th>
+                        <th><i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTable3()"></i></th>
                     </tr>
                 </thead>
                 <tbody id="add-tsu"></tbody>
@@ -169,9 +177,17 @@
                     <i class="fa-solid fa-user-plus fa-lg"></i>
                 </button>
 
+                <button id="select-all-checkbox" class="select-all-button">Select All</button>
+
+                <button class="delete-button" onclick="showConfirmationModalRemoveStudentByButtonSelect(this)">
+                    <i class="fa-solid fa-user-minus fa-lg"></i>
+                </button>
+
                 <br />
             </table>
-             <div class="table-container-hidden-3" id="hiddenTable-StudentListToAdd" style="display: none;">
+        </div>
+        <!-- <div id="messageRemoveStudent" class="messageRemove"></div> -->
+        <div class="table-container-hidden-3" id="hiddenTable-StudentListToAdd" style="display: none;">
             <form>
                 <textarea id="inputStu" name="inputStu" placeholder="Username..."></textarea>
             </form>
@@ -179,23 +195,8 @@
                 <a href="#" title="button shiny 3" onclick="AddStudent()" class="fui-button-shiny-3"> Add +</a>
                 <button id="clearButtonStu" class="fui-button-shiny-3" onclick="ClearTextStu()">Clear Text</button>
             </div>
+
             <div class="notification-container" id="notificationContainer"></div>
-        </div>
-
-       
-            <!-- <table>
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Member Code</th>
-                        <th>Full Name</th>
-
-                      
-                    </tr>
-                </thead>
-                <tbody id="stu-list"></tbody>
-            </table> -->
-
         </div>
 
         <div class="table-container-hidden-3 follow_Scroll" id="hiddenTable-4" style="display: none">
@@ -301,7 +302,7 @@
             <div class="form-container">
                 <div class="form-group">
                     <label for="date"> Exam Date:</label>
-                    <input type="date" id="date-time"/>
+                    <input type="date" id="date-time" />
                 </div>
                 <div class="form-group">
                     <label for="start-time"> Exam Start Time:</label>
@@ -325,17 +326,14 @@
                         Cancel
                     </button>
                 </div>
-                <div
-                        id="error-messageEdit"
-                        class="error-message"
-                        style="display: none">
-                    </div>
+                <div id="error-messageEdit" class="error-message" style="display: none">
+                </div>
                 <div id="error-message-Edit2" class="error-message" style="display: none">
                     Please select complete information
                 </div>
             </div>
         </div>
-        
+
         </div>
         <div class="table-container-hidden-4 follow_Scroll" id="hiddenTable-addTableExamSchedule" style="display: none">
             <div class="form-container">
@@ -376,8 +374,9 @@
             </div>
         </div>
 
-         <!--------------------------------------------------------------------------Edit ExamSchedule Form------------------------------------------------------------------------------------------------->
-         <div class="table-container-hidden-4 follow_Scroll" id="hiddenTable-editTableExamSchedule" style="display: none">
+        <!--------------------------------------------------------------------------Edit ExamSchedule Form------------------------------------------------------------------------------------------------->
+        <div class="table-container-hidden-4 follow_Scroll" id="hiddenTable-editTableExamSchedule"
+            style="display: none">
             <div class="form-container">
                 <div class="form-group">
                     <label for="subject">Subject:</label>
@@ -458,7 +457,77 @@
                 </div>
             </div>
         </div>
+        <!-- =======================CONFIRMATION REMOVE STUDENT BY BUTTON================================= -->
+        <div id="confirmationModalRemoveStudentByButton" class="modal">
+            <div class="modal-content">
+                <p>Are you sure you want to remove this student?</p>
+                <div class="modal-buttons">
+                    <button class="modal-button-yes" onclick="confirmRemoveStudentByButton(true)">
+                        Yes
+                    </button>
+                    <button class="modal-button" onclick="confirmRemoveStudentByButton(false)">
+                        No
+                    </button>
+                </div>
+            </div>
+        </div>
         <!--============================================================================================================================================================================================-->
+        <!-- =======================CONFIRMATION REMOVE STUDENT BY BUTTON SELECT================================= -->
+        <div id="confirmationModalRemoveStudentByButtonSelect" class="modal">
+            <div class="modal-content">
+                <p>Are you sure you want to remove this student?</p>
+                <div class="modal-buttons">
+                    <button class="modal-button-yes" 
+                        onclick="confirmRemoveStudentByButtonSelect(true)">
+                        Yes
+                    </button>
+                    <button class="modal-button" 
+                        onclick="confirmRemoveStudentByButtonSelect(false)">
+                        No
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--================================================================================================================== -->
+        <!-- =======================CONFIRMATION REMOVE SUPERVISOR BY BUTTON ===================================== -->
+        <div id="confirmationModalRemoveSupervisorByButton" class="modal">
+            <div class="modal-content">
+                <p>Are you sure you want to remove this supervisor?</p>
+                <div class="modal-buttons">
+                    <button class="modal-button-yes" id="Yes-edit_confirm"
+                        onclick="confirmRemoveSupervisorByButton(true)">
+                        Yes
+                    </button>
+                    <button class="modal-button" id="No-edit_confirm"
+                        onclick="confirmRemoveSupervisorByButton(false)">
+                        No
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--================================================================================================================== -->
+                <!-- =======================CONFIRMATION REMOVE SUPERVISOR BY BUTTON SELECT ===================================== -->
+                <div id="confirmationModalRemoveSupervisorByButtonsSelect" class="modal">
+                    <div class="modal-content">
+                        <p>Are you sure you want to remove this supervisor?</p>
+                        <div class="modal-buttons">
+                            <button class="modal-button-yes" id="Yes-edit_confirm"
+                                onclick="confirmRemoveSupervisorByButtonSelect(true)">
+                                Yes
+                            </button>
+                            <button class="modal-button" id="No-edit_confirm"
+                            onclick="confirmRemoveSupervisorByButtonSelect(false)">
+                                No
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!--================================================================================================================== -->
+
+
+
+
+
         <div id="confirmationModal-2" class="modal">
             <div class="modal-content">
                 <p>Are you sure you want to edit this item?</p>
@@ -469,7 +538,7 @@
             </div>
         </div>
 
-        <!------------------------------------------------------------------->
+
     </section>
 
     <script src="/resource//javascript/FetchAPI-Authen/utils.js"></script>
