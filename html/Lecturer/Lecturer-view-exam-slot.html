@@ -63,7 +63,7 @@
         </div>
         <!---->
         <!--Welcome section-->
-        
+
         <div class="fui-table-ui-basic-linh table-wrap table">
 
             <table id="mytable" class="center">
@@ -71,24 +71,23 @@
                     <tr>
                         <th>Date</th>
                         <th>Time</th>
-                        <th>Allowance</th>
-                        <th>status</th>
                         <th></th>
+
                     </tr>
                 </thead>
-                <tbody id="table_body">
-                    
-                    <tr>
+                <tbody id="table_body_lecturer">
+
+                    <!-- <tr>
                         <td>15/07/2023</td>
                         <td class="pcs">7:30 - 9:00</td>
                         <td class="cur">100</td>
                         <td class="per">20/30</td>
                         <td class="popup">
-                            <!-- Trigger/Open The Modal -->
+                         
                             <button class="buttn" onclick="confirmRegistration(this)">Register</button>
-                            <!--Modal-->
+                
                             <div id="myModal" class="modal">
-                                <!-- Modal content -->
+                       
                                 <div class="modal-content">
                                     <p class="modal-text">Are You Sure to Register This Slot?</p>
                                     <span class="confirm">
@@ -101,20 +100,39 @@
                                     </span>
                                     <script type="text/javascript" src="/resource/javascript/Lecturer/lecturer-table.js"></script>
                                 </div>
-                                <!-- Modal content -->
+                               
                             </div>
-                            <!--Modal-->
+                           
                         </td>
-                    </tr>
-                    
+                    </tr> -->
+
                 </tbody>
             </table>
+
+            <div id="confirmationModalRegister" class="modal">
+
+                <div class="modal-content">
+                    <p class="modal-text">Are You Sure to Register This Slot?</p>
+                    <span class="confirm">
+                        <p onclick="confirmRegisterLecturer(true)" class="cofirmbutton">Yes
+                        </p>
+                    </span>
+                    <span class="close">
+                        <p onclick="confirmRegisterLecturer(false)" class="closebutton">No
+                        </p>
+                    </span>
+                </div>
+
+            </div>
         </div>
         <!------------------------------------------------------------------->
 
     </section>
     <script src="/resource/javascript/Login-Google/welcome.js"></script>
     <script src="/resource/javascript/FetchAPI-Authen/utils.js"></script>
+    <script src="/resource/javascript/Lecturer/TestAPILec.js"></script>
+    <script type="text/javascript" src="/resource/javascript/Lecturer/lecturer-table.js"></script>
+
 </body>
 
 </html>
