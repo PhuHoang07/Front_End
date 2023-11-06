@@ -75,6 +75,8 @@ async function confirmRegisterLecturer(confirmation) {
   var modal = document.getElementById("confirmationModalRegister");
   modal.style.display = "none";
   if (confirmation) {
+    var row = selectedButton.parentNode.parentNode;
+        row.remove();
         
       const data = {
           body: idt
@@ -86,4 +88,24 @@ async function confirmRegisterLecturer(confirmation) {
         
       }
   }
+}
+
+
+function showTableRegistered() {
+  const hiddenTable = document.getElementById('hiddenTable-Registered');
+  console.log(hiddenTable);
+  // idt = button.parentNode.parentNode.getAttribute('idt');
+  // console.log(idt);
+
+  if (hiddenTable.style.display === "none") {
+      hiddenTable.style.display = "block";
+  } else {
+      hiddenTable.style.display = 'none';
+  }
+}
+
+
+function closeTableRegistered() {
+  const hiddenTable = document.getElementById('hiddenTable-Registered');
+  hiddenTable.style.display = 'none';
 }

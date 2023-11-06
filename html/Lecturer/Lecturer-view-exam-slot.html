@@ -53,7 +53,7 @@
                 <div class="dropdown-content" id="myDropdown">
                     <a href="#"><i class="fa-regular fa-address-card"></i>Profile</a>
                     <a href="#"><i class="fa-regular fa-pen-to-square"></i>Update Profile</a>
-                    <a href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a>
+                    <a href="#" onclick="logOut()"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a>
                 </div>
             </div>
             <div class="headerandlogo">
@@ -65,7 +65,7 @@
         <!--Welcome section-->
 
         <div class="fui-table-ui-basic-linh table-wrap table">
-
+            <button onclick="showTableRegistered()" class="registered-list-button">Registered List</button>
             <table id="mytable" class="center">
                 <thead>
                     <tr>
@@ -75,38 +75,7 @@
 
                     </tr>
                 </thead>
-                <tbody id="table_body_lecturer">
-
-                    <!-- <tr>
-                        <td>15/07/2023</td>
-                        <td class="pcs">7:30 - 9:00</td>
-                        <td class="cur">100</td>
-                        <td class="per">20/30</td>
-                        <td class="popup">
-                         
-                            <button class="buttn" onclick="confirmRegistration(this)">Register</button>
-                
-                            <div id="myModal" class="modal">
-                       
-                                <div class="modal-content">
-                                    <p class="modal-text">Are You Sure to Register This Slot?</p>
-                                    <span class="confirm">
-                                        <p class="cofirmbutton">Yes
-                                        </p>
-                                    </span>
-                                    <span class="close">
-                                        <p class="closebutton">No
-                                        </p>
-                                    </span>
-                                    <script type="text/javascript" src="/resource/javascript/Lecturer/lecturer-table.js"></script>
-                                </div>
-                               
-                            </div>
-                           
-                        </td>
-                    </tr> -->
-
-                </tbody>
+                <tbody id="table_body_lecturer"></tbody>
             </table>
 
             <div id="confirmationModalRegister" class="modal">
@@ -124,6 +93,21 @@
                 </div>
 
             </div>
+
+            <div class="hiddenTable-Registered" id="hiddenTable-Registered" style="display: none">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th></th>
+                            <th><i class="fa-regular fa-circle-xmark fa-lg close-button-registered"
+                                onclick="closeTableRegistered()"></i></th>  
+                        </tr>
+                    </thead>
+                    <tbody id="registered-list"></tbody>  
+                </table>
+            </div>
         </div>
         <!------------------------------------------------------------------->
 
@@ -131,7 +115,7 @@
     <script src="/resource/javascript/Login-Google/welcome.js"></script>
     <script src="/resource/javascript/FetchAPI-Authen/utils.js"></script>
     <script src="/resource/javascript/Lecturer/TestAPILec.js"></script>
-    <script type="text/javascript" src="/resource/javascript/Lecturer/lecturer-table.js"></script>
+    <script src="/resource/javascript/Lecturer/lecturer-table.js"></script>
 
 </body>
 
