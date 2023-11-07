@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Responsive Sidebar Menu | CodingLab </title>
+    <link rel="stylesheet" href="/resource/css/Testing Admin/TestingAdminProfileUpdate.css">
+    <link rel="stylesheet" href="/resource/css/Login-Google/Welcome.css">
+
+    <!-- Boxicons CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class="fa-solid fa-calendar icon"></i>
+            <div class="logo_name">F-ESMS</div>
+            <i class="fa-solid fa-bars" id="btn"></i>
+        </div>
+        <ul class="nav-list">
+            <li>
+                <a href="TestingAdmin.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="links_name">Home</span>
+                </a>
+                <span class="tooltip">Home</span>
+            </li>
+
+            <li>
+                <a href="TestingAdminSearch.html">
+                    <i class="fa-regular fa-calendar"></i>
+                    <span class="links_name">View Exam Slots</span>
+                </a>
+                <span class="tooltip">View Exam Slots</span>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <!-- Nav Horizontal-->
+
+        <div class="navbar">
+            <div class="dropdown">
+                <button class="dropbtn" onclick="myFunction()">
+                    <span id="user-name">UserName</span>
+                    <i class="fa-solid fa-chevron-down" id="dropdown-icon"></i>
+                </button>
+                <div class="dropdown-content" id="myDropdown">
+                    <a href="TestingAdminProfile.html"><i class="fa-regular fa-address-card"></i>Profile</a>
+                    <a href="TestingAdminProfileUpdate.html"><i class="fa-regular fa-pen-to-square"></i>Update Profile</a>
+                    <a href="#"onclick="logOut()"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a>
+                </div>
+            </div>
+        </div>
+        <h1>Edit Profile</h1>
+        <div class="container">
+
+<div>
+    
+</div>
+            <div class="header-info">
+                <img src="./assets/images/duy.png" class="avatar" alt="Avatar" id="profile-pic">
+             
+
+                <h6>Upload a different photo...</h6>
+
+                <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file">
+            </div>
+
+
+
+
+            <div class="info">
+
+                <h3>Personal Info</h3>
+
+                <form>
+                    <label>Full Name:</label>
+                    <input type="text" name="name" value="Duy Luong">
+
+                    <label>Date of Birth:</label>
+                    <input type="date" name="birth">
+
+                    <label>Gender:</label>
+                    <select name="gender">
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+
+                    <label>ID Card:</label>
+                    <input type="text" name="id-card">
+
+                    <label>Address:</label>
+                    <input type="text" name="address">
+
+                    <label>Phone Number:</label>
+                    <input type="text" name="phone">
+
+                    <button style="cursor: pointer">Save</button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+    <script src="/resource/javascript/FetchAPI-Authen/utils.js"></script>
+    <script src="/resource/javascript/Login-Google/welcome.js"></script>
+    <script src="/resource/javascript/Testing Admin/TestingAdminProfile.js"></script>
+
+
+
+    <script>
+        // JavaScript code to update the profile picture
+        let profilePic = document.getElementById("profile-pic");
+        let inputFile = document.getElementById("input-file");
+
+        inputFile.onchange = function () {
+            if (inputFile.files && inputFile.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    profilePic.src = e.target.result;
+                };
+                reader.readAsDataURL(inputFile.files[0]);
+            }
+        };
+
+        inputFile.onchange = function () {
+            if (inputFile.files && inputFile.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    profilePic.src = e.target.result;
+
+                    // Lưu đường dẫn hình ảnh vào localStorage
+                    localStorage.setItem('profilePic', e.target.result);
+                };
+                reader.readAsDataURL(inputFile.files[0]);
+            }
+        };
+
+        // Kiểm tra Web Storage khi trang được tải
+        window.addEventListener('load', function () {
+            let savedProfilePic = localStorage.getItem('profilePic');
+            if (savedProfilePic) {
+                profilePic.src = savedProfilePic;
+            }
+        });
+    </script>
+</body>
+
+</html>

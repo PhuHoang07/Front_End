@@ -42,51 +42,67 @@
 // })
 
 
+
+
+
 const list = document.getElementById("table_body");
-const search = document.getElementById("search");
-const listItem = [];
-
-search.addEventListener('input', (e) => filterInput(e.target.value))
-
-getDataAPI();
-//------------------------------------------------fectch data into table------------------------------------------------------------------ 
-async function getDataAPI() {
-  try {
-    // Make an API request to the backend with the token
-    const responseAPI = await fetch("https://swp-esms-api.azurewebsites.net/api/admin/users", {
-      method: 'GET', // or 'POST', 'PUT', etc.
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem(token)}`,
-        'Content-Type': 'application/json',
-      }});
-    const response = await responseAPI.json();
+  const search = document.getElementById("search");
+  const listItem = [];
+  search.addEventListener('input', (e) => filterInput(e.target.value)); 
+  
+  async function fetchDataFromApi(){
+    try{
+      const response = await fetchAPIData(
+        'https://swp-esms-api.azurewebsites.net/api/admin/users',
+        'GET'
+      );
     const data = response.data;
-    console.log(data); // Check the response data structure
-
-    const trow = document.createElement('tr');
-    trow.innerHTML = '<td colspan="5">Loading ...</td>';
-    list.appendChild(trow);
-    let numgrade = 1;
-    setTimeout(() => {
-      list.innerHTML = " ";
-      data.forEach((result) => {
-          // Creating table row for each result
-          const tablerow = document.createElement('tr');
-          listItem.push(tablerow);
-          tablerow.innerHTML = `
-            <td>${numgrade++}</td>
-            <td>${result.userName}</td>
-            <td>${result.name}</td>
-            <td>${result.email}</td>
-            <td> <button class="view-list-button">Details</button></td>
-          `;
-          list.appendChild(tablerow);
-      });
-    }, 2000);
-  } catch (error) {
-    console.log(error);
+    renderAccountList(data);
+    }catch(error){
+      console.error(error);
+    }
+    
   }
+  fetchDataFromApi();
+  
+
+
+//------------------------------------------------fectch data into table------------------------------------------------------------------ 
+async function renderAccountList(data) {
+
+  
+
+    list.innerHTML = '';
+    if(data.length == 0){
+      const noAccount = document.createElement('tr');
+      noAccount.innerHTML =
+      '<td colspan="8" class="no-schedule">No exam schedule</td>';
+    list.appendChild(noAccount);
+    }else{
+
+      let numgrade = 1;
+    data.forEach((account) =>{
+
+      
+      
+      const tablerow = document.createElement('tr');  
+      listItem.push(tablerow);
+            tablerow.innerHTML = `
+            <td>${numgrade++}</td>
+            <td>${account.userName}</td>
+            <td>${account.name}</td>
+            <td><select class="role-select" id="role-select">
+            <option value=" ">${account.role}</option>
+            </td>
+            <td> <button class="view-list-button">Details</button> </td>
+            `;
+            list.appendChild(tablerow);
+    });}
+
 }
+
+
+ 
 //----------------------------------------------------------------------------------------------------------------------------------------------
 
 //---------------------------------------------------------search data from table--------------------------------------------------------------- 
@@ -116,6 +132,9 @@ function filterInput(keySearch) {
     list.appendChild(trows);
   }
 }
+
+
+
 
 // const list = document.getElementById("table_body");
 // const search = document.getElementById("search");
@@ -157,3 +176,41 @@ function filterInput(keySearch) {
 //     console.log(error);
 //   }
 // }
+
+
+
+//   try {
+//     // Make an API request to the backend with the token
+//     const responseAPI = await fetch("https://swp-esms-api.azurewebsites.net/api/admin/users", {
+//       method: 'GET', // or 'POST', 'PUT', etc.
+//       headers: {
+//         'Authorization': `Bearer ${localStorage.getItem(token)}`,
+//         'Content-Type': 'application/json',
+//       }});
+//     const response = await responseAPI.json();
+//     const data = response.data;
+//     console.log(data); // Check the response data structure
+
+//     const trow = document.createElement('tr');
+//     trow.innerHTML = '<td colspan="5">Loading ...</td>';
+//     list.appendChild(trow);
+//     let numgrade = 1;
+//     setTimeout(() => {
+//       list.innerHTML = " ";
+//       data.forEach((result) => {
+//           // Creating table row for each result
+//           const tablerow = document.createElement('tr');
+//           listItem.push(tablerow);
+//           tablerow.innerHTML = `
+//             <td>${numgrade++}</td>
+//             <td>${result.userName}</td>
+//             <td>${result.name}</td>
+//             <td>${result.email}</td>
+//             <td> <button class="view-list-button">Details</button></td>
+//           `;
+//           list.appendChild(tablerow);
+//       });
+//     }, 2000);
+//   } catch (error) {
+//     console.log(error);
+//   }

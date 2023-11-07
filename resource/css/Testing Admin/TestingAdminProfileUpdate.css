@@ -1,0 +1,60 @@
+
+/* Format container */
+.container {
+    max-width: 1000px;
+    margin: 0 auto 100px auto;
+    padding: 10px;
+    display: flex;
+  }
+
+  /* Style for heading */
+  h1 {
+    text-align: center; 
+  }
+  
+  /* Style for form */
+  form {
+    background-color: #f9f9f9;
+    padding: 2px;
+    border-radius: 10px;
+    width: 450px;
+    height: 100px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  form input, select {
+    width: 100%;
+    padding: 6px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    margin-bottom: 20px;
+    font-size: 13px;
+  }
+  
+  button {
+    background-color: #5097d8;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Avatar image */
+  .avatar {
+    width: 150px;
+    height: 200px;
+  }
+
+  
+ 
+
+
+  
+
+

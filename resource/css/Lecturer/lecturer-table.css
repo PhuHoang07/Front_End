@@ -1,143 +1,181 @@
-
-
-  
-  /* End reset css */
-  /* ********************** Table wrap ********************** */
-  .table-wrap {
-    color: #333;
-    font-size: 14px;
-  }
-  
-  /* ********************** End table wrap ********************** */
-  /* ********************** Table common ********************** */
-  table {
-    width: 70% ;
-    border-collapse: collapse;
-    overflow: hidden;
-    border-radius: 4px;
-    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-  }
-  
-  table .cur::after {
-    content: "k/h";
-  }
-  table tbody tr {
-    background-color: #D1D9D3;
-  }
-  table thead {
-    background-color: #079073;
-    color: #FFFFFF;
-  }
-  table thead th {
-    text-align: left;
-    padding-block: 8px;
-    border-top: 1px solid #f0f0f0;
-    border-bottom: 1px solid #ececec;
-  }
-  table tbody tr {
-    border-bottom: 1px solid #121010;
-  }
-  .center {
-    margin-left: auto;
-    margin-right: auto;
-  }
-  table tbody td {
-    color: var(--Gray, #605656);
-text-align: center;
-font-family: Inter;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-    padding: 10px;
-  }
-  table thead th {
-    color: #FFF;
-text-align: center;
-font-family: Inter;
-font-size: 20px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-  }
-  table td {
-    vertical-align: middle;
-  }
-  .da-dang-ky {
-    background-color: gray;
-    color: white;
+/* End reset css */
+/* ********************** Table wrap ********************** */
+.table-wrap {
+  color: #333;
+  font-size: 14px;
 }
-  .highlighted {
-    font-weight: bold;
-    background-color: #72A3FF;
+
+/* ********************** End table wrap ********************** */
+/* ********************** Table common ********************** */
+table {
+  width: 70%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
 }
+
+table .cur::after {
+  content: "k/h";
+}
+
+table tbody tr {
+  background-color: #D1D9D3;
+}
+
+table thead {
+  background-color: #079073;
+  color: #FFFFFF;
+}
+
+table thead th {
+  text-align: left;
+  padding-block: 8px;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #ececec;
+}
+
+table tbody tr {
+  border-bottom: 1px solid #121010;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table tbody td {
+  color: var(--Gray, #605656);
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 10px;
+}
+
+table thead th {
+  color: #FFF;
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+table td {
+  vertical-align: middle;
+}
+
+.da-dang-ky {
+  background-color: gray;
+  color: white;
+}
+
+.highlighted {
+  font-weight: bold;
+  background-color: #72A3FF;
+}
+
 tr td:last-child {
   width: 1%;
   white-space: nowrap;
 }
-  /* ********************** End table common ********************** */
-  
-  
-  
-  /* ********************** start modal common ********************** */
-  .buttn{
-    align-items: center;
-    border-radius: 10px;  
-background: var(--Green, #079073);
-width: 90px;
-height: 30px;
-color: #FFF;
-text-align: center;
-font-family: Inter;
-font-size: 16px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
-  }
-  /* The Modal (background) */
+
+/* ********************** End table common ********************** */
+
+
+
+/* ********************** start modal common ********************** */
+.buttn {
+  align-items: center;
+  border-radius: 10px;
+  background: var(--Green, #079073);
+  width: 90px;
+  height: 30px;
+  color: #FFF;
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  cursor: pointer;
+}
+.buttn-registered{
+  align-items: center;
+  border-radius: 10px;
+  background: gray;
+  width: 90px;
+  height: 30px;
+  color: #FFF;
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  /* cursor: pointer; */
+}
+
+/* The Modal (background) */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+
 }
 
 /* Modal Content/Box */
 .modal-content {
   border-radius: 10px;
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto;
+  /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  width: 100%; /* Could be more or less, depending on screen size */
-width: 450px;
-height: 200px;
-padding: 30px 40px;
-display: flex;
-justify-content: center;
-align-items: center;
-align-content: center;
-gap: 20px 117px;
-flex-wrap: wrap;
-border: 5px solid var(--Green, #079073);
-background: #FFF;
+  width: 100%;
+  /* Could be more or less, depending on screen size */
+  width: 450px;
+  height: 200px;
+  padding: 30px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 20px 117px;
+  flex-wrap: wrap;
+  border: 5px solid var(--Green, #079073);
+  background: #FFF;
 }
+
 /*modal text*/
-.modal-text{
+.modal-text {
   color: var(--Green, #079073);
-font-family: Inter;
-font-size: 20px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
+
 /* The Close Button */
 .close {
   color: #FFFFFF;
@@ -145,73 +183,115 @@ line-height: normal;
   font-size: 20px;
   font-weight: bold;
 }
-.confirm{
-    color: #FFFFFF;
-    float: right;
-    font-size: 20px;
-    font-weight: bold;
-  
+
+.confirm {
+  color: #FFFFFF;
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+
 }
-.cofirmbutton{
+
+.cofirmbutton {
   text-align: center;
   display: flex;
-width: 55px;
-padding: 8px 38px 8px 33px;
-align-items: center;
-flex-shrink: 0;
-border-radius: 20px;
-border: 1px solid #FCFCFC;
-background: var(--Green, #079073);
-display: flex;
-width: 92px;
-padding: 8px 0px;
-justify-content: center;
-align-items: center;
-flex-shrink: 0;
+  width: 55px;
+  padding: 8px 38px 8px 33px;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 1px solid #FCFCFC;
+  background: var(--Green, #079073);
+  display: flex;
+  width: 92px;
+  padding: 8px 0px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
 }
-.closebutton{
+
+.closebutton {
   text-align: center;
   display: flex;
-width: 55px;
-padding: 8px 38px 8px 33px;
-align-items: center;
-flex-shrink: 0;
-border-radius: 20px;
-border: 1px solid #FCFCFC;
-background: var(--Red, #D02E2E);
-display: flex;
-width: 92px;
-padding: 8px 0px;
-justify-content: center;
-align-items: center;
-flex-shrink: 0;
+  width: 55px;
+  padding: 8px 38px 8px 33px;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 1px solid #FCFCFC;
+  background: var(--Red, #D02E2E);
+  display: flex;
+  width: 92px;
+  padding: 8px 0px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
 }
+
 .confirm:hover,
 .confirm:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
+
 .close:hover,
 .close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
-  /* ********************** End modal common ********************** */
-  /* **********************Table header**************************** */
-  .headtitle{
-    text-align: center;
-    color: var(--Green, #079073);
- text-align: center;
- font-family: Inter;
- font-size: 28px;
- font-style: normal;
- font-weight: 700;
- line-height: normal;
- padding-top: 20px;
- padding-bottom: 20px;
- }
- .table{
+
+/* ********************** End modal common ********************** */
+/* **********************Table header**************************** */
+.headtitle {
+  text-align: center;
+  color: var(--Green, #079073);
+  text-align: center;
+  font-family: Inter;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.table {
   padding-top: 5%;
- }
+}
+
+.registered-list-button {
+  width: 8%;
+  height: 35px;
+  margin-left: 217px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 15px;
+}
+
+.hiddenTable-Registered {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  padding-left: 300px;
+  padding-top: 30px;
+  max-height: 1000000000px;
+  overflow-y: auto;
+}
+
+.close-button-registered{
+  position: relative;
+  left: 23px;
+  color: white;
+  cursor: pointer;
+}
