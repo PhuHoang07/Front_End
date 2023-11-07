@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <title>Responsive Sidebar Menu | CodingLab</title>
     <link rel="stylesheet" href="/resource/css/Login-Google/Welcome.css" />
-    <link rel="stylesheet" href="/resource/css/Testing Admin/TestingAdminSearch.css" />
+    <link rel="stylesheet" href="/resource/css/Staff/Staff.css" />
 
     <!-- Boxicons CDN Link -->
     <script src="https://kit.fontawesome.com/53e701d613.js" crossorigin="anonymous"></script>
@@ -25,7 +25,7 @@
         </div>
         <ul class="nav-list">
             <li>
-                <a href="TestingAdmin.html">
+                <a href="Staff.html">
                     <i class="fa-solid fa-house"></i>
                     <span class="links_name">Home</span>
                 </a>
@@ -33,18 +33,11 @@
             </li>
 
             <li>
-                <a href="TestingAdminSearch.html">
+                <a href="StaffView.html">
                     <i class="fa-regular fa-calendar"></i>
                     <span class="links_name">View Exam Slots</span>
                 </a>
                 <span class="tooltip">View Exam Slots</span>
-            </li>
-            <li>
-                <a href="testingadminview.html">
-                    <i class="fa-solid fa-bars-progress"></i>
-                    <span class="links_name">View Exam Schedule</span>
-                </a>
-                <span class="tooltip">View Exam Plan</span>
             </li>
         </ul>
     </div>
@@ -67,37 +60,99 @@
         </div>
         <!---->
         <!--Welcome section-->
-        <div class="title">
-            <h2>VIEW EXAM SLOTS</h2>
-        </div>
+        <div class="Search-container">
+                         <div class="title">
+                     <h2>VIEW EXAM SLOTS</h2>
+                     </div>
+            <!-------------------------------------------------------SEARCH-------------------------------------------->
 
+            
+                <div class="selectSearch-container">
+
+                    <div class="search-group"><label>Semester:</label>
+                        <select class="Search_Select" id="Semester_Select">
+                            <option value="">All</option>
+                        </select>
+                    </div>
+                    <div class="search-group"><label>Subjects:</label>
+                        <div class="custom-dropdown">
+                            <button class="Search_Select Filter_Bt" id="open-dropdown">Open Dropdown</button>
+                            <div class="Select_Subject_overLap" id="dropdown-Search">
+                                <div>
+                                    <select class="option_window_left" id="Subject_filter_Left" multiple>
+                                        <!-- Options in the left select go here -->
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <select class="option_window_right" id="Subject_filter_Right" multiple>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+
+
+
+            <div class="selectSearch-container" id="Filter_Date">
+
+                <div class="search-group">
+                    <label for="date">Date:</label>
+                    <input type="date" />
+                </div>
+                <div class="search-group">
+                    <label for="start-time">Start Time:</label>
+                    <input type="time" id="start-time-input" />
+                </div>
+
+                <div class="search-group">
+                    <label for="start-time">End Time:</label>
+                    <input type="time" id="end-time-input" />
+                </div>
+
+                <div class="search-group">
+                    <label for="date">Publish Date:</label>
+                    <input type="date" />
+                </div>
+
+            </div>
+        
+    
+                     <div class="selectSearch-container">
+                     <button class="Search_Select Filter_Bt" onclick="StartFilter()"> Filter!</button>
+                 </div>
+        
+        </div>
+        <!-------------------------------------------------------SEARCH END-------------------------------------------->
         <div class="Semester" id="ShowSemester">
         </div>
-
-        <div class="table-container ">
+        <div class="table-container">
             <table>
                 <thead>
                     <tr>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Supervisor</th>
-                        <th></th>
-                        <th></th>
                         <th>Publish Date</th>
                         <th>Slot</th>
                         <th></th>
                     </tr>
                 </thead>
-                <tbody id="table_body"></tbody>
+                <tbody id="Schedule_TableView">
+                    <div id="loading-container" class="loading-container">
+                        <div class="loading-spinner"></div>
+                      </div>
+                </tbody>
                 <div id="messageRemove" class="messageRemove"></div>
-                <button onclick="showTable4()" class="button-exam">
-                    <i class="fa-solid fa-plus fa-xl" style="color: #12264f"></i>
                 </button>
             </table>
         </div>
 
         <!-- TIME TABLE -->
-        <div class="table-container-hidden-2 follow_Scroll" id="hiddenTable-2" style="display: none">
+        <div class="table-container-hidden-2" id="hiddenTable-2" style="display: none">
             <table>
                 <thead>
                     <tr>
@@ -106,37 +161,58 @@
                         <th>Form</th>
                         <th>Room</th>
                         <th>Type</th>
-                        <th>Student</th>
-                        <th></th>
-                        <th><i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTable2()"></i></th>
+                        <th>Student<i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTable2()"></i>
+                        </th>
+
 
                     </tr>
                 </thead>
                 <tbody id="table_body_3"></tbody>
                 <div id="messageRemove" class="messageRemove"></div>
-                <button class="add-button" onclick="showModalAddExamSchedule(this)">
-                    <i class="fa-solid fa-plus fa-xl"></i>
-                </button>
+
 
             </table>
         </div>
 
+<!-- TIME TABLE FILTERED-->
+<div class="table-container-hidden-2" id="filtered_Time-2" style="display: none">
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Subject</th>
+                <th>Form</th>
+                <th>Room</th>
+                <th>Type</th>
+                <th>Student<i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTableTimeFiltered()"></i>
+                </th>
+
+
+            </tr>
+        </thead>
+        <tbody id="time_tbody_filtered"></tbody>
+        <div id="messageRemove" class="messageRemove"></div>
+
+
+    </table>
+</div>
+
+
         <!-- SUPERVISOR TABLE -->
-        <div class="table-container-hidden-2 follow_Scroll" id="SupervisorTable" style="display: none">
+        <div class="table-container-hidden-2" id="SupervisorTable" style="display: none">
             <table>
                 <thead>
                     <tr>
                         <th>No</th>
                         <th>Name</th>
                         <th>Username</th>
-                        <th>Email<i class="fa-regular fa-circle-xmark fa-lg close-button"
+                        <th>Email</th>
+                        <th><i class="fa-regular fa-circle-xmark fa-lg close-button"
                                 onclick="closeSupervisorTable()"></i></th>
-                        
 
                     </tr>
                 </thead>
                 <tbody id="table_body_super"></tbody>
-
                 <div id="messageRemove" class="messageRemove"></div>
                 <button class="add-button" onclick="textEreaAddSup()">
                     <i class="fa-solid fa-plus fa-xl"></i>
@@ -148,44 +224,39 @@
                 <form>
                     <textarea id="inputSuper" name="inputSuper" placeholder="Username..."></textarea>
                 </form>
-                <div class="AddstudentButton">
+                <div class="search-field-2">
                     <a href="#" title="button shiny 3" onclick="addSuper()" class="fui-button-shiny-3"> Add +</a>
-                    <button id="clearButtonSup" class="fui-button-shiny-3">Clear Text</button>
                 </div>
-                <div class="notification-container" id="notificationContainerSup"></div>
-                </div>
+            </div>
         </div>
-        
+
         <!-- VIEW STUDENT LIST TABLE -->
-        <div class="table-container-hidden-2 follow_Scroll" id="hiddenTable-3" style="display: none">
+        <div class="table-container-hidden-2" id="hiddenTable-3" style="display: none">
             <table>
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Member code</th>
+                        <th>Member Code</th>
                         <th>Full name</th>
-                        <th>User name<i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTable3()"></i></th>
+                        <th>User name<i class="fa-regular fa-circle-xmark fa-lg close-button"
+                                onclick="closeTable3()"></i></th>
+
+
                     </tr>
                 </thead>
                 <tbody id="add-tsu"></tbody>
-                <button class="add-button" onclick="showStudentListToAdd()">
-                    <i class="fa-solid fa-user-plus fa-lg"></i>
-                </button>
 
                 <br />
             </table>
-             <div class="table-container-hidden-3" id="hiddenTable-StudentListToAdd" style="display: none;">
+        </div>
+
+        <div class="table-container-hidden-3" id="hiddenTable-StudentListToAdd" style="display: none;">
             <form>
                 <textarea id="inputStu" name="inputStu" placeholder="Username..."></textarea>
             </form>
-            <div class="AddstudentButton">
+            <div class="search-field-2">
                 <a href="#" title="button shiny 3" onclick="AddStudent()" class="fui-button-shiny-3"> Add +</a>
-                <button id="clearButtonStu" class="fui-button-shiny-3" onclick="ClearTextStu()">Clear Text</button>
             </div>
-            <div class="notification-container" id="notificationContainer"></div>
-        </div>
-
-       
             <!-- <table>
                 <thead>
                     <tr>
@@ -201,7 +272,7 @@
 
         </div>
 
-        <div class="table-container-hidden-3 follow_Scroll" id="hiddenTable-4" style="display: none">
+        <div class="table-container-hidden-3" id="hiddenTable-4" style="display: none">
             <div class="search-field-2">
                 <input id="searchInput" type="number" placeholder="Search" />
                 <button onclick="addAndRemoveRows()">Add</button>
@@ -243,8 +314,8 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- <tr>
+                <tbody> 
+                     <tr>
                         <td>1</td>
                         <td>fn11</td>
                         <td>
@@ -256,10 +327,13 @@
                     </tr> -->
         </tbody>
         </table>
-        </div> -->
+        </div>
+
+
+       
 
         <!-- ADD -->
-        <div class="table-container-hidden-4 follow_Scroll" id="hiddenTable-6" style="display: none">
+        <div class="table-container-hidden-4" id="hiddenTable-6" style="display: none">
             <div class="form-container">
                 <div class="form-group">
                     <label for="date">Date:</label>
@@ -299,12 +373,12 @@
             </div>
         </div>
 
-        <!-- EDIT TIME--------------------------------------------------------------------------------------- -->
-        <div class="table-container-hidden-4 follow_Scroll" id="hiddenTable-7" style="display: none">
+        <!-- EDIT -->
+        <div class="table-container-hidden-4" id="hiddenTable-7" style="display: none">
             <div class="form-container">
                 <div class="form-group">
                     <label for="date"> Exam Date:</label>
-                    <input type="date" id="date-time"/>
+                    <input type="date" />
                 </div>
                 <div class="form-group">
                     <label for="start-time"> Exam Start Time:</label>
@@ -318,50 +392,43 @@
                 </div>
                 <div class="form-group">
                     <label for="date"> Exam Publish Date:</label>
-                    <input id="publish-date-input-2" type="date" />
+                    <input id="publish-date-input" type="date" />
                 </div>
                 <div class="button-container">
-                    <button type="button" class="add_button" onclick="editRows()">
+                    <button type="button" class="add_button" onclick="editRow()">
                         Edit
                     </button>
                     <button type="button" class="cancel_button" onclick="closeTable5()">
                         Cancel
                     </button>
                 </div>
-                <div
-                        id="error-messageEdit"
-                        class="error-message"
-                        style="display: none">
-                    </div>
-                <div id="error-message-Edit2" class="error-message" style="display: none">
+                <div id="error-message-2" class="error-message" style="display: none">
                     Please select complete information
                 </div>
             </div>
         </div>
-        
-        </div>
-        <div class="table-container-hidden-4 follow_Scroll" id="hiddenTable-addTableExamSchedule" style="display: none">
+        <div class="table-container-hidden-4" id="hiddenTable-addTableExamSchedule" style="display: none">
             <div class="form-container">
                 <div class="form-group">
                     <label for="subject">Subject:</label>
 
-                    <select id="subject-input" required>
-                        <option value="" disabled selected hidden>Choose Subject First...</option>
+                    <select id="subject-input">
+                        <option value=""></option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="form">Form:</label>
-                    <input type="text" id="'form'" name="name" class="name" placeholder="Input Form of Exam...">
+                    <input type="text" id="'form'" name="name" class="name">
                 </div>
                 <div class="form-group">
                     <label for="room">Room:</label>
-                    <select id="room-input" required>
-                        <option value="" disabled selected hidden>Choose Room...</option>
+                    <select id="room-input">
+                        <option value=""></option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="type">Type:</label>
-                    <input type="text" id="type" name="name" class="name" placeholder="Input Type Of Exam...">
+                    <input type="text" id="type" name="name" class="name">
                 </div>
                 <div class="button-container">
                     <button type="button" class="add_button" onclick="addRowToTablesch()">
@@ -379,47 +446,45 @@
             </div>
         </div>
 
-         <!--------------------------------------------------------------------------Edit ExamSchedule Form------------------------------------------------------------------------------------------------->
-         <div class="table-container-hidden-4 follow_Scroll" id="hiddenTable-editTableExamSchedule" style="display: none">
+        <div class="table-container-hidden-4" id="hiddenTable-editTableExamSchedule" style="display: none">
             <div class="form-container">
                 <div class="form-group">
                     <label for="subject">Subject:</label>
 
-                    <select id="subject-input-edit">
+                    <select id="subject-input">
                         <option value=""></option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="form">Form:</label>
-                    <input type="text" id="'form-edit'" name="name-edit" class="name">
+                    <input type="text" id="'form'" name="name" class="name">
                 </div>
                 <div class="form-group">
                     <label for="room">Room:</label>
-                    <select id="room-input-edit">
+                    <select id="room-input">
                         <option value=""></option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="type">Type:</label>
-                    <input type="text" id="type-edit" name="name" class="name">
+                    <input type="text" id="type" name="name" class="name">
                 </div>
                 <div class="button-container">
-                    <button type="button" class="add_button" onclick="editRowToTableSchedule()">
+                    <button type="button" class="add_button" onclick="">
                         Edit
                     </button>
                     <button type="button" class="cancel_button" onclick=" closeModalEditExamSchedule()">
                         Cancel
                     </button>
                 </div>
-                <div id="error-messagesche-Edit" class="error-message" style="display: none">
+                <div id="error-messagesche" class="error-message" style="display: none">
                 </div>
-                <div id="error-messagesche-Edit2" class="error-message" style="display: none">
+                <div id="error-messagesche2" class="error-message" style="display: none">
                     Please input all the informations!
                 </div>
             </div>
         </div>
-        <!--============================================================================================================================================================================================-->
-        <div id="confirmationModal " class="modal">
+        <div id="confirmationModal" class="modal">
             <div class="modal-content">
                 <p>Are you sure you want to remove this item?</p>
                 <div class="modal-buttons">
@@ -447,27 +512,12 @@
             </div>
         </div>
 
-        <!------------------confirmation Edit Exam Schedule------------------------------------------------------------------------------------------>
-        <div id="confirmationModalEditExamSchedule" class="modal">
-            <div class="modal-content">
-                <p>Are you sure you want to remove this item?</p>
-                <div class="modal-buttons">
-                    <button class="modal-button-yes" id="Yes-edit_confirm" onclick="confirmEditExamSchedule(true)">
-                        Yes
-                    </button>
-                    <button class="modal-button" id="No-edit_confirm" onclick="confirmEditExamSchedule(false)">
-                        No
-                    </button>
-                </div>
-            </div>
-        </div>
-        <!--============================================================================================================================================================================================-->
         <div id="confirmationModal-2" class="modal">
             <div class="modal-content">
                 <p>Are you sure you want to edit this item?</p>
                 <div class="modal-buttons">
-                    <button class="modal-button yes" id="Yes-confirm" onclick="confirmEdit(true)">Yes</button>
-                    <button class="modal-button no" id="No-confirm" onclick="confirmEdit(false)">No</button>
+                    <button class="modal-button yes" onclick="confirmEdit(true)">Yes</button>
+                    <button class="modal-button no" onclick="confirmEdit(false)">No</button>
                 </div>
             </div>
         </div>
@@ -477,8 +527,7 @@
 
     <script src="/resource//javascript/FetchAPI-Authen/utils.js"></script>
     <script src="/resource/javascript/Login-Google/welcome.js"></script>
-    <script src="/resource/javascript/Testing Admin/TestingAdmin.js"></script>
-    <script src="/resource/javascript/Testing Admin/TestAPI.js" type="module"></script>
+    <script src="/resource/javascript/Staff/StaffView.js"></script>
 </body>
 
 </html>

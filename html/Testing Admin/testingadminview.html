@@ -35,6 +35,13 @@
             <li>
                 <a href="TestingAdminSearch.html">
                     <i class="fa-regular fa-calendar"></i>
+                    <span class="links_name">Manage Exam Slots</span>
+                </a>
+                <span class="tooltip">Manage Exam Slots</span>
+            </li>
+            <li>
+                <a href="testingadminview.html">
+                    <i class="fa-regular fa-calendar"></i>
                     <span class="links_name">View Exam Slots</span>
                 </a>
                 <span class="tooltip">View Exam Slots</span>
@@ -60,69 +67,75 @@
         </div>
         <!---->
         <!--Welcome section-->
-        <div class="title">
-            <h2>VIEW EXAM SLOTS</h2>
+        <div class="Search-container">
+                         <div class="title">
+                     <h2>VIEW EXAM SLOTS</h2>
+                     </div>
             <!-------------------------------------------------------SEARCH-------------------------------------------->
-        </div>
-        <div>
-            <div class="selectSearch-container">
 
-                <div class="search-group"><label>Semester:</label>
-                    <select class="Search_Select" id="Semester_Select"></select>
-                </div>
-                <div class="search-group"><label>Subjects:</label>
-                    <div class="custom-dropdown">
-                        <button class="Search_Select Filter_Bt" id="open-dropdown">Open Dropdown</button>
-                        <div class="Select_Subject_overLap" id="dropdown-Search">
-                            <div>
-                                <select class="option_window_left" id="Subject_filter_Left" multiple>
-                                    <!-- Options in the left select go here -->
-                                </select>
+            
+                <div class="selectSearch-container">
+
+                    <div class="search-group"><label>Semester:</label>
+                        <select class="Search_Select" id="Semester_Select">
+                            <option value="">All</option>
+                        </select>
+                    </div>
+                    <div class="search-group"><label>Subjects:</label>
+                        <div class="custom-dropdown">
+                            <button class="Search_Select Filter_Bt" id="open-dropdown">Open Dropdown</button>
+                            <div class="Select_Subject_overLap" id="dropdown-Search">
+                                <div>
+                                    <select class="option_window_left" id="Subject_filter_Left" multiple>
+                                        <!-- Options in the left select go here -->
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <select class="option_window_right" id="Subject_filter_Right" multiple>
+                                    </select>
+                                </div>
+
                             </div>
-
-                            <div>
-                                <select class="option_window_right" id="Subject_filter_Right" multiple>
-                                </select>
-                            </div>
-
                         </div>
                     </div>
                 </div>
+            
+
+
+
+            <div class="selectSearch-container" id="Filter_Date">
+
+                <div class="search-group">
+                    <label for="date">Date:</label>
+                    <input type="date" />
+                </div>
+                <div class="search-group">
+                    <label for="start-time">Start Time:</label>
+                    <input type="time" id="start-time-input" />
+                </div>
+
+                <div class="search-group">
+                    <label for="start-time">End Time:</label>
+                    <input type="time" id="end-time-input" />
+                </div>
+
+                <div class="search-group">
+                    <label for="date">Publish Date:</label>
+                    <input type="date" />
+                </div>
+
             </div>
-        </div>
-
-        </div>
-
-        <div class="selectSearch-container" id="Filter_Date">
-
-            <div class="search-group">
-                <label for="date">Date:</label>
-                <input type="date" />
-            </div>
-            <div class="search-group">
-                <label for="start-time">Start Time:</label>
-                <input type="time" id="start-time-input"
-                   />
-            </div>
-
-            <div class="search-group">
-                <label for="start-time">End Time:</label>
-                <input type="time" id="end-time-input"
-                   />
-            </div>
-
-            <div class="search-group">
-                <label for="date">Publish Date:</label>
-                <input type="date" />
-            </div>
-
-        </div>
-        </div>
-        <div class="selectSearch-container">
-            <button class="Search_Select Filter_Bt" onclick="StartFilter()"> Filter!</button>
-        </div>
+        
+    
+                     <div class="selectSearch-container">
+                     <button class="Search_Select Filter_Bt" onclick="StartFilter()"> Filter!</button>
+                 </div>
+        
         </div>
         <!-------------------------------------------------------SEARCH END-------------------------------------------->
+        <div class="Semester" id="ShowSemester">
+        </div>
         <div class="table-container">
             <table>
                 <thead>
@@ -135,7 +148,11 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody id="Schedule_TableView"></tbody>
+                <tbody id="Schedule_TableView">
+                    <div id="loading-container" class="loading-container">
+                        <div class="loading-spinner"></div>
+                      </div>
+                </tbody>
                 <div id="messageRemove" class="messageRemove"></div>
                 </button>
             </table>
@@ -163,6 +180,30 @@
 
             </table>
         </div>
+
+<!-- TIME TABLE FILTERED-->
+<div class="table-container-hidden-2" id="filtered_Time-2" style="display: none">
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Subject</th>
+                <th>Form</th>
+                <th>Room</th>
+                <th>Type</th>
+                <th>Student<i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTableTimeFiltered()"></i>
+                </th>
+
+
+            </tr>
+        </thead>
+        <tbody id="time_tbody_filtered"></tbody>
+        <div id="messageRemove" class="messageRemove"></div>
+
+
+    </table>
+</div>
+
 
         <!-- SUPERVISOR TABLE -->
         <div class="table-container-hidden-2" id="SupervisorTable" style="display: none">
@@ -280,7 +321,7 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody> 
                      <tr>
                         <td>1</td>
                         <td>fn11</td>
@@ -293,30 +334,10 @@
                     </tr> -->
         </tbody>
         </table>
-        </div> 
+        </div>
 
 
-<!--  FILTER   TIME TABLE -->
-<div class="table-container-hidden-2 follow_Scroll" id="filtered_time_table" style="display: none">
-    <table>
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Subject</th>
-                <th>Form</th>
-                <th>Room</th>
-                <th>Type</th>
-                <th>Student<i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeFIlteredTimeTable()"></i></th>
-
-            </tr>
-        </thead>
-        <tbody id="table_body_Filtered_Time"></tbody>
-        <div id="messageRemove" class="messageRemove"></div>
-            <i class="fa-solid fa-plus fa-xl"></i>
-        </button>
-
-    </table>
-</div>
+       
 
         <!-- ADD -->
         <div class="table-container-hidden-4" id="hiddenTable-6" style="display: none">
