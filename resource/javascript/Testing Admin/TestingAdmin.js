@@ -108,7 +108,6 @@ async function reFetchSup(button) {
 function showConfirmationModalExamSchedule(button) {
     var modal = document.getElementById("confirmationModalExamSchedule");
     modal.style.display = "block";
-
     // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
     selectedButton = button;
     subject = button.parentNode.parentNode.cells[1].innerText; // Lấy giá trị từ cột thứ 2
@@ -116,7 +115,7 @@ function showConfirmationModalExamSchedule(button) {
     console.log(idt);
 }
 async function confirmRemoveExamSchedule(confirmation) {
-
+    
     console.log(idt);
     var modal = document.getElementById("confirmationModalExamSchedule");
     modal.style.display = "none";
@@ -129,17 +128,14 @@ async function confirmRemoveExamSchedule(confirmation) {
                 'idt': idt,
                 'subjectID': subject,
                 'roomNumber': room
-
             }
         }
-
         const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/delete", "DELETE", data);
         if (res.isSuccess == true) {
             console.log(res.message);
             var messageElement = document.getElementById('messageRemove');
             messageElement.innerHTML = res.message;
             messageElement.style.display = "block";
-
             // Close modal
             document.addEventListener("click", function (event) {
                 if (event.target !== messageElement && !messageElement.contains(event.target)) {
@@ -738,10 +734,10 @@ function closeTable() {
 
 function closeTable2() {
     const hiddenTable2 = document.getElementById('hiddenTable-2');
-    const hiddenTable5 = document.getElementById('hiddenTable-5');
+    // const hiddenTable5 = document.getElementById('hiddenTable-5');
 
     hiddenTable2.style.display = 'none';
-    hiddenTable5.style.display = 'none';
+    // hiddenTable5.style.display = 'none';
 }
 function closeSupervisorTable() {
     const SPtable = document.getElementById('SupervisorTable');
@@ -1267,8 +1263,16 @@ async function confirmRemoveStudentByButtonSelect(confirmation) {
     modal.style.display = "none";
     if (confirmation) {
         // Perform delete action here
-        var row = selectedButton.parentNode.parentNode;
-        row.remove();
+
+        userNames.forEach(function(userName) {
+            // Tìm dòng (row) chứa userName và xóa nó
+            const rows = document.querySelectorAll("#add-tsu  tr");
+            rows.forEach(function(row) {
+                if (row.cells[4].innerText === userName) {
+                    row.remove();
+                }
+            });
+        });
         const data = {
             body: {
                 "idt": idt,
@@ -1378,14 +1382,15 @@ const arrSupervisor = new Set(); // Sử dụng Set để lưu trữ giá trị 
 let userNameSupervisor = [];
 
 function getDataSupervisorByCheckBox(checkbox) {
-    const row = checkbox.parentNode.parentNode; 
-    const userName = row.cells[3].innerText; 
+    const row = checkbox.parentNode.parentNode;
+    const userName = row.cells[3].innerText;
     const isChecked = checkbox.checked;
 
     if (isChecked) {
-        arrSupervisor.add(userName); 
+        arrSupervisor.add(userName);
+       
     } else {
-        arrSupervisor.delete(userName); 
+        arrSupervisor.delete(userName);
     }
 
     userNameSupervisor = Array.from(arrSupervisor);
@@ -1413,23 +1418,31 @@ selectAllCheckboxSupervisor.onclick = function () {
     }
 };
 
-
-
 function showConfirmationModalRemoveSupervisorByButtonSelect(button) {
     var modal = document.getElementById("confirmationModalRemoveSupervisorByButtonsSelect");
     modal.style.display = "block";
     selectedButton = button;
     console.log(idt);
 }
-async function confirmRemoveSupervisorByButtonSelect(confirmation) {
 
+async function confirmRemoveSupervisorByButtonSelect(confirmation) {
     console.log(idt);
     var modal = document.getElementById("confirmationModalRemoveSupervisorByButtonsSelect");
     modal.style.display = "none";
+    
     if (confirmation) {
         // Perform delete action here
-        var row = selectedButton.parentNode.parentNode;
-        row.remove();
+        // Lặp qua mảng userNameSupervisor và xóa các hàng tương ứng
+        userNameSupervisor.forEach(function(userName) {
+            // Tìm dòng (row) chứa userName và xóa nó
+            const rows = document.querySelectorAll("#table_body_super tr");
+            rows.forEach(function(row) {
+                if (row.cells[3].innerText === userName) {
+                    row.remove();
+                }
+            });
+        });
+
         const data = {
             body: {
                 "idt": idt,
@@ -1440,7 +1453,6 @@ async function confirmRemoveSupervisorByButtonSelect(confirmation) {
         const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/proctors/remove", "DELETE", data);
         if (res.isSuccess == true) {
             console.log(res.message);
-          
         }
     }
 }
