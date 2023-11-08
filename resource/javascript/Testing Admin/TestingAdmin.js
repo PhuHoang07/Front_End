@@ -655,18 +655,7 @@ async function showModalEditExamSchedule(button) { // do chung async nên nó ch
         const selectedROptionText = selectedROption.text;
         const enteredtype= typeInput.value; 
     
-        const data = {
-            body : {
-                'idt': idt,
-                "subjectID":subjectRow,
-                "roomNumber":roomRow,
-                "updSubjectID":selectedOptionText,
-                "updRoomNumber": selectedROptionText,
-                "updForm":enteredValue,
-                "updType":enteredtype
-            }
-         }
-         console.log(data); // nhận data mới
+        
 
     console.log(idt);
    
@@ -675,17 +664,17 @@ async function showModalEditExamSchedule(button) { // do chung async nên nó ch
         var confirmButton = document.getElementById("Yes-edit_confirm"); // assuming the confirm button has an element ID of "confirmButton"
          var cancelButton = document.getElementById("No-edit_confirm");
         confirmButton.onclick = async function() {
-        const data = {
-            body : {
-                'idt': idt,
-                "subjectID":subjectRow,
-                "roomNumber":roomRow,
-                "updSubjectID":selectedOptionText,
-                "updRoomNumber": selectedROptionText,
-                "updForm":enteredValue,
-                "updType":enteredtype
-            }
-         }
+            var data = {
+                body : {
+                    'idt': idt,
+                    "subjectID":subjectRow,
+                    "roomNumber":roomRow,
+                    "updSubjectID":selectedOptionText,
+                    "updRoomNumber": selectedROptionText,
+                    "updForm":enteredValue,
+                    "updType":enteredtype
+                }
+             }
          console.log(data); // sau khi update thằng đầu thành công, vẫn nhận data cũ của thằng đầu nên bị xung đột. 
          const response = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/update","PATCH",data);
          const hiddenTableRow = document.getElementById("hiddenTable-editTableExamSchedule");
