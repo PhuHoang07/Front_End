@@ -1085,7 +1085,8 @@ function closeConfirmationModal() {
 
 
 
-
+renderExamTime();
+renderExamSchedule();
 
 
 async function renderExamTime() {

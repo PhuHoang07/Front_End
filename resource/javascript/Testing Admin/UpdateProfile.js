@@ -21,14 +21,19 @@ async function fetchDataFromApi(){
   function renderUpdateProfile(data){
  
     document.getElementById("full-name").value = data.name;
-    document.getElementById("dateBirth").value = data.dateOfBirth;
     document.getElementById("gender-input-update").value = data.gender;
     document.getElementById("id-card").value = data.idcard;
     document.getElementById("address").value = data.address;
     document.getElementById("phone").value = data.phoneNumber;
+    document.querySelector("#info input[type='date']").value = formatDate(data.dateOfBirth);
 
     }
-
+    function formatDate(dateString) {
+      // Assuming the provided date is in the format "yyyy-MM-dd"
+      const parts = dateString.split('-');
+      const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+      return formattedDate;
+  }
 //=========================================================================================
 
 
@@ -59,7 +64,7 @@ async function UpdateProfile(confirmation){
 
     if(!nameInput || !dateInput || !idInput || !addressInput || !phoneInput || !selectedGender){
 
-        errorMessage.style.display = "flex";
+        errorMessage2.style.display = "flex";
         return;
     }
     else{
