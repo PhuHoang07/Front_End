@@ -1,5 +1,6 @@
 const list = document.getElementById('table_body');
 const search = document.getElementById('search');
+const showSemester = document.getElementById('ShowSemester');
 const listItem = [];
 // call fetch function from utils.js file
 const response = await fetchAPIData(
@@ -7,11 +8,17 @@ const response = await fetchAPIData(
     'GET'
 );
 const data = response.data;
-renderExamTime();
 
 //------------------------------------------------fectch data into table------------------------------------------------------------------
 function renderExamTime() {
     list.innerHTML = '';
+
+    showSemester.innerHTML = '';
+    const Semter = document.createElement('h2');
+    Semter.innerHTML = `Semster:${Object.getOwnPropertyNames(data)}`;
+   
+     showSemester.appendChild(Semter);
+ 
 
     Object.keys(data).forEach((semester) => {
         data[semester].forEach((examTime) => {
@@ -34,7 +41,7 @@ function renderExamTime() {
                 <td><button class="remove-button" onclick="showConfirmationModal(this)">Remove</button></td>
                 <td>${examTime.publishDate}</td>
                 <td>${examTime.slot}</td>
-                <td><i onclick="showTable2(this) "class="fa-solid fa-square-caret-down fa-2xl btn-showExamSchedule"></i></td>
+                <td><i onclick="showTable2(this) "class="fa-solid fa-square-caret-down fa-2xl btn-showExamSchedule" id="btn"></i></td>
 
 
               `;
@@ -43,7 +50,7 @@ function renderExamTime() {
         });
     });
 
-    Array.from(document.getElementsByClassName('btn-showExamSchedule')).forEach(
+    Array.from(document.getElementById("btn")).forEach(
         (btn) => {
             const idt = btn.parentElement.parentElement.getAttribute('idt');
             btn.addEventListener('click', () => renderExamSchedule(idt));

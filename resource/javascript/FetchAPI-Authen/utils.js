@@ -29,7 +29,8 @@ function fetchAPIData(url, method, data = {}) {
     const token = localStorage.getItem('token');
 
     if (method === 'GET') {
-        const params = new URLSearchParams(data.params ?? '');
+        
+        const params = new URLSearchParams(data.params ?? '' );
 
         return fetch(url + `?${params}`, {
             method: method, // or 'POST', 'PUT', etc.
@@ -56,4 +57,43 @@ function showUserName() {
     const userName = localStorage.getItem('name');
     const userField = document.getElementById('user-name');
     userField.innerText = userName;
+}
+
+function fetchAPIDataS(url, method, data = {}) {
+    const token = localStorage.getItem('token');
+
+    if (method === 'GET' && data.params) {
+        const queryParams = Object.entries(data.params).reduce((acc, [key, value]) => {
+            if (Array.isArray(value)) {
+                value.forEach(item => acc.append(key, item));
+            } else {
+                acc.append(key, value);
+            }
+            return acc;
+        }, new URLSearchParams());
+
+        const queryString = queryParams.toString();
+
+        return fetch(url + `?${queryString}`, {
+            method: method,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        }).then((response) => response.json());
+    } else if (method === 'POST' || method === 'PUT' || method === 'DELETE') {
+        const body = JSON.stringify(data.body ?? '');
+
+        return fetch(url, {
+            method: method,
+            body: body,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        }).then((response) => response.json());
+    } else {
+        // Handle other cases if needed
+        return Promise.reject(new Error('Unsupported method'));
+    }
 }
