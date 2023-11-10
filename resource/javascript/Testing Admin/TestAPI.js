@@ -8,7 +8,6 @@ const response = await fetchAPIData(
     'GET'
 );
 const data = response.data;
-
 //------------------------------------------------fectch data into table------------------------------------------------------------------
 function renderExamTime() {
     list.innerHTML = '';
@@ -16,7 +15,7 @@ function renderExamTime() {
     showSemester.innerHTML = '';
     const Semter = document.createElement('h2');
     Semter.innerHTML = `Semster:${Object.getOwnPropertyNames(data)}`;
-   
+   console.log(Object.getOwnPropertyNames(data));
      showSemester.appendChild(Semter);
  
 

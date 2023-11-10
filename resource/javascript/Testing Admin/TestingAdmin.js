@@ -150,12 +150,13 @@ function textEreaAddSup() {
     const hiddenTable = document.getElementById('SupervisorTable');
     const hiddenTable4 = document.getElementById('superTextToAdd');
 
-    if (hiddenTable.style.display === 'block') {
+    if (hiddenTable4.style.display === 'none') {
         hiddenTable4.style.display = 'block';
         hiddenTable4.style.position = 'absolute';
         hiddenTable4.style.top = getComputedStyle(hiddenTable).top;
-        hiddenTable4.style.left =
-            parseInt(getComputedStyle(hiddenTable).left) + 250 + 'px';
+       
+    }else{
+        hiddenTable4.style.display = 'none';
     }
 }
 
@@ -763,14 +764,17 @@ function showStudentListToAdd() {
     const hiddenTable = document.getElementById('hiddenTable-3');
     const hiddenTable4 = document.getElementById('hiddenTable-StudentListToAdd');
 
-    if (hiddenTable.style.display === 'block') {
+    if (hiddenTable4.style.display === 'none') {
         hiddenTable4.style.display = 'block';
         hiddenTable4.style.position = 'absolute';
         hiddenTable4.style.top = getComputedStyle(hiddenTable).top;
         hiddenTable4.style.left =
             parseInt(getComputedStyle(hiddenTable).left) + 250 + 'px';
+    } else {
+        hiddenTable4.style.display = 'none'; // Close hiddenTable4
     }
 }
+
 
 //--------------------------------------Edit time hoàn thiện truyền dữ liệu vô -------------------------------------------------------------------------------------------------------------------
 function showConfirmationModalEdit(button) {
@@ -1083,7 +1087,7 @@ function closeConfirmationModal() {
 }
 
 
-
+const showSemester = document.getElementById('ShowSemester');
 
 renderExamTime();
 renderExamSchedule();
@@ -1092,6 +1096,9 @@ renderExamSchedule();
 async function renderExamTime() {
     const list = document.getElementById('table_body');
     const listItem = [];
+
+    
+
     // call fetch function from utils.js file
     const response = await fetchAPIData(
         'https://swp-esms-api.azurewebsites.net/api/exams/current',
@@ -1100,6 +1107,12 @@ async function renderExamTime() {
     const data = response.data;
 
     list.innerHTML = '';
+
+    showSemester.innerHTML = '';
+    const Semter = document.createElement('h2');
+    Semter.innerHTML = `Semster:${Object.getOwnPropertyNames(data)}`;
+   console.log(Object.getOwnPropertyNames(data));
+     showSemester.appendChild(Semter);
 
     Object.keys(data).forEach((semester) => {
         data[semester].forEach((examTime) => {

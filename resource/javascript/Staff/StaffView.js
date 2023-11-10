@@ -1539,3 +1539,59 @@ async function renderExamSchedule(idt) {
         });
     });
 }
+
+document.getElementById('exportToExcel').addEventListener('click', function () {
+    const table = document.getElementById('Exam_schedule_table'); // Replace 'yourTableId' with the actual table ID
+    const rows = table.querySelectorAll('tr');
+
+    // Create a new Excel workbook
+    const workbook = new ExcelJS.Workbook();
+
+    // Add a worksheet to the workbook
+    const sheet = workbook.addWorksheet('Exam Time');
+
+    // Define and apply styles to the headers (entire row)
+    sheet.getRow(1).font = { bold: true };
+    sheet.getRow(1).alignment = { horizontal: 'center' };
+
+    // Populate the sheet with table headers
+    const headerCells = rows[0].querySelectorAll('th');
+    headerCells.forEach((cell, index) => {
+        sheet.getCell(1, index + 1).value = cell.textContent;
+        sheet.getCell(1, index + 1).fill = {
+            type: 'pattern',
+            pattern: 'solid',
+            fgColor: { argb: '00FF00' }, // Green color
+        };
+        sheet.getCell(1, index + 1).alignment = { horizontal: 'center' };
+    });
+
+    // Populate the sheet with table data
+    for (let i = 1; i < rows.length; i++) {
+        const dataRow = rows[i].querySelectorAll('td');
+        dataRow.forEach((cell, index) => {
+            const excelCell = sheet.getCell(i + 1, index + 1);
+            excelCell.value = cell.textContent;
+
+            // Apply styles to the data rows (white and grey stripes)
+            excelCell.fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: { argb: (i % 2 === 0) ? 'FFFFFF' : 'DDDDDD' }, // Alternate between white and grey
+            };
+
+            // Center-align the cell content
+            excelCell.alignment = { horizontal: 'center' };
+        });
+    }
+
+    // Generate the Excel file
+    workbook.xlsx.writeBuffer().then(function (data) {
+        const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        saveAs(blob, 'table_data.xlsx'); // Use the saveAs function to download the file
+    });
+});
+
+
+
+

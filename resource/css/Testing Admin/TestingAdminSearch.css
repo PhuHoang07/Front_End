@@ -98,10 +98,10 @@ tr:hover {
     right: 0;
     bottom: 0;
     /* display: none; */
-    margin-left: 860px;
+    margin-left: 870px;
     margin-top: 39px;
-    max-height: 1000000000px;
-    overflow-y: auto;
+    overflow-y: hidden;
+    left: 290px;
 
 }
 
@@ -360,6 +360,7 @@ textarea {
     background-color: #f8f8f8;
     font-size: 16px;
     resize: none;
+    overflow-y: hidden;
   }
   .buttonadd{
     font-family: "Font Awesome 6 Free";
@@ -549,6 +550,14 @@ textarea {
   overflow: auto;
   
   }
+  .option_window{
+    background-color: #ffffff;
+    width: 10cm;
+    height: 10cm;
+    border-radius: 20px;
+    border-style: solid;
+  border-color: rgb(0, 0, 0);
+  }
   .option_window_right{
     background-color: #ffffff;
     width: 10cm;
@@ -572,7 +581,7 @@ textarea {
   .Semester{
     display: flex;
     justify-content: center;
-    margin-right: 18cm;
+    margin-right: 17cm;
   }
   .loading-container {
     display: none;
