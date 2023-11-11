@@ -70,6 +70,8 @@
         <div class="title">
             <h2>VIEW EXAM TIME</h2>
         </div>
+        <div class="Semester" id="ShowSemester">
+        </div>
 
         <div class="table-container ">
             <table>
@@ -402,7 +404,7 @@
                     <input type="text" id="type-edit" name="name" class="name">
                 </div>
                 <div class="button-container">
-                    <button type="button" class="add_button" id="edit-button" onclick="confirmEditExamSchedule()">
+                    <button type="button" class="add_button" id="edit-button" onclick="confirmEditExamSchedule(true)">
                         Edit
                     </button>
                     <button type="button" class="cancel_button" onclick=" closeModalEditExamSchedule()">
@@ -450,10 +452,10 @@
             <div class="modal-content">
                 <p>Are you sure you want to remove this item?</p>
                 <div class="modal-buttons">
-                    <button class="modal-button-yes" id="Yes-edit_confirm" onclick="confirmEditExamSchedule(true)">
+                    <button class="modal-button-yes" id="Yes-edit_confirm">
                         Yes
                     </button>
-                    <button class="modal-button" id="No-edit_confirm" onclick="confirmEditExamSchedule(false)">
+                    <button class="modal-button" id="No-edit_confirm">
                         No
                     </button>
                 </div>

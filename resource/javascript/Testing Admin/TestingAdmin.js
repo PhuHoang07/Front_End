@@ -158,12 +158,13 @@ function textEreaAddSup() {
     const hiddenTable = document.getElementById('SupervisorTable');
     const hiddenTable4 = document.getElementById('superTextToAdd');
 
-    if (hiddenTable.style.display === 'block') {
+    if (hiddenTable4.style.display === 'none') {
         hiddenTable4.style.display = 'block';
         hiddenTable4.style.position = 'absolute';
         hiddenTable4.style.top = getComputedStyle(hiddenTable).top;
-        hiddenTable4.style.left =
-            parseInt(getComputedStyle(hiddenTable).left) + 250 + 'px';
+       
+    }else{
+        hiddenTable4.style.display = 'none';
     }
 }
 
@@ -658,82 +659,71 @@ async function confirmEditExamSchedule(confirmation) {
     var modal = document.getElementById("confirmationModalEditExamSchedule");
     modal.style.display = "block";
 
-    const subjectRow = subject;
-    const roomRow = room;
-    console.log(subjectRow, roomRow);
-
-    const errorMessage = document.getElementById("error-messagesche-Edit");
-    const errorMessage2 = document.getElementById("error-messagesche-Edit2");
-    const nameInput = document.querySelector('[name="name-edit"]'); // form input
-    const typeInput = document.getElementById("type-edit");
-    const selectRoom = document.querySelector('#room-input-edit');
-    const selectedRIndex = selectRoom.selectedIndex;
-    const selectedROption = selectRoom.options[selectedRIndex];
-    const selectSubject = document.querySelector('#subject-input-edit');
-    const selectedIndex = selectSubject.selectedIndex;
-    const selectedOption = selectSubject.options[selectedIndex];
-
-    if (!nameInput.value || !typeInput.value || !selectRoom.value || !selectSubject.value) {
-        errorMessage2.style.display = "flex";// Hiển thị thông báo
-        errorMessage.style.display = "none"; // Dừng việc thêm dòng mới nếu có trường không hợp lệ.
-
-        return;
-    } else {
-        errorMessage2.style.display = "none"; // Ẩn thông báo nếu tất cả trường hợp lệ.
-    }
-    console.log(subjectRow, roomRow);
-    const selectedOptionText = selectedOption.text;
-    const enteredValue = nameInput.value;
-    const selectedROptionText = selectedROption.text;
-    const enteredtype = typeInput.value;
-
-    const data = {
-        body: {
-            'idt': idt,
-            "subjectID": subjectRow,
-            "roomNumber": roomRow,
-            "updSubjectID": selectedOptionText,
-            "updRoomNumber": selectedROptionText,
-            "updForm": enteredValue,
-            "updType": enteredtype
-        }
-    }
-    console.log(data); // nhận data mới
+        const subjectRow = subject;
+        const roomRow = room;
+        console.log(subjectRow, roomRow);
+    
+        const errorMessage = document.getElementById("error-messagesche-Edit");
+        const errorMessage2 = document.getElementById("error-messagesche-Edit2");
+        const nameInput = document.querySelector('[name="name-edit"]'); // form input
+        const typeInput = document.getElementById("type-edit");
+        const selectRoom = document.querySelector('#room-input-edit');
+        const selectedRIndex = selectRoom.selectedIndex;
+        const selectedROption = selectRoom.options[selectedRIndex];
+        const selectSubject = document.querySelector('#subject-input-edit');
+        const selectedIndex = selectSubject.selectedIndex;
+        const selectedOption = selectSubject.options[selectedIndex];
+    
+        if (!nameInput.value || !typeInput.value || !selectRoom.value || !selectSubject.value) {
+            errorMessage2.style.display = "flex";// Hiển thị thông báo
+            errorMessage.style.display = "none"; // Dừng việc thêm dòng mới nếu có trường không hợp lệ.
+            
+            return;
+        } else {
+            errorMessage2.style.display = "none"; // Ẩn thông báo nếu tất cả trường hợp lệ.
+        }   
+        console.log(subjectRow,roomRow);
+        const selectedOptionText = selectedOption.text;
+        const enteredValue = nameInput.value;
+        const selectedROptionText = selectedROption.text;
+        const enteredtype= typeInput.value; 
+    
+        
 
     console.log(idt);
 
     if (confirmation === true) {
         // nút để confirm ở đây ==============================================
         var confirmButton = document.getElementById("Yes-edit_confirm"); // assuming the confirm button has an element ID of "confirmButton"
-        var cancelButton = document.getElementById("No-edit_confirm");
-        confirmButton.onclick = async function () {
-            const data = {
-                body: {
+         var cancelButton = document.getElementById("No-edit_confirm");
+        confirmButton.onclick = async function() {
+            var data = {
+                body : {
                     'idt': idt,
-                    "subjectID": subjectRow,
-                    "roomNumber": roomRow,
-                    "updSubjectID": selectedOptionText,
+                    "subjectID":subjectRow,
+                    "roomNumber":roomRow,
+                    "updSubjectID":selectedOptionText,
                     "updRoomNumber": selectedROptionText,
-                    "updForm": enteredValue,
-                    "updType": enteredtype
+                    "updForm":enteredValue,
+                    "updType":enteredtype
                 }
-            }
-            console.log(data); // sau khi update thằng đầu thành công, vẫn nhận data cũ của thằng đầu nên bị xung đột. 
-            const response = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/update", "PATCH", data);
-            const hiddenTableRow = document.getElementById("hiddenTable-editTableExamSchedule");
-            var modal = document.getElementById("confirmationModalEditExamSchedule");
-            if (response.isSuccess == true) {
-
-                errorMessage.style.display = "flex";
-                errorMessage.innerHTML = response.message;
-                console.log(response.message);
-                renderExamSchedule(idt);
-                modal.style.display = "none";
-
-                setTimeout(() => {
-                    errorMessage.style.display = "none";
-                    hiddenTableRow.style.display = "none";
-                }, 3000);
+             }
+         console.log(data); // sau khi update thằng đầu thành công, vẫn nhận data cũ của thằng đầu nên bị xung đột. 
+         const response = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/update","PATCH",data);
+         const hiddenTableRow = document.getElementById("hiddenTable-editTableExamSchedule");
+         var modal = document.getElementById("confirmationModalEditExamSchedule");
+        if (response.isSuccess == true) {
+        
+         errorMessage.style.display = "flex";
+         errorMessage.innerHTML = response.message;
+         console.log(response.message);
+         renderExamSchedule(idt);
+         modal.style.display = "none";
+               
+         setTimeout(() => {
+            errorMessage.style.display = "none";
+            hiddenTableRow.style.display = "none";
+          }, 3000);
 
             } else {
                 errorMessage.style.display = "flex";
@@ -810,14 +800,17 @@ function showStudentListToAdd() {
     const hiddenTable = document.getElementById('hiddenTable-3');
     const hiddenTable4 = document.getElementById('hiddenTable-StudentListToAdd');
 
-    if (hiddenTable.style.display === 'block') {
+    if (hiddenTable4.style.display === 'none') {
         hiddenTable4.style.display = 'block';
         hiddenTable4.style.position = 'absolute';
         hiddenTable4.style.top = getComputedStyle(hiddenTable).top;
         hiddenTable4.style.left =
             parseInt(getComputedStyle(hiddenTable).left) + 250 + 'px';
+    } else {
+        hiddenTable4.style.display = 'none'; // Close hiddenTable4
     }
 }
+
 
 //--------------------------------------Edit time hoàn thiện truyền dữ liệu vô -------------------------------------------------------------------------------------------------------------------
 function showConfirmationModalEdit(button) {
@@ -1130,14 +1123,18 @@ function closeConfirmationModal() {
 }
 
 
+const showSemester = document.getElementById('ShowSemester');
 
-
-
+renderExamTime();
+renderExamSchedule();
 
 
 async function renderExamTime() {
     const list = document.getElementById('table_body');
     const listItem = [];
+
+    
+
     // call fetch function from utils.js file
     const response = await fetchAPIData(
         'https://swp-esms-api.azurewebsites.net/api/exams/current',
@@ -1146,6 +1143,12 @@ async function renderExamTime() {
     const data = response.data;
 
     list.innerHTML = '';
+
+    showSemester.innerHTML = '';
+    const Semter = document.createElement('h2');
+    Semter.innerHTML = `Semster:${Object.getOwnPropertyNames(data)}`;
+   console.log(Object.getOwnPropertyNames(data));
+     showSemester.appendChild(Semter);
 
     Object.keys(data).forEach((semester) => {
         data[semester].forEach((examTime) => {

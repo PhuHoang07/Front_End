@@ -41,9 +41,48 @@
 //     alert('lỗi!!!');
 // })
 
+// const list = document.getElementById("table_body");
+// const search = document.getElementById("search");
+// const listItem = [];
 
+// search.addEventListener('input', (e) => filterInput(e.target.value))
 
+// getDataAPI();
+// //------------------------------------------------fectch data into table------------------------------------------------------------------ 
+// async function getDataAPI() {
+//   try {
+//     const responseAPI = await fetch("https://fakestoreapi.com/products");
+//     const data = await responseAPI.json();
+//     console.log(data); // Check the response data structure
+//     //---------------------------------pagination------------------------------------------------------------------------------------------
+   
 
+//     //-------------------------------------------------------------------------------------------------------------------------------------------
+//     const trow = document.createElement('tr');
+//     trow.innerHTML = '<td colspan="5">Loading ...</td>';
+//     list.appendChild(trow);
+//     setTimeout(()=>{
+//         list.innerHTML = " ";
+//         data.forEach(result => {
+//             const tablerow = document.createElement('tr');
+//             listItem.push(tablerow);//đẩy vô để search ra data.
+//             tablerow.innerHTML = `
+//               <td>${result.title}</td>
+//               <td>${result.description}</td>
+//               <td>${result.price}</td>
+//               <td><img src="${result.image}"/></td>
+//               <td>${result.category}</td>
+//             `;
+//             list.appendChild(tablerow);
+//           });
+//     }, 2000);
+    
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
+//======================================================================================================================================================================================================
 
 const list = document.getElementById("table_body");
   const search = document.getElementById("search");
@@ -94,7 +133,7 @@ async function renderAccountList(data) {
             <td><select class="role-select" id="role-select">
             <option value=" ">${account.role}</option>
             </td>
-            <td> <button class="view-list-button">Details</button> </td>
+            <td> <button id="detail-list" class="view-list-button" onclick="userInfo(this)">Details</button> </td>
             `;
             list.appendChild(tablerow);
     });}
@@ -133,84 +172,44 @@ function filterInput(keySearch) {
   }
 }
 
+//---------------------------------------------------Get User Info By User Name----------------------------------------------------------------------------
+ function userInfo(button){
+    if (!button) {
+      console.error("Button is undefined.");
+      return;
+    } 
+    selectedButton = button;
+    userNameInfo = button.parentNode?.parentNode?.cells[1].innerText;
+    roleInfo =  button.parentNode?.parentNode?.cells[3].innerText;
+    console.log(userNameInfo,roleInfo);
 
+   userDetails(userNameInfo,roleInfo);
+}
 
-
-// const list = document.getElementById("table_body");
-// const search = document.getElementById("search");
-// const listItem = [];
-
-// search.addEventListener('input', (e) => filterInput(e.target.value))
-
-// getDataAPI();
-// //------------------------------------------------fectch data into table------------------------------------------------------------------ 
-// async function getDataAPI() {
-//   try {
-//     const responseAPI = await fetch("https://fakestoreapi.com/products");
-//     const data = await responseAPI.json();
-//     console.log(data); // Check the response data structure
-//     //---------------------------------pagination------------------------------------------------------------------------------------------
-   
-
-//     //-------------------------------------------------------------------------------------------------------------------------------------------
-//     const trow = document.createElement('tr');
-//     trow.innerHTML = '<td colspan="5">Loading ...</td>';
-//     list.appendChild(trow);
-//     setTimeout(()=>{
-//         list.innerHTML = " ";
-//         data.forEach(result => {
-//             const tablerow = document.createElement('tr');
-//             listItem.push(tablerow);//đẩy vô để search ra data.
-//             tablerow.innerHTML = `
-//               <td>${result.title}</td>
-//               <td>${result.description}</td>
-//               <td>${result.price}</td>
-//               <td><img src="${result.image}"/></td>
-//               <td>${result.category}</td>
-//             `;
-//             list.appendChild(tablerow);
-//           });
-//     }, 2000);
+async function userDetails(userNameInfo, roleInfo){
+  if(roleInfo === "Testing Admin"){
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/admin/users/${userNameInfo}", "GET");
+    window.location.href = "TestingAdminProfile.html";
     
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
+  }
 
+  if(roleInfo === "Admin"){
+    const data ={
+      body:{
+        userName: userNameInfo
+      }
+    }
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/admin/users/${userNameInfo}" + userNameInfo, "GET",data);
+    window.location.href = "AdminProfile.html";
+  }
 
+  if(roleInfo === "Student"){
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/admin/users/${userNameInfo}"+ userNameInfo, "GET");
+    window.location.href = "StudentProfile.html";
+  }
 
-//   try {
-//     // Make an API request to the backend with the token
-//     const responseAPI = await fetch("https://swp-esms-api.azurewebsites.net/api/admin/users", {
-//       method: 'GET', // or 'POST', 'PUT', etc.
-//       headers: {
-//         'Authorization': `Bearer ${localStorage.getItem(token)}`,
-//         'Content-Type': 'application/json',
-//       }});
-//     const response = await responseAPI.json();
-//     const data = response.data;
-//     console.log(data); // Check the response data structure
-
-//     const trow = document.createElement('tr');
-//     trow.innerHTML = '<td colspan="5">Loading ...</td>';
-//     list.appendChild(trow);
-//     let numgrade = 1;
-//     setTimeout(() => {
-//       list.innerHTML = " ";
-//       data.forEach((result) => {
-//           // Creating table row for each result
-//           const tablerow = document.createElement('tr');
-//           listItem.push(tablerow);
-//           tablerow.innerHTML = `
-//             <td>${numgrade++}</td>
-//             <td>${result.userName}</td>
-//             <td>${result.name}</td>
-//             <td>${result.email}</td>
-//             <td> <button class="view-list-button">Details</button></td>
-//           `;
-//           list.appendChild(tablerow);
-//       });
-//     }, 2000);
-//   } catch (error) {
-//     console.log(error);
-//   }
+  if(roleInfo === "Lecturer"){
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/admin/users/${userNameInfo}" + userNameInfo, "GET");
+    window.location.href = "LecturerProfile.html";
+  }
+}

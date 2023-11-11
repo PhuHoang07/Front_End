@@ -5,6 +5,7 @@ section .view-list-button{
     border: none;
     width: 60px;
     height: 25px;
+    cursor: pointer;
 }
 .view-list-button:hover{
     opacity: 0.75;
