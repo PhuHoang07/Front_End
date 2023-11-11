@@ -84,6 +84,9 @@ tr td:last-child {
   white-space: nowrap;
 }
 
+tbody tr:hover{
+  background-color: rgb(196, 195, 195);
+}
 /* ********************** End table common ********************** */
 
 
@@ -104,6 +107,10 @@ tr td:last-child {
   line-height: normal;
   cursor: pointer;
 }
+.buttn:hover{
+background-color: #087a62;
+
+}
 .buttn-registered{
   align-items: center;
   border-radius: 10px;
@@ -119,6 +126,8 @@ tr td:last-child {
   line-height: normal;
   /* cursor: pointer; */
 }
+
+
 
 /* The Modal (background) */
 .modal {
@@ -294,4 +303,20 @@ tr td:last-child {
   left: 23px;
   color: white;
   cursor: pointer;
+}
+
+#messageRegisterSuccess {
+  background-color: #fff;
+  padding: 20px;
+  width: 50%;
+  text-align: center;
+  position: fixed;
+  top: 300px;
+  left: 26%;
+  border-radius: 30px;
+  border: 5px solid rgb(28, 126, 139);
+  color: red;
+  display: none;
+  z-index: 3;
+
 }

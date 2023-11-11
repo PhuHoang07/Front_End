@@ -1,28 +1,28 @@
-window.addEventListener('load', async function() {
+window.addEventListener('load', async function () {
     await loadSubject();
-  });
-  
+});
 
-  const leftSelect = document.getElementById("Subject_filter_Left");
-  const rightSelect = document.getElementById("Subject_filter_Right");
-    function addClickListeners(selectFrom, selectTo) {
-      selectFrom.addEventListener('click', (event) => {
-          if (event.target.tagName === 'OPTION') {
-              // Clone the option and append it to the other select
-              const clonedOption = event.target.cloneNode(true);
-              selectTo.appendChild(clonedOption);
-  
-              // Remove the original option from the current select
-              selectFrom.removeChild(event.target);
-          }
-      });
-  }
-  
-  // Add click listeners to the right select for moving to the left
-  addClickListeners(rightSelect, leftSelect);
-  
-  // Add click listeners to the left select for moving to the right
-  addClickListeners(leftSelect, rightSelect);
+
+const leftSelect = document.getElementById("Subject_filter_Left");
+const rightSelect = document.getElementById("Subject_filter_Right");
+function addClickListeners(selectFrom, selectTo) {
+    selectFrom.addEventListener('click', (event) => {
+        if (event.target.tagName === 'OPTION') {
+            // Clone the option and append it to the other select
+            const clonedOption = event.target.cloneNode(true);
+            selectTo.appendChild(clonedOption);
+
+            // Remove the original option from the current select
+            selectFrom.removeChild(event.target);
+        }
+    });
+}
+
+// Add click listeners to the right select for moving to the left
+addClickListeners(rightSelect, leftSelect);
+
+// Add click listeners to the left select for moving to the right
+addClickListeners(leftSelect, rightSelect);
 
 const listItemview = [];
 const listview = document.getElementById('Schedule_TableView');
@@ -37,15 +37,15 @@ async function renderExamTimeview() {
         'GET'
     );
     const data = response.data;
-console.log(response);
-console.log(data);
+    console.log(response);
+    console.log(data);
     Object.keys(data).forEach((semester) => {
         data[semester].forEach((examTime) => {
             if (examTime.length == 0) {
                 const noScheduleRow = document.createElement('tr');
                 noScheduleRow.innerHTML =
                     '<td colspan="8" class="no-schedule">No exam schedule</td>';
-                    listview.appendChild(noScheduleRow);
+                listview.appendChild(noScheduleRow);
                 return;
             }
 
@@ -63,7 +63,7 @@ console.log(data);
 
               `;
 
-              listview.appendChild(tablerow);
+            listview.appendChild(tablerow);
         });
     });
 
@@ -107,53 +107,54 @@ function showTable2(button) {
     } else {
         hiddenTable.style.display = 'none';
     }
-    
+
 }
 async function showSupervisor(button) {
-    const listItem=[];
+    const listItem = [];
     const hiddenTable = document.getElementById("SupervisorTable");
     idt = button.parentNode.parentNode.getAttribute('idt');
     console.log(idt);
-const table = document.getElementById("table_body_super");
+    const table = document.getElementById("table_body_super");
 
-table.innerHTML=``;
+    table.innerHTML = ``;
 
-const data = {
-    params :{
-        'idt': idt
+    const data = {
+        params: {
+            'idt': idt
+        }
     }
-}
-const tableContainer = document.getElementById('table-container-hidden-2');
+    const tableContainer = document.getElementById('table-container-hidden-2');
 
-window.addEventListener('scroll', () => {console.log("scroll");
-  // Update the top position of the table container based on the scroll position
-  tableContainer.style.top = window.pageYOffset + 'px';
-});
-const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/proctors","GET",data);
-console.log(res);
-if(res.data.length === 0){
-    const noSupRow = document.createElement('tr');
+    window.addEventListener('scroll', () => {
+        console.log("scroll");
+        // Update the top position of the table container based on the scroll position
+        tableContainer.style.top = window.pageYOffset + 'px';
+    });
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/proctors", "GET", data);
+    console.log(res);
+    if (res.data.length === 0) {
+        const noSupRow = document.createElement('tr');
         listItem.push(noSupRow);
-        noSupRow.innerHTML =`<td colspan="8" class="no-Supervisor">No Supervisor</td>`;
-            table.appendChild(noSupRow);
-            if (hiddenTable.style.display === "none") {
-                hiddenTable.style.display = "block";
-            } else {
-                hiddenTable.style.display = 'none';
-            }
-            return;
-}
-res.data.forEach((item, index) => {
-    const tablerow = document.createElement('tr');
-    listItem.push(tablerow);
-    tablerow.innerHTML = `
-            <td>${index+1}</td>
+        noSupRow.innerHTML = `<td colspan="8" class="no-Supervisor">No Supervisor</td>`;
+        table.appendChild(noSupRow);
+        if (hiddenTable.style.display === "none") {
+            hiddenTable.style.display = "block";
+        } else {
+            hiddenTable.style.display = 'none';
+        }
+        return;
+    }
+    res.data.forEach((item, index) => {
+        const tablerow = document.createElement('tr');
+        listItem.push(tablerow);
+        tablerow.innerHTML = `
+            <td>${index + 1}</td>
             <td>${item.name}</td>
             <td>${item.username}</td>
             <td>${item.email}</td>
           `;
-    table.appendChild(tablerow);
-});
+        table.appendChild(tablerow);
+    });
 
     if (hiddenTable.style.display === "none") {
         hiddenTable.style.display = "block";
@@ -164,31 +165,31 @@ res.data.forEach((item, index) => {
 
 
 async function reFetchSup(button) {
-    const listItem=[];
+    const listItem = [];
     const hiddenTable = document.getElementById("SupervisorTable");
     console.log(idt);
-const table = document.getElementById("table_body_super");
-const data = {
-    params :{
-        'idt': idt
+    const table = document.getElementById("table_body_super");
+    const data = {
+        params: {
+            'idt': idt
+        }
     }
-}
-const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/proctors","GET",data);
-console.log(res);
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/proctors", "GET", data);
+    console.log(res);
 
-res.data.forEach((item, index) => {
-    const tablerow = document.createElement('tr');
-    listItem.push(tablerow);
-    tablerow.innerHTML = `
-            <td>${index+1}</td>
+    res.data.forEach((item, index) => {
+        const tablerow = document.createElement('tr');
+        listItem.push(tablerow);
+        tablerow.innerHTML = `
+            <td>${index + 1}</td>
             <td>${item.name}</td>
             <td>${item.username}</td>
             <td>${item.email}</td>
           `;
-    table.appendChild(tablerow);
-});
-hiddenTable.style.display = "block";
-    
+        table.appendChild(tablerow);
+    });
+    hiddenTable.style.display = "block";
+
 }
 
 function showConfirmationModalExamSchedule(button) {
@@ -236,7 +237,7 @@ async function confirmRemoveExamSchedule(confirmation) {
     }
 }
 
-function textEreaAddSup(){
+function textEreaAddSup() {
     const hiddenTable = document.getElementById('SupervisorTable');
     const hiddenTable4 = document.getElementById('superTextToAdd');
 
@@ -348,7 +349,7 @@ async function showTable3(button) {
     const table = document.getElementById("add-tsu");
     table.innerHTML = ``;
     const listItem = [];
-   
+
     selectedButton = button;
     subject = button.parentNode.parentNode.cells[1].innerText; // Lấy giá trị từ cột thứ 2
     room = button.parentNode.parentNode.cells[3].innerText;
@@ -372,34 +373,34 @@ async function showTable3(button) {
         }
     }
     console.log(data);
-    
+
     const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/students", "GET", data);
     // const table = document.getElementById("stu-list")
     const tableBody = hiddenTable.querySelector('#add-tsu');
     console.log(res.data.studentList);
-    if(res.data.studentList.length === 0){
+    if (res.data.studentList.length === 0) {
         const noSupRow = document.createElement('tr');
         listItem.push(noSupRow);
-        noSupRow.innerHTML =`<td colspan="8" class="no-Student">No Student...</td>`;
-            table.appendChild(noSupRow);
-           
-                hiddenTable.style.display = "block";
-           
-            return;
+        noSupRow.innerHTML = `<td colspan="8" class="no-Student">No Student...</td>`;
+        table.appendChild(noSupRow);
+
+        hiddenTable.style.display = "block";
+
+        return;
     }
     res.data.studentList.forEach((item, index) => {
         const tablerow = document.createElement('tr');
         listItem.push(tablerow);
         tablerow.innerHTML = `
-                <td>${index+1}</td>
+                <td>${index + 1}</td>
                 <td>${item.rollNumber}</td>
                 <td>${item.name}</td>
                 <td>${item.userName}</td>
               `;
-              tableBody.appendChild(tablerow);
+        tableBody.appendChild(tablerow);
     });
 }
-async function reFetch(){
+async function reFetch() {
     const data = {
         params: {
             'idt': idt,
@@ -414,15 +415,15 @@ async function reFetch(){
     const tableBody = hiddenTable.querySelector('#add-tsu');
     console.log(res);
     res.data.studentList.forEach((item, index) => {
-        const tablerow = document.createElement('tr');  
+        const tablerow = document.createElement('tr');
         listItem.push(tablerow);
         tablerow.innerHTML = `
-                <td>${index+1}</td>
+                <td>${index + 1}</td>
                 <td>${item.rollNumber}</td>
                 <td>${item.name}</td>
                 <td>${item.userName}</td>
               `;
-              tableBody.appendChild(tablerow);
+        tableBody.appendChild(tablerow);
     });
 }
 const openButton = document.getElementById('open-dropdown');
@@ -432,54 +433,54 @@ const options = document.getElementById('Search_options');
 let isDropdownOpen = false;
 
 openButton.addEventListener('click', () => {
-  if (isDropdownOpen) {
-    dropdown.style.display = 'none';
-        const selectElement = document.getElementById("Subject_filter_Left"); 
-      const options = Array.from(selectElement.options).map(option => option.value);
-      console.log(options);
-  const optionsCount = selectElement.options.length;
+    if (isDropdownOpen) {
+        dropdown.style.display = 'none';
+        const selectElement = document.getElementById("Subject_filter_Left");
+        const options = Array.from(selectElement.options).map(option => option.value);
+        console.log(options);
+        const optionsCount = selectElement.options.length;
 
-  // Update the button text with the options count
-  const button = document.getElementById("open-dropdown");
-  button.textContent = ` <${optionsCount}> Subjects`;
-  } else {
-    dropdown.style.display = 'flex';
-  }
-  isDropdownOpen = !isDropdownOpen;
+        // Update the button text with the options count
+        const button = document.getElementById("open-dropdown");
+        button.textContent = ` <${optionsCount}> Subjects`;
+    } else {
+        dropdown.style.display = 'flex';
+    }
+    isDropdownOpen = !isDropdownOpen;
 });
 
 
-  
+
 
 async function loadSubject() {
-  const SubjectWindowRight = document.getElementById('Subject_filter_Right');
-  const SemesterSelect = document.getElementById('Semester_Select');
+    const SubjectWindowRight = document.getElementById('Subject_filter_Right');
+    const SemesterSelect = document.getElementById('Semester_Select');
     const data = {
-        params : {
+        params: {
         }
     }
-    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/subjects","GET",data)
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/subjects", "GET", data)
     res.data.forEach((item) => {
         const option = document.createElement('option');
-        option.id="";
+        option.id = "";
         option.value = item;
         option.textContent = item;
         SubjectWindowRight.appendChild(option);
     });
     console.log(res);
 
-    const resSem = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/semesters","GET",data)
+    const resSem = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/semesters", "GET", data)
     resSem.data.forEach((item) => {
         const option = document.createElement('option');
-        option.id="";
+        option.id = "";
         option.value = item;
         option.textContent = item;
         SemesterSelect.appendChild(option);
     });
     console.log(resSem);
-  }
-  
-async function StartFilter(){
+}
+
+async function StartFilter() {
     const dateInput = document.querySelector("#Filter_Date input[type='date']");
     const startTimeInput = document.querySelector("#Filter_Date input[type='time']");
     const endTimeInput = document.querySelectorAll("#Filter_Date input[type='time']")[1]; // Lấy thứ hai input[type='time']
@@ -490,40 +491,40 @@ async function StartFilter(){
     const publisDate = publishDateInput.value;
     const selectedSemester = document.getElementById("Semester_Select");
     const semesterValue = selectedSemester.value;
-    const selectElement = document.getElementById("Subject_filter_Left"); 
-      const options = Array.from(selectElement.options).map(option => option.value);
-      console.log(options);
-  const data = {
-    params : {
-        'Semester': semesterValue,
-        'Subjects':options,
-        'From':dateValue,
-        'To':publisDate,
-        'Start': startTimeValue,
-        'End':endTimeValue
+    const selectElement = document.getElementById("Subject_filter_Left");
+    const options = Array.from(selectElement.options).map(option => option.value);
+    console.log(options);
+    const data = {
+        params: {
+            'Semester': semesterValue,
+            'Subjects': options,
+            'From': dateValue,
+            'To': publisDate,
+            'Start': startTimeValue,
+            'End': endTimeValue
+        }
     }
-  }
-  console.log(data);
-  const list = document.getElementById('Schedule_TableView');
-  const listItem = [];
-      const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/filter","GET",data);
-      console.log(res);
-      if(res.isSuccess = true){
+    console.log(data);
+    const list = document.getElementById('Schedule_TableView');
+    const listItem = [];
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/filter", "GET", data);
+    console.log(res);
+    if (res.isSuccess = true) {
         const datas = res.data;
-    Object.keys(datas).forEach((semester) => {
-        datas[semester].forEach((examSchedules) => {
-            if (examSchedules.length == 0) {
-                const noScheduleRow = document.createElement('tr');
-                noScheduleRow.innerHTML =
-                    '<td colspan="8" class="no-schedule">No exam schedule</td>';
-                list.appendChild(noScheduleRow);
-                return;
-            }
+        Object.keys(datas).forEach((semester) => {
+            datas[semester].forEach((examSchedules) => {
+                if (examSchedules.length == 0) {
+                    const noScheduleRow = document.createElement('tr');
+                    noScheduleRow.innerHTML =
+                        '<td colspan="8" class="no-schedule">No exam schedule</td>';
+                    list.appendChild(noScheduleRow);
+                    return;
+                }
 
-            const tablerow = document.createElement('tr');
-            tablerow.setAttribute('idt', examSchedules.idt);
-            listItem.push(tablerow);
-            tablerow.innerHTML = `
+                const tablerow = document.createElement('tr');
+                tablerow.setAttribute('idt', examSchedules.idt);
+                listItem.push(tablerow);
+                tablerow.innerHTML = `
                 <td>${examSchedules.date}</td>
                 <td>${examSchedules.start} - ${examSchedules.end}</td>
                 <td><button class="button-supervisor" onclick="showSupervisor(this)">${examSchedules.totalSupervisor}/${examSchedules.requireSupervisor}</button></td>
@@ -531,23 +532,23 @@ async function StartFilter(){
                 <td>${examSchedules.slot}</td>
                 <td><i onclick="showTimeTable(this) "class="fa-solid fa-square-caret-down fa-2xl btn-showExamSchedule"></i></td>
               `;
-              list.innerHTML = ``;
-            list.appendChild(tablerow);
+                list.innerHTML = ``;
+                list.appendChild(tablerow);
 
-            
-    Array.from(document.getElementsByClassName('btn-showExamSchedule')).forEach(
-        (btn) => {
-            const idt = btn.parentElement.parentElement.getAttribute('idt');
-            btn.addEventListener('click', () => renderExamSchedule(idt));
-        }
-        );
-        const ListTime = document.getElementById('table_body_Filtered_Time');
-        const listItemTime = [];
-       console.log(examSchedules.examSchedules.forEach((item,index) => {
 
-        const tablerow = document.createElement('tr');
-        listItemTime.push(tablerow);
-                tablerow.innerHTML = `
+                Array.from(document.getElementsByClassName('btn-showExamSchedule')).forEach(
+                    (btn) => {
+                        const idt = btn.parentElement.parentElement.getAttribute('idt');
+                        btn.addEventListener('click', () => renderExamSchedule(idt));
+                    }
+                );
+                const ListTime = document.getElementById('table_body_Filtered_Time');
+                const listItemTime = [];
+                console.log(examSchedules.examSchedules.forEach((item, index) => {
+
+                    const tablerow = document.createElement('tr');
+                    listItemTime.push(tablerow);
+                    tablerow.innerHTML = `
             <td>${index++}</td>
             <td>${item.subject}</td>
             <td>${item.form}</td>
@@ -555,20 +556,20 @@ async function StartFilter(){
             <td>${item.type}</td>
             <td><button class="button-supervisor" onclick="showTable3(this)">${item.totalStudent}/${item.capacity}</button></td>
           `;
-          ListTime.appendChild(tablerow);
+                    ListTime.appendChild(tablerow);
 
-       })) ;
-       
+                }));
+
+            });
         });
-    });
 
-      }else{
+    } else {
 
-      }
-     
+    }
+
 }
 
-function showTimeTable(button){
+function showTimeTable(button) {
     console.log(idt);
     idt = button.parentNode.parentNode.getAttribute('idt');
     console.log(idt);
@@ -590,123 +591,123 @@ const getSelectedButton = document.getElementById("get-selected");
 // Add a click event listener to the "Get Selected" button
 async function getSelectedData() {
     const textarea = document.getElementById("inputStu");
-    const inputtedText = textarea.value;    
+    const inputtedText = textarea.value;
     const usernameArray = inputtedText.split("\n").filter(username => username.trim() !== '');
-    if(usernameArray.length === 0){
+    if (usernameArray.length === 0) {
         console.log("Empty Array");
         const notificationContainer = document.getElementById("notificationContainer");
 
         const notification = document.createElement("div");
         notification.className = "notification";
         notification.innerText = "Please Input UserName!";
-  
+
         notificationContainer.appendChild(notification);
-  
+
         // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
-        setTimeout(function() {
-          notification.style.display = "none"; // Ẩn thông báo
+        setTimeout(function () {
+            notification.style.display = "none"; // Ẩn thông báo
         }, 3000);
-      
+
         return;
 
-    }else{
+    } else {
 
-    
-    console.log("Inputted Text:", usernameArray);
 
-    const data = {
-       body: {
-            'idt': idt,
-            "subject": subject,
-            "room": room,
-            "students": usernameArray
-          }
+        console.log("Inputted Text:", usernameArray);
+
+        const data = {
+            body: {
+                'idt': idt,
+                "subject": subject,
+                "room": room,
+                "students": usernameArray
+            }
+        }
+        const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/students/add", "POST", data);
+        console.log(res);
+
+        const notificationContainer = document.getElementById("notificationContainer");
+        const notification = document.createElement("div");
+
+        notification.className = "notification";
+        notification.innerText = res.message;
+        notificationContainer.appendChild(notification);
+
+        // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
+        setTimeout(function () {
+            notification.style.display = "none"; // Ẩn thông báo
+        }, 3000);
     }
-    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/students/add","POST",data);
-    console.log(res);
-
-    const notificationContainer = document.getElementById("notificationContainer");
-    const notification = document.createElement("div");
-
-    notification.className = "notification";
-    notification.innerText = res.message;
-    notificationContainer.appendChild(notification);
-
-    // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
-    setTimeout(function() {
-      notification.style.display = "none"; // Ẩn thông báo
-    }, 3000);
-}
 };
-function AddStudent(){
+function AddStudent() {
     getSelectedData();
     const hiddenTable = document.getElementById("hiddenTable-3");
     const tableBody = hiddenTable.querySelector('#add-tsu');
     tableBody.innerHTML = ``;
     reFetch();
-    
+
 }
 
 
-function addSuper(){
+function addSuper() {
     getSelectedDataSup();
 }
 async function getSelectedDataSup() {
     const notificationContainer = document.getElementById("notificationContainerSup");
     const textarea = document.getElementById("inputSuper");
-    const inputtedText = textarea.value;    
+    const inputtedText = textarea.value;
     const usernameArray = inputtedText.split("\n").filter(username => username.trim() !== '');
     console.log("Inputted Text:", usernameArray);
-    if(usernameArray.length === 0){
+    if (usernameArray.length === 0) {
         console.log("Empty Array");
         const notification = document.createElement("div");
         notification.className = "notification";
         notification.innerText = "Please Input UserName!";
         notificationContainer.appendChild(notification);
-  
+
         // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
-        setTimeout(function() {
-          notification.style.display = "none"; // Ẩn thông báo
+        setTimeout(function () {
+            notification.style.display = "none"; // Ẩn thông báo
         }, 3000);
-      
+
         return;
 
-    }else{
-    const data = {
-       body: {
-            'idt': idt,
-            "proctorList": usernameArray
+    } else {
+        const data = {
+            body: {
+                'idt': idt,
+                "proctorList": usernameArray
+            }
+        }
+        const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/proctors/add", "POST", data);
+        console.log(res);
+        if (res.isSuccess = true) {
+            const notification = document.createElement("div");
+            notification.className = "notification";
+            notification.innerText = res.message;
+            notificationContainer.appendChild(notification);
+
+            // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
+            setTimeout(function () {
+                notification.style.display = "none"; // Ẩn thông báo
+            }, 3000);
+            const table = document.getElementById("table_body_super");
+            table.innerHTML = ``;
+            reFetchSup();
+        } else {
+            const notification = document.createElement("div");
+            notification.className = "notification";
+            notification.innerText = res.message;
+            notificationContainer.appendChild(notification);
+
+            // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
+            setTimeout(function () {
+                notification.style.display = "none"; // Ẩn thông báo
+            }, 3000);
+        }
     }
-}
-    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/proctors/add","POST",data);
-    console.log(res);
-    if(res.isSuccess = true){
-        const notification = document.createElement("div");
-        notification.className = "notification";
-        notification.innerText = res.message;
-        notificationContainer.appendChild(notification);
-  
-        // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
-        setTimeout(function() {
-          notification.style.display = "none"; // Ẩn thông báo
-        }, 3000);
-        const table = document.getElementById("table_body_super");
-    table.innerHTML=``;
-    reFetchSup();
-    }else{
-        const notification = document.createElement("div");
-        notification.className = "notification";
-        notification.innerText = res.message;
-        notificationContainer.appendChild(notification);
-  
-        // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
-        setTimeout(function() {
-          notification.style.display = "none"; // Ẩn thông báo
-        }, 3000);
-    }
-    }
-    
-    
+
+
 };
 
 
@@ -729,74 +730,74 @@ function showTable5() {
 }
 
 async function showModalEditExamSchedule(button) {
-    
+
     //------------------------------------------------------lấy data từ thằng schedule đc chọn ----------------------------------------------------------------------------
     selectedButton = button;
     subject = button.parentNode.parentNode.cells[1].innerText; // Lấy giá trị từ cột thứ 2
     room = button.parentNode.parentNode.cells[3].innerText;
-       // console.log(subject);
-       // console.log(room);
-       const hiddenTableRow = document.getElementById("hiddenTable-editTableExamSchedule");
-       
-       const dataRow = {
-           params: {
-               'idt': idt,
-               'subjectID': subject,
-               'roomNumber': room
-           }
-       }
-   console.log(dataRow);
-   
+    // console.log(subject);
+    // console.log(room);
+    const hiddenTableRow = document.getElementById("hiddenTable-editTableExamSchedule");
+
+    const dataRow = {
+        params: {
+            'idt': idt,
+            'subjectID': subject,
+            'roomNumber': room
+        }
+    }
+    console.log(dataRow);
+
     //------------------------------------------------------dùng để lấy môn học mới ra nha --------------------------------------------------------------------------------   
-       
-   
-       const data = {
-           body: {
-   
-           }
-       }
-   
-   
-       const response = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/subjects", "GET", data);
-       const selectElement = document.getElementById("subject-input-edit");
-       response.data.forEach((item, index) => {
-           const optionElement = document.createElement("option");
-           optionElement.value = index; // Giá trị của option (có thể là một giá trị duy nhất hoặc index)
-           optionElement.text = item; // Nội dung của option
-           selectElement.appendChild(optionElement);
-       });
-       console.log(response.data);
-       const selectElementr = document.getElementById("room-input-edit");
-       selectElement.addEventListener("change", async function () {
-           const selectedIndex = selectElement.selectedIndex; // Lấy chỉ số của lựa chọn
-           const selectedOption = selectElement.options[selectedIndex]; // Lựa chọn đã chọn
-           const noiDungLuaChon = selectedOption.textContent; // Lấy nội dung của lựa chọn
-           const datar = {
-               params: {
-                   'idt': idt,
-                   'subjectId': noiDungLuaChon
-               }
-           }
-           console.log(datar);
-           const resr = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/available-rooms", "GET", datar);
-           resr.data.forEach((item, index) => {
-               const optionElement = document.createElement("option");
-               optionElement.value = index; // Giá trị của option (có thể là một giá trị duy nhất hoặc index)
-               optionElement.text = item; // Nội dung của option
-               selectElementr.appendChild(optionElement);
-           });
-       });
-   
-       if (hiddenTableRow.style.display === "none") {
-           hiddenTableRow.style.display = "block";
-       } else {
-           hiddenTableRow.style.display = 'none';
-       } 
-       editRowToTableSchedule(subject, room);  
-   }
-   //============================================================Điền những thằng cần update ==================================================================================================
-async function editRowToTableSchedule(subject, room){
-    
+
+
+    const data = {
+        body: {
+
+        }
+    }
+
+
+    const response = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/subjects", "GET", data);
+    const selectElement = document.getElementById("subject-input-edit");
+    response.data.forEach((item, index) => {
+        const optionElement = document.createElement("option");
+        optionElement.value = index; // Giá trị của option (có thể là một giá trị duy nhất hoặc index)
+        optionElement.text = item; // Nội dung của option
+        selectElement.appendChild(optionElement);
+    });
+    console.log(response.data);
+    const selectElementr = document.getElementById("room-input-edit");
+    selectElement.addEventListener("change", async function () {
+        const selectedIndex = selectElement.selectedIndex; // Lấy chỉ số của lựa chọn
+        const selectedOption = selectElement.options[selectedIndex]; // Lựa chọn đã chọn
+        const noiDungLuaChon = selectedOption.textContent; // Lấy nội dung của lựa chọn
+        const datar = {
+            params: {
+                'idt': idt,
+                'subjectId': noiDungLuaChon
+            }
+        }
+        console.log(datar);
+        const resr = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/available-rooms", "GET", datar);
+        resr.data.forEach((item, index) => {
+            const optionElement = document.createElement("option");
+            optionElement.value = index; // Giá trị của option (có thể là một giá trị duy nhất hoặc index)
+            optionElement.text = item; // Nội dung của option
+            selectElementr.appendChild(optionElement);
+        });
+    });
+
+    if (hiddenTableRow.style.display === "none") {
+        hiddenTableRow.style.display = "block";
+    } else {
+        hiddenTableRow.style.display = 'none';
+    }
+    editRowToTableSchedule(subject, room);
+}
+//============================================================Điền những thằng cần update ==================================================================================================
+async function editRowToTableSchedule(subject, room) {
+
     const errorMessage = document.getElementById("error-messagesche-Edit");
     const errorMessage2 = document.getElementById("error-messagesche-Edit2");
     const nameInput = document.querySelector('[name="name-edit"]'); // form input
@@ -816,73 +817,73 @@ async function editRowToTableSchedule(subject, room){
         errorMessage2.style.display = "none"; // Ẩn thông báo nếu tất cả trường hợp lệ.
     }
 
-    
+
     const selectedOptionText = selectedOption.text;
     const enteredValue = nameInput.value;
     const selectedROptionText = selectedROption.text;
-    const enteredtype= typeInput.value;
+    const enteredtype = typeInput.value;
 
- const data = {
-    body : {
-        'idt': idt,
-        "subjectID":subject,
-        "roomNumber":room,
-        "updSubjectID":selectedOptionText,
-        "updRoomNumber": selectedROptionText,
-        "updForm":enteredValue,
-        "updType":enteredtype
+    const data = {
+        body: {
+            'idt': idt,
+            "subjectID": subject,
+            "roomNumber": room,
+            "updSubjectID": selectedOptionText,
+            "updRoomNumber": selectedROptionText,
+            "updForm": enteredValue,
+            "updType": enteredtype
+        }
     }
- }
- console.log(data);
- var modal = document.getElementById("confirmationModalEditExamSchedule");
+    console.log(data);
+    var modal = document.getElementById("confirmationModalEditExamSchedule");
     modal.style.display = "block";
     var confirmButton = document.getElementById("Yes-edit_confirm"); // assuming the confirm button has an element ID of "confirmButton"
     var cancelButton = document.getElementById("No-edit_confirm");
-    confirmButton.addEventListener("click", function() {
+    confirmButton.addEventListener("click", function () {
         confirmEditExamSchedule(true, subject, room, selectedOptionText, selectedROptionText, enteredValue, enteredtype);
         modal.style.display = "none";
-      });
-      
-    cancelButton.addEventListener("click", function() {
+    });
+
+    cancelButton.addEventListener("click", function () {
         modal.style.display = "none";
-      });
+    });
 
 
 }
 
 //==============================================================confirmation để truyền dô update API=========================================================================================
 
-async function confirmEditExamSchedule(confirmation, subject, room, selectedOptionText, selectedROptionText, formValue, typeValue){
+async function confirmEditExamSchedule(confirmation, subject, room, selectedOptionText, selectedROptionText, formValue, typeValue) {
     console.log(idt);
     const errorMessage = document.getElementById("error-messagesche-Edit");
     const errorMessage2 = document.getElementById("error-messagesche-Edit2");
     var modalEdit = document.getElementById("hiddenTable-editTableExamSchedule");
-    if(confirmation){
+    if (confirmation) {
         const data = {
-            body : {
+            body: {
                 'idt': idt,
-                "subjectID":subject,
+                "subjectID": subject,
                 "roomNumber": room,
-                "updSubjectID":selectedOptionText,
-                "updRoomNumber":selectedROptionText,
-                "updForm":formValue,
-                "updType":typeValue
+                "updSubjectID": selectedOptionText,
+                "updRoomNumber": selectedROptionText,
+                "updForm": formValue,
+                "updType": typeValue
             }
-         }
-         console.log(data);
-          const response = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/update","PATCH",data);
-   
-     if (response.isSuccess == true) {
-        
-         errorMessage.style.display = "flex";
-         errorMessage.innerHTML = response.message;
-         console.log(response.message);
-         document.getElementById('messageRemove-2').innerText = response.message;
+        }
+        console.log(data);
+        const response = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/update", "PATCH", data);
+
+        if (response.isSuccess == true) {
+
+            errorMessage.style.display = "flex";
+            errorMessage.innerHTML = response.message;
+            console.log(response.message);
+            document.getElementById('messageRemove-2').innerText = response.message;
 
         } else {
             errorMessage.style.display = "flex";
             errorMessage.innerHTML = response.message;
-            console.log(response.message);   
+            console.log(response.message);
         }
 
     }
@@ -949,16 +950,16 @@ function showStudentListToAdd() {
 
 //--------------------------------------Edit time đang hoàn thiện truyền dữ liệu vô -------------------------------------------------------------------------------------------------------------------
 function showConfirmationModalEdit(button) {
-    
+
     const hiddenTable = document.getElementById("hiddenTable-7");
     hiddenTable.style.display = "block";
     // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
     selectedButton = button;
     idt = button.parentNode.parentNode.getAttribute('idt');
     date = button.parentNode.parentNode.cells[0].innerText; // Lấy giá trị từ cột thứ 2
-       timeRange = button.parentNode.parentNode.cells[1].innerText;
-       publishDate = button.parentNode.parentNode.cells[5].innerText; // Lấy giá trị từ cột thứ 2
-       slot = button.parentNode.parentNode.cells[6].innerText;
+    timeRange = button.parentNode.parentNode.cells[1].innerText;
+    publishDate = button.parentNode.parentNode.cells[5].innerText; // Lấy giá trị từ cột thứ 2
+    slot = button.parentNode.parentNode.cells[6].innerText;
     console.log(idt);
     console.log(date);
     console.log(timeRange);
@@ -989,20 +990,20 @@ function showConfirmationModalEdit(button) {
         const parts = dateString.split("/");
         const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
         return formattedDate;
-      }
-      
-      // Function to extract the start and end times
-      function extractTimes(timeRangeString) {
+    }
+
+    // Function to extract the start and end times
+    function extractTimes(timeRangeString) {
         const times = timeRangeString.split(" - ");
         return times;
-      }
-     
-      function formatPublishDate(dateString) {
+    }
+
+    function formatPublishDate(dateString) {
         const parts = dateString.split("/");
         const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
         return formattedDate;
-      }  
-      
+    }
+
 }
 async function confirmEdit(confirmation, dateValue, startTimeValue, endTimeValue, publishDate) {
     console.log(idt);
@@ -1023,14 +1024,14 @@ async function confirmEdit(confirmation, dateValue, startTimeValue, endTimeValue
         console.log(res);
         if (res.isSuccess == true) {
             erormes.style.display = "flex";
-        erormes.innerHTML = res.message;
-             console.log(res.message);
-             document.getElementById('messageRemove').innerText = res.message;
-         }else{
+            erormes.innerHTML = res.message;
+            console.log(res.message);
+            document.getElementById('messageRemove').innerText = res.message;
+        } else {
             erormes.style.display = "flex";
-        erormes.innerHTML = res.message;
-        console.log(res.message);
-         }
+            erormes.innerHTML = res.message;
+            console.log(res.message);
+        }
     }
 }
 async function editRows() {
@@ -1070,14 +1071,14 @@ async function editRows() {
     var confirmButton = document.getElementById("Yes-confirm"); // assuming the confirm button has an element ID of "confirmButton"
     var cancelButton = document.getElementById("No-confirm");
 
-    confirmButton.addEventListener("click", function() {
+    confirmButton.addEventListener("click", function () {
         confirmEdit(true, dateValue, startTimeValue, endTimeValue, publisDate);
         modal.style.display = "none";
-      });
-      
-    cancelButton.addEventListener("click", function() {
+    });
+
+    cancelButton.addEventListener("click", function () {
         modal.style.display = "none";
-      });      
+    });
 }
 function showConfirmationModal(button) {
     var modal = document.getElementById("confirmationModal");
@@ -1259,13 +1260,13 @@ function closeConfirmationModal() {
 
 async function renderExamTime() {
     const list = document.getElementById('table_body');
-const listItem = [];
-// call fetch function from utils.js file
-const response = await fetchAPIData(
-    'https://swp-esms-api.azurewebsites.net/api/exams/current',
-    'GET'
-);
-const data = response.data;
+    const listItem = [];
+    // call fetch function from utils.js file
+    const response = await fetchAPIData(
+        'https://swp-esms-api.azurewebsites.net/api/exams/current',
+        'GET'
+    );
+    const data = response.data;
 
     list.innerHTML = '';
 
