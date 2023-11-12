@@ -35,9 +35,9 @@
             <li>
                 <a href="TestingAdminSearch.html">
                     <i class="fa-regular fa-calendar"></i>
-                    <span class="links_name">View Exam Slots</span>
+                    <span class="links_name">View Exam TIme</span>
                 </a>
-                <span class="tooltip">View Exam Slots</span>
+                <span class="tooltip">View Exam Time</span>
             </li>
             <li>
                 <a href="testingadminview.html">
@@ -68,7 +68,7 @@
         <!---->
         <!--Welcome section-->
         <div class="title">
-            <h2>VIEW EXAM SLOTS</h2>
+            <h2>VIEW EXAM TIME</h2>
         </div>
         <div class="Semester" id="ShowSemester">
         </div>
@@ -106,6 +106,7 @@
                         <th>Room</th>
                         <th>Type</th>
                         <th>Student</th>
+                        <th>Proctor</th>
                         <th></th>
                         <th><i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTable2()"></i></th>
 
@@ -116,6 +117,8 @@
                 <button class="add-button" onclick="showModalAddExamSchedule(this)">
                     <i class="fa-solid fa-plus fa-xl"></i>
                 </button>
+              
+               
 
             </table>
         </div>
@@ -131,12 +134,14 @@
                         <th>Username</th>
                         <th>Email</th>
                         <th><i class="fa-regular fa-circle-xmark fa-lg close-button-supervisor"
-                            onclick="closeSupervisorTable()"></i></th>
+                                onclick="closeSupervisorTable()"></i></th>
                     </tr>
                 </thead>
                 <tbody id="table_body_super"></tbody>
 
                 <div id="messageRemove" class="messageRemove"></div>
+                <div id="messageAddProctor" ></div>
+
                 <button class="add-button" onclick="textEreaAddSup()">
                     <i class="fa-solid fa-plus fa-xl"></i>
                 </button>
@@ -451,12 +456,10 @@
             <div class="modal-content">
                 <p>Are you sure you want to remove this student?</p>
                 <div class="modal-buttons">
-                    <button class="modal-button-yes" 
-                        onclick="confirmRemoveStudentByButtonSelect(true)">
+                    <button class="modal-button-yes" onclick="confirmRemoveStudentByButtonSelect(true)">
                         Yes
                     </button>
-                    <button class="modal-button" 
-                        onclick="confirmRemoveStudentByButtonSelect(false)">
+                    <button class="modal-button" onclick="confirmRemoveStudentByButtonSelect(false)">
                         No
                     </button>
                 </div>
@@ -472,31 +475,30 @@
                         onclick="confirmRemoveSupervisorByButton(true)">
                         Yes
                     </button>
-                    <button class="modal-button" id="No-edit_confirm"
-                        onclick="confirmRemoveSupervisorByButton(false)">
+                    <button class="modal-button" id="No-edit_confirm" onclick="confirmRemoveSupervisorByButton(false)">
                         No
                     </button>
                 </div>
             </div>
         </div>
         <!--================================================================================================================== -->
-                <!-- =======================CONFIRMATION REMOVE SUPERVISOR BY BUTTON SELECT ===================================== -->
-                <div id="confirmationModalRemoveSupervisorByButtonsSelect" class="modal">
-                    <div class="modal-content">
-                        <p>Are you sure you want to remove this supervisor?</p>
-                        <div class="modal-buttons">
-                            <button class="modal-button-yes" id="Yes-edit_confirm"
-                                onclick="confirmRemoveSupervisorByButtonSelect(true)">
-                                Yes
-                            </button>
-                            <button class="modal-button" id="No-edit_confirm"
-                            onclick="confirmRemoveSupervisorByButtonSelect(false)">
-                                No
-                            </button>
-                        </div>
-                    </div>
+        <!-- =======================CONFIRMATION REMOVE SUPERVISOR BY BUTTON SELECT ===================================== -->
+        <div id="confirmationModalRemoveSupervisorByButtonsSelect" class="modal">
+            <div class="modal-content">
+                <p>Are you sure you want to remove this supervisor?</p>
+                <div class="modal-buttons">
+                    <button class="modal-button-yes" id="Yes-edit_confirm"
+                        onclick="confirmRemoveSupervisorByButtonSelect(true)">
+                        Yes
+                    </button>
+                    <button class="modal-button" id="No-edit_confirm"
+                        onclick="confirmRemoveSupervisorByButtonSelect(false)">
+                        No
+                    </button>
                 </div>
-                <!--================================================================================================================== -->
+            </div>
+        </div>
+        <!--================================================================================================================== -->
 
 
 

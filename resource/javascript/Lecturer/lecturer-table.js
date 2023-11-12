@@ -84,9 +84,18 @@ async function confirmRegisterLecturer(confirmation) {
 
       const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/lecturer/exams/register", "POST", data);
       if (res.isSuccess == true) {
-          console.log(res.message);
-        
-      }
+        console.log(res.message);
+        var messageElement = document.getElementById('messageRegisterSuccess');
+        messageElement.innerHTML = res.message;
+        messageElement.style.display = "block";
+        // Close modal
+        document.addEventListener("click", function (event) {
+            if (event.target !== messageElement && !messageElement.contains(event.target)) {
+                messageElement.style.display = "none";
+            }
+        });
+
+    }
   }
 }
 
@@ -99,6 +108,8 @@ function showTableRegistered() {
 
   if (hiddenTable.style.display === "none") {
       hiddenTable.style.display = "block";
+      reloadRegisteredList();
+   
   } else {
       hiddenTable.style.display = 'none';
   }
@@ -109,3 +120,4 @@ function closeTableRegistered() {
   const hiddenTable = document.getElementById('hiddenTable-Registered');
   hiddenTable.style.display = 'none';
 }
+
