@@ -59,7 +59,7 @@ function showUserName() {
     userField.innerText = userName;
 }
 
-function fetchAPIDataS(url, method, data = {}) {
+function fetchAPIDataFilter(url, method, data = {}) {
     const token = localStorage.getItem('token');
 
     if (method === 'GET' && data.params) {

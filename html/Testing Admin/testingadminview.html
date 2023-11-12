@@ -140,7 +140,7 @@
         <!-------------------------------------------------------SEARCH END-------------------------------------------->
         <div class="Semester" id="ShowSemester">
         </div>
-        <div class="table-container">
+        <div class="table-container ">
             <table>
                 <thead>
                     <tr>
@@ -163,7 +163,7 @@
         </div>
 
         <!-- TIME TABLE -->
-        <div class="table-container-hidden-2" id="hiddenTable-2" style="display: none">
+        <div class="table-container-hidden-2 follow_Scroll" id="hiddenTable-2" style="display: none">
             <table>
                 <thead>
                     <tr>
@@ -186,7 +186,7 @@
         </div>
 
 <!-- TIME TABLE FILTERED-->
-<div class="table-container-hidden-2" id="filtered_Time-2" style="display: none">
+<div class="table-container-hidden-2 follow_Scroll" id="filtered_Time-2" style="display: none">
     <table>
         <thead>
             <tr>
@@ -210,39 +210,29 @@
 
 
         <!-- SUPERVISOR TABLE -->
-        <div class="table-container-hidden-2" id="SupervisorTable" style="display: none">
+        <div class="table-container-hidden-2 follow_Scroll" id="SupervisorTable" style="display: none">
             <table>
                 <thead>
                     <tr>
                         <th>No</th>
                         <th>Name</th>
                         <th>Username</th>
-                        <th>Email</th>
-                        <th><i class="fa-regular fa-circle-xmark fa-lg close-button"
-                                onclick="closeSupervisorTable()"></i></th>
+                        <th>Email <i class="fa-regular fa-circle-xmark fa-lg close-button"
+                            onclick="closeSupervisorTable()"></i></th>
 
                     </tr>
                 </thead>
                 <tbody id="table_body_super"></tbody>
                 <div id="messageRemove" class="messageRemove"></div>
-                <button class="add-button" onclick="textEreaAddSup()">
-                    <i class="fa-solid fa-plus fa-xl"></i>
-                </button>
+                
 
             </table>
 
-            <div class="table-container-hidden-3" id="superTextToAdd" style="display: none;">
-                <form>
-                    <textarea id="inputSuper" name="inputSuper" placeholder="Username..."></textarea>
-                </form>
-                <div class="search-field-2">
-                    <a href="#" title="button shiny 3" onclick="addSuper()" class="fui-button-shiny-3"> Add +</a>
-                </div>
-            </div>
+          
         </div>
 
         <!-- VIEW STUDENT LIST TABLE -->
-        <div class="table-container-hidden-2" id="hiddenTable-3" style="display: none">
+        <div class="table-container-hidden-2 follow_Scroll" id="hiddenTable-3" style="display: none">
             <table>
                 <thead>
                     <tr>

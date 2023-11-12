@@ -27,7 +27,6 @@ window.addEventListener('load', async function() {
   const listview = document.getElementById('Schedule_TableView');
 const listItemview = [];
 const showSemester = document.getElementById('ShowSemester');
-renderExamTimeview();
 
 
 //------------------------------------------------fectch data into table------------------------------------------------------------------
@@ -608,8 +607,10 @@ async function StartFilter(){
     const selectElement = document.getElementById("Subject_filter_Left"); 
     const ListTime = document.getElementById('time_tbody_filtered');
     const list = document.getElementById('Schedule_TableView');
+    const showSemester = document.getElementById('ShowSemester');
     list.innerHTML = ``;
     ListTime.innerHTML = ``;
+    showSemester.innerHTML = ``;
     const semester = selectedSemester.value;
     const from = dateInput.value;
     const to = publishDateInput.value;
@@ -625,22 +626,26 @@ async function StartFilter(){
     end && (params.end = end);
     subjects.length > 0 && (params.subjects = subjects);
     
-
   const data = {
     params
   };
   console.log(data);
- 
+
   const loadingContainer = document.getElementById('loading-container');
+  
   loadingContainer.style.display = 'block';
+
   const listItem = [];
   try {
-      const res = await fetchAPIDataS("https://swp-esms-api.azurewebsites.net/api/exams/filter","GET",data);
+      const res = await fetchAPIDataFilter("https://swp-esms-api.azurewebsites.net/api/exams/filter","GET",data);
       loadingContainer.style.display = 'none';
       const dataKeysCount = Object.keys(res.data).length;
       console.log(res);
       const OBJ = res.data;
       console.log(OBJ);
+      const Semter = document.createElement('h2');
+   Semter.innerHTML = `Semster:${Object.getOwnPropertyNames(OBJ)}`;
+   showSemester.appendChild(Semter);
       loadingContainer.style.display = 'none';
       renderExamTimeFiltered();
       if (dataKeysCount == 0) {
@@ -651,6 +656,7 @@ async function StartFilter(){
         list.appendChild(noScheduleRow);
         return;
     }
+
       function renderExamTimeFiltered() {
         list.innerHTML = '';
     
@@ -670,6 +676,7 @@ async function StartFilter(){
                 tablerow.setAttribute('idt', examTime.idt);
                 listItem.push(tablerow);
                 tablerow.innerHTML = `
+                <td><i onclick="exportExcel(this) "class="fa-solid fa-file-excel fa-2xl"></i></td>
                     <td>${examTime.date}</td>
                     <td>${examTime.start} - ${examTime.end}</td>
                     <td><button class="button-supervisor" onclick="showSupervisor(this)">${examTime.totalSupervisor}/${examTime.requireSupervisor}</button></td>
@@ -691,6 +698,7 @@ async function StartFilter(){
                 btn.addEventListener('click', () => renderExamScheduleFIltered(idt));
             }
         );
+        loadingContainer.style.display = 'none';
     }
     
 
@@ -731,6 +739,7 @@ async function StartFilter(){
                 <td>${schedule.form}</td>
                 <td>${schedule.room}</td>
                 <td>${schedule.type}</td>
+                <td>${schedule.proctor}</td>
                 <td><button class="button-supervisor" onclick="showTable3(this)">${schedule.totalStudent}/${schedule.capacity}</button></td>
               `;
               console.log(tablerow);
@@ -748,7 +757,21 @@ async function StartFilter(){
   }
       
 
+async function exportExcel(button) {
+    idt = button.parentNode.parentNode.getAttribute('idt');
+    console.log(idt);
+    const data = {
+        params :{
+            idt
+        }
+    }
+    const res = fetchAPIData('https://swp-esms-api.azurewebsites.net/api/exams/time/export-excel','GET',data);
+    console.log(res);
+    const downloadLink = res.downloadLink;
 
+    // Use the download link as needed (e.g., create a download button)
+    console.log('Download Link:', downloadLink);
+}
 function showTimeTable(button){
     console.log(idt);
     idt = button.parentNode.parentNode.getAttribute('idt');

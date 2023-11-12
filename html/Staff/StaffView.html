@@ -53,7 +53,7 @@
                     <i class="fa-solid fa-chevron-down" id="dropdown-icon"></i>
                 </button>
                 <div class="dropdown-content" id="myDropdown">
-                    <a href="TestingAdminProfile.html"><i class="fa-regular fa-address-card"></i>Profile</a>
+                    <a href="/html/UserProfile/ViewProfile.html"><i class="fa-regular fa-address-card"></i>Profile</a>
                     <a href="TestingAdminProfileUpdate.html"><i class="fa-regular fa-pen-to-square"></i>Update
                         Profile</a>
                     <a href="#" onclick="logOut()"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a>
@@ -142,6 +142,7 @@
             <table>
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Supervisor</th>
@@ -161,7 +162,7 @@
         </div>
 
         <!-- TIME TABLE -->
-        <div class="table-container-hidden-2" id="hiddenTable-2" style="display: none">
+        <div class="table-container-hidden-2 follow_Scroll" id="hiddenTable-2" style="display: none">
             <table>
                 <thead>
                     <tr>
@@ -170,6 +171,7 @@
                         <th>Form</th>
                         <th>Room</th>
                         <th>Type</th>
+                        <th>Proctor</th>
                         <th>Student<i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTable2()"></i>
                         </th>
 
@@ -193,6 +195,7 @@
                 <th>Form</th>
                 <th>Room</th>
                 <th>Type</th>
+                <th>Proctor</th>
                 <th>Student<i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTableTimeFiltered()"></i>
                 </th>
 
@@ -215,17 +218,14 @@
                         <th>No</th>
                         <th>Name</th>
                         <th>Username</th>
-                        <th>Email</th>
-                        <th><i class="fa-regular fa-circle-xmark fa-lg close-button"
-                                onclick="closeSupervisorTable()"></i></th>
+                        <th>Email <i class="fa-regular fa-circle-xmark fa-lg close-button"
+                            onclick="closeSupervisorTable()"></i></th>
 
                     </tr>
                 </thead>
                 <tbody id="table_body_super"></tbody>
                 <div id="messageRemove" class="messageRemove"></div>
-                <button class="add-button" onclick="textEreaAddSup()">
-                    <i class="fa-solid fa-plus fa-xl"></i>
-                </button>
+                
 
             </table>
 
@@ -240,7 +240,7 @@
         </div>
 
         <!-- VIEW STUDENT LIST TABLE -->
-        <div class="table-container-hidden-2" id="hiddenTable-3" style="display: none">
+        <div class="table-container-hidden-2 follow_Scroll" id="hiddenTable-3" style="display: none">
             <table>
                 <thead>
                     <tr>

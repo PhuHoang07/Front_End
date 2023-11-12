@@ -146,19 +146,19 @@
                 <button class="delete-button" onclick="showConfirmationModalRemoveSupervisorByButtonSelect(this)">
                     <i class="fa-solid fa-user-minus fa-lg"></i>
                 </button>
-
+                <div class="table-container-hidden-3" id="superTextToAdd" style="display: none;">
+                    <form>
+                        <textarea id="inputSuper" name="inputSuper" placeholder="Username..."></textarea>
+                    </form>
+                    <div class="AddstudentButton">
+                        <a href="#" title="button shiny 3" onclick="addSuper()" class="fui-button-shiny-3"> Add +</a>
+                        <button id="clearButtonSup" class="fui-button-shiny-3">Clear Text</button>
+                    </div>
+                    <div class="notification-container" id="notificationContainerSup"></div>
+                </div>
             </table>
 
-            <div class="table-container-hidden-3" id="superTextToAdd" style="display: none;">
-                <form>
-                    <textarea id="inputSuper" name="inputSuper" placeholder="Username..."></textarea>
-                </form>
-                <div class="AddstudentButton">
-                    <a href="#" title="button shiny 3" onclick="addSuper()" class="fui-button-shiny-3"> Add +</a>
-                    <button id="clearButtonSup" class="fui-button-shiny-3">Clear Text</button>
-                </div>
-                <div class="notification-container" id="notificationContainerSup"></div>
-            </div>
+            
         </div>
 
         <!-- VIEW STUDENT LIST TABLE -->
@@ -187,19 +187,20 @@
 
                 <br />
             </table>
+            <div class="table-container-hidden-3 " id="hiddenTable-StudentListToAdd" style="display: none;">
+                <form>
+                    <textarea id="inputStu" name="inputStu" placeholder="Username..."></textarea>
+                </form>
+                <div class="AddstudentButton">
+                    <a href="#" title="button shiny 3" onclick="AddStudent()" class="fui-button-shiny-3"> Add +</a>
+                    <button id="clearButtonStu" class="fui-button-shiny-3" onclick="ClearTextStu()">Clear Text</button>
+                </div>
+    
+                <div class="notification-container" id="notificationContainer"></div>
+            </div>
         </div>
         <!-- <div id="messageRemoveStudent" class="messageRemove"></div> -->
-        <div class="table-container-hidden-3" id="hiddenTable-StudentListToAdd" style="display: none;">
-            <form>
-                <textarea id="inputStu" name="inputStu" placeholder="Username..."></textarea>
-            </form>
-            <div class="AddstudentButton">
-                <a href="#" title="button shiny 3" onclick="AddStudent()" class="fui-button-shiny-3"> Add +</a>
-                <button id="clearButtonStu" class="fui-button-shiny-3" onclick="ClearTextStu()">Clear Text</button>
-            </div>
-
-            <div class="notification-container" id="notificationContainer"></div>
-        </div>
+        
 
         <div class="table-container-hidden-3 follow_Scroll" id="hiddenTable-4" style="display: none">
             <div class="search-field-2">
