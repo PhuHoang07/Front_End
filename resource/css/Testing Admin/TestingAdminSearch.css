@@ -591,9 +591,8 @@ select:invalid {
 
 .selectSearch-container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin-right: 80px;
+  padding: 10px;
 }
 
 #search-input {
@@ -659,50 +658,61 @@ select:invalid {
   /* Black background with opacity */
   z-index: 2;
   /* Specify a stack order in case you're using a different order for other elements */
-  cursor: pointer;
-  /* Add a pointer on hover */
-
+}
+.semester-title:not(:first-child) {
+  margin-top: 50px; /* Adjust the margin to separate semester titles */
+}
+.table-container {
+  margin-bottom: 20px; /* Adjust the margin as needed */
 }
 
-.Select_Subject_overLap {
+.Select_Subject_overLap{
   display: flex;
   position: absolute;
   width: 40%;
   left: 53%;
-  top: 140px;
+  top: 179px;
   height: 100px;
-  display: none;
+display: none;
 }
 
-.option_window_left {
+.option_window_left{
   background-color: #ffffff;
-  width: 10cm;
+  width: 8cm;
   height: 10cm;
   border-radius: 20px;
   border-style: solid;
-  border-color: rgb(0, 0, 0);
-  overflow: auto;
+border-color: rgb(0, 0, 0);
+overflow: auto;
 
 }
-
-.option_window_right {
+.option_window_right{
   background-color: #ffffff;
-  width: 10cm;
+  width: 8cm;
   height: 10cm;
   border-radius: 20px;
   border-style: solid;
-  border-color: rgb(0, 0, 0);
-  overflow: auto;
+border-color: rgb(0, 0, 0);
+overflow: auto;
 }
-
 .option_window_left::-webkit-scrollbar {
   display: none;
 }
-
 .option_window_right::-webkit-scrollbar {
   display: none;
 }
-
+.option_window{
+background-color: #ffffff;
+  width: 9cm;
+  height: 10cm;
+  border-radius: 20px;
+  border-style: solid;
+border-color: rgb(0, 0, 0);
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-content: center;
+}
 .change-button {
   width: 80px;
   border-radius: 10px;

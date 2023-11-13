@@ -1642,14 +1642,18 @@ async function renderExamSchedule(idt) {
 const notificationContainer = document.getElementById("notificationContainerSup");
 
 async function exportExcel(button){
+    const row = button.parentNode.parentNode;
     idt = button.parentNode.parentNode.getAttribute('idt');
     const token = localStorage.getItem('token');
+    const date = row.cells[1].textContent;
+    const time = row.cells[2].textContent;
+    console.log(date,time);
     console.log(idt);
     try {
         const response = await fetch(`https://swp-esms-api.azurewebsites.net/api/exams/time/export-excel?idt=${idt}`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token    }`, // Add your authorization token if required
+                'Authorization': `Bearer ${token}`, // Add your authorization token if required
             },
         });
 
@@ -1659,7 +1663,6 @@ const errorResponse = await response.json();
             const notification = document.createElement("div");
             notification.className = "notification";
             notification.innerText = errorResponse.message;
-            console.log(notification);
             notificationContainer.appendChild(notification);
     
             // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
@@ -1679,7 +1682,7 @@ const errorResponse = await response.json();
         // Create a link element and initiate the download
         const link = document.createElement('a');
         link.href = URL.createObjectURL(fileBlob);
-        link.download = 'yourFileName.xlsx'; // Specify the desired filename
+        link.download = `${date} (${time}).xlsx`; // Specify the desired filename
         document.body.appendChild(link);
         link.click();
 

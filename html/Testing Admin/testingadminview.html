@@ -140,28 +140,21 @@
         <!-------------------------------------------------------SEARCH END-------------------------------------------->
         <div class="Semester toll_box" id="ShowSemester">
         </div>
-        <div class="table-container ">
+        <div>
+            <div id="loading-container" class="loading-container">
+                <div class="loading-spinner"></div>
+            </div>
+        <div class="table-container" id="Exam_schedule_table">
+        
             <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Supervisor</th>
-                        <th>Publish Date</th>
-                        <th>Slot</th>
-                        <th></th>
-                    </tr>
-                </thead>
                 <tbody id="Schedule_TableView">
-                    <div id="loading-container" class="loading-container">
-                        <div class="loading-spinner"></div>
-                      </div>
+                    
                 </tbody>
                 <div id="messageRemove" class="messageRemove"></div>
-                </button>
+               
             </table>
         </div>
-
+    </div>
         <!-- TIME TABLE -->
         <div class="table-container-hidden-2 follow_Scroll" id="hiddenTable-2" style="display: none">
             <table>
@@ -195,6 +188,7 @@
                 <th>Form</th>
                 <th>Room</th>
                 <th>Type</th>
+                <th>Proctor</th>
                 <th>Student<i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTableTimeFiltered()"></i>
                 </th>
 
