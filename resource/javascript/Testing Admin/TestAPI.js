@@ -42,8 +42,6 @@ function renderExamTime() {
                 <td>${examTime.publishDate}</td>
                 <td>${examTime.slot}</td>
                 <td><i onclick="showTable2(this) "class="fa-solid fa-square-caret-down fa-2xl btn-showExamSchedule" id="btn"></i></td>
-
-
               `;
 
             list.appendChild(tablerow);
@@ -200,3 +198,4 @@ function renderExamSchedule(idt) {
         
 //     });
 // }
+

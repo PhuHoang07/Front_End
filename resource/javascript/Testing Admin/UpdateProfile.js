@@ -26,12 +26,12 @@ async function fetchDataFromApi(){
     document.getElementById("address").value = data.address;
     document.getElementById("phone").value = data.phoneNumber;
     document.querySelector("#info input[type='date']").value = formatDate(data.dateOfBirth);
+      
 
     }
     function formatDate(dateString) {
-      // Assuming the provided date is in the format "yyyy-MM-dd"
-      const parts = dateString.split('-');
-      const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+      const parts = dateString.split("/");
+      const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
       return formattedDate;
   }
 //=========================================================================================
@@ -65,6 +65,9 @@ async function UpdateProfile(confirmation){
     if(!nameInput || !dateInput || !idInput || !addressInput || !phoneInput || !selectedGender){
 
         errorMessage2.style.display = "flex";
+        setTimeout(() => {
+          errorMessage2.style.display = "none";
+        }, 3000);
         return;
     }
     else{
@@ -76,6 +79,8 @@ async function UpdateProfile(confirmation){
     const idValue = idInput.value;
     const addressValue = addressInput.value;
     const phoneValue = phoneInput.value;
+
+    
 
     if(confirmation){
         
@@ -99,8 +104,7 @@ async function UpdateProfile(confirmation){
 
                 setTimeout(() => {
                     errorMessage.style.display = "none";
-                  }, 3000);
-                  renderUpdateProfile(data);
+                  }, 2000);
             }
             else{
                 errorMessage.style.display = "flex";
@@ -112,3 +116,4 @@ async function UpdateProfile(confirmation){
             }
         }     
 }
+renderUpdateProfile(data);
