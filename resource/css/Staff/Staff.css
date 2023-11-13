@@ -474,6 +474,12 @@ textarea {
     justify-content: center;
     padding: 10px;
   }
+  .toll_box{
+    display: flex;
+    flex-direction: column; /* Stack the elements vertically */
+    max-width: 58%; /* Limit the maximum width to 80% of the parent container */
+    margin: 0 auto;
+  }
   #search-input {
     padding: 5px;
     border: 1px solid #ccc;
@@ -568,8 +574,4 @@ textarea {
     padding: 10px;
   }
 
-  .Semester{
-    display: flex;
-    justify-content: center;
-    margin-right: 18cm;
-  }
+ 

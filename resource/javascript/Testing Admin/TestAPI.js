@@ -8,7 +8,6 @@ const response = await fetchAPIData(
     'GET'
 );
 const data = response.data;
-
 //------------------------------------------------fectch data into table------------------------------------------------------------------
 function renderExamTime() {
     list.innerHTML = '';
@@ -16,7 +15,7 @@ function renderExamTime() {
     showSemester.innerHTML = '';
     const Semter = document.createElement('h2');
     Semter.innerHTML = `Semster:${Object.getOwnPropertyNames(data)}`;
-   
+   console.log(Object.getOwnPropertyNames(data));
      showSemester.appendChild(Semter);
  
 
@@ -97,6 +96,7 @@ function renderExamSchedule(idt) {
             <td>${schedule.room}</td>
             <td>${schedule.type}</td>
             <td><button class="button-supervisor" onclick="showTable3(this)">${schedule.totalStudent}/${schedule.capacity}</button></td>
+            <td><button class="button-supervisor" onclick="showProctorUnassign(this)">${schedule.proctor}</button></td>
             <td><button class="edit-button" onclick="showModalEditExamSchedule(this)">Edit</button></td>
             <td><button class="remove-button" onclick="showConfirmationModalExamSchedule(this)">Remove</button></td>
           `;

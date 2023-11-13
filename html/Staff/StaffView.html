@@ -6,10 +6,12 @@
     <title>Responsive Sidebar Menu | CodingLab</title>
     <link rel="stylesheet" href="/resource/css/Login-Google/Welcome.css" />
     <link rel="stylesheet" href="/resource/css/Staff/Staff.css" />
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.2/xlsx.full.min.js"></script>
     <!-- Boxicons CDN Link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script src="https://kit.fontawesome.com/53e701d613.js" crossorigin="anonymous"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
 
@@ -31,13 +33,13 @@
                 </a>
                 <span class="tooltip">Home</span>
             </li>
-
+           
             <li>
                 <a href="StaffView.html">
-                    <i class="fa-regular fa-calendar"></i>
-                    <span class="links_name">View Exam Slots</span>
+                    <i class="fa-solid fa-bars-progress"></i>
+                    <span class="links_name">View Exam Schedule</span>
                 </a>
-                <span class="tooltip">View Exam Slots</span>
+                <span class="tooltip">View Exam Plan</span>
             </li>
         </ul>
     </div>
@@ -51,8 +53,8 @@
                     <i class="fa-solid fa-chevron-down" id="dropdown-icon"></i>
                 </button>
                 <div class="dropdown-content" id="myDropdown">
-                    <a href="#"><i class="fa-regular fa-address-card"></i>Profile</a>
-                    <a href="#"><i class="fa-regular fa-pen-to-square"></i>Update
+                    <a href="TestingAdminProfile.html"><i class="fa-regular fa-address-card"></i>Profile</a>
+                    <a href="TestingAdminProfileUpdate.html"><i class="fa-regular fa-pen-to-square"></i>Update
                         Profile</a>
                     <a href="#" onclick="logOut()"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a>
                 </div>
@@ -76,15 +78,18 @@
                     </div>
                     <div class="search-group"><label>Subjects:</label>
                         <div class="custom-dropdown">
-                            <button class="Search_Select Filter_Bt" id="open-dropdown">Open Dropdown</button>
+                            <button class="Search_Select Filter_Bt" id="open-dropdown">Subjects</button>
                             <div class="Select_Subject_overLap" id="dropdown-Search">
-                                <div>
+                                <div class="option_window" >
+                                    <h2 >Selected Subjects</h2>
                                     <select class="option_window_left" id="Subject_filter_Left" multiple>
                                         <!-- Options in the left select go here -->
+                                        
                                     </select>
                                 </div>
 
-                                <div>
+                                <div class="option_window">
+                                    <h2>Available Subjects</h2>
                                     <select class="option_window_right" id="Subject_filter_Right" multiple>
                                     </select>
                                 </div>
@@ -127,9 +132,13 @@
         
         </div>
         <!-------------------------------------------------------SEARCH END-------------------------------------------->
-        <div class="Semester" id="ShowSemester">
+        <div class="toll_box">
+        <div id="ShowSemester">
         </div>
-        <div class="table-container">
+        <button class="Search_Select Filter_Bt" id="exportToExcel">Export to Excel</button>
+        </div>
+    </div>
+        <div class="table-container" id="Exam_schedule_table">
             <table>
                 <thead>
                     <tr>

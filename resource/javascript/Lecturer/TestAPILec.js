@@ -90,3 +90,11 @@ function renderExamSlotSupervisorRegistered(data) {
     }
 }
 // =====================================================================================================================
+async function reloadRegisteredList() {
+    const response = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/lecturer/exams/registered", "GET");
+    const registeredData = await response.data;
+    renderExamSlotSupervisorRegistered(registeredData);
+  }
+
+
+

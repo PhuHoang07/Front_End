@@ -39,13 +39,7 @@
                 </a>
                 <span class="tooltip">Manage Exam Slots</span>
             </li>
-            <li>
-                <a href="testingadminview.html">
-                    <i class="fa-regular fa-calendar"></i>
-                    <span class="links_name">View Exam Slots</span>
-                </a>
-                <span class="tooltip">View Exam Slots</span>
-            </li>
+           
             <li>
                 <a href="testingadminview.html">
                     <i class="fa-solid fa-bars-progress"></i>
@@ -90,15 +84,18 @@
                     </div>
                     <div class="search-group"><label>Subjects:</label>
                         <div class="custom-dropdown">
-                            <button class="Search_Select Filter_Bt" id="open-dropdown">Open Dropdown</button>
+                            <button class="Search_Select Filter_Bt" id="open-dropdown">Subjects</button>
                             <div class="Select_Subject_overLap" id="dropdown-Search">
-                                <div>
+                                <div class="option_window" >
+                                    <h2 >Selected Subjects</h2>
                                     <select class="option_window_left" id="Subject_filter_Left" multiple>
                                         <!-- Options in the left select go here -->
+                                        
                                     </select>
                                 </div>
 
-                                <div>
+                                <div class="option_window">
+                                    <h2>Available Subjects</h2>
                                     <select class="option_window_right" id="Subject_filter_Right" multiple>
                                     </select>
                                 </div>
