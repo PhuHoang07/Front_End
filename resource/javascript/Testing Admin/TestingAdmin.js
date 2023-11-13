@@ -1147,7 +1147,7 @@ async function renderExamTime() {
 
     showSemester.innerHTML = '';
     const Semter = document.createElement('h2');
-    Semter.innerHTML = `Semster:${Object.getOwnPropertyNames(data)}`;
+    Semter.innerHTML = `Semester:${Object.getOwnPropertyNames(data)}`;
    console.log(Object.getOwnPropertyNames(data));
      showSemester.appendChild(Semter);
 

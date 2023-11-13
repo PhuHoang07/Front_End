@@ -1661,7 +1661,7 @@ async function exportExcel(button){
            
 const errorResponse = await response.json();
             const notification = document.createElement("div");
-            notification.className = "notification";
+            notification.className = "notificationERR";
             notification.innerText = errorResponse.message;
             notificationContainer.appendChild(notification);
     
@@ -1691,7 +1691,7 @@ const errorResponse = await response.json();
         URL.revokeObjectURL(link.href);
     } catch (error) {
         const notification = document.createElement("div");
-        notification.className = "notification";
+        notification.className = "notificationERR";
         notification.innerText = error.message;
         console.log(notification);
         notificationContainer.appendChild(notification);

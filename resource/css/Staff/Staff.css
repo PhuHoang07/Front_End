@@ -465,6 +465,15 @@ textarea {
     animation: slide-up 3s ease-out forwards;
   }
 
+  .notificationERR {
+    background-color: #ce0000;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px;
+    animation: slide-up 3s ease-out forwards;
+  }
   @keyframes slide-up {
     from {
       transform: translateY(100%);
