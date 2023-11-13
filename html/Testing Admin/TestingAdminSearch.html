@@ -70,7 +70,7 @@
         <div class="title">
             <h2>VIEW EXAM TIME</h2>
         </div>
-        <div class="Semester" id="ShowSemester">
+        <div class="Semester toll_box" id="ShowSemester">
         </div>
 
         <div class="table-container ">
@@ -151,7 +151,8 @@
                 <button class="delete-button" onclick="showConfirmationModalRemoveSupervisorByButtonSelect(this)">
                     <i class="fa-solid fa-user-minus fa-lg"></i>
                 </button>
-                <div class="table-container-hidden-3" id="superTextToAdd" style="display: none;">
+
+                <div class="textArea" id="superTextToAdd" style="display: none;">
                     <form>
                         <textarea id="inputSuper" name="inputSuper" placeholder="Username..."></textarea>
                     </form>
@@ -161,6 +162,7 @@
                     </div>
                     <div class="notification-container" id="notificationContainerSup"></div>
                 </div>
+                
             </table>
 
             
@@ -192,7 +194,7 @@
 
                 <br />
             </table>
-            <div class="table-container-hidden-3 " id="hiddenTable-StudentListToAdd" style="display: none;">
+            <div class="textArea" id="hiddenTable-StudentListToAdd" style="display: none;">
                 <form>
                     <textarea id="inputStu" name="inputStu" placeholder="Username..."></textarea>
                 </form>
@@ -204,6 +206,24 @@
                 <div class="notification-container" id="notificationContainer"></div>
             </div>
         </div>
+
+        <div class="table-container-hidden-2 follow_Scroll" id="hiddenTable-showProctorUnassign" style="display: none">
+            <table>
+                <thead>
+                    <tr>
+                      
+                        <th>No</th>
+                        <th>Full name</th>
+                        <th>User name</th>
+                        <th><i class="fa-regular fa-circle-xmark fa-lg close-button-change" onclick="closeShowProctorUnassgin()"></i></th>
+                    </tr>
+                </thead>
+                <tbody id="proctor-unassign"></tbody>
+                <div id="messageChange" class="messageChange"></div>
+             
+            </table>
+        </div>
+
         <!-- <div id="messageRemoveStudent" class="messageRemove"></div> -->
         
 

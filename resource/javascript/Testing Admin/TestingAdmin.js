@@ -463,7 +463,8 @@ async function getSelectedDataSup() {
         // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
         setTimeout(function () {
             notification.style.display = "none"; // Ẩn thông báo
-        }, 3000);
+            notification.remove();
+        }, 4000);
 
         return;
 
@@ -485,7 +486,8 @@ async function getSelectedDataSup() {
             // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
             setTimeout(function () {
                 notification.style.display = "none"; // Ẩn thông báo
-            }, 3000);
+                notification.remove();
+            }, 4000);
             const table = document.getElementById("table_body_super");
             table.innerHTML = ``;
             reFetchSup();
@@ -498,7 +500,8 @@ async function getSelectedDataSup() {
             // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
             setTimeout(function () {
                 notification.style.display = "none"; // Ẩn thông báo
-            }, 3000);
+                notification.remove();
+            }, 4000);
         }
     }
 
@@ -1704,10 +1707,11 @@ async function addProctorToSchedule(button) {
 
 let subject;
 let room;
+const table = document.getElementById("proctor-unassign");
 async function showProctorUnassign(button) {
     // const list = document.getElementById('add-tsu');
 
-    const table = document.getElementById("proctor-unassign");
+    
     table.innerHTML = ``;
 
     const listItem = [];

@@ -90,6 +90,19 @@ tr:hover {
   overflow-y: auto;
 }
 
+.textArea {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  width: 24%;
+  bottom: 0;
+  margin-left: 70px;
+  margin-top: 39px;
+  max-height: 1000000000px;
+  overflow-y: auto;
+  overflow: hidden;
+}
 .table-container-hidden-3 {
   position: absolute;
   z-index: 2;
@@ -702,4 +715,35 @@ select:invalid {
 
   background-color: #428b45;
 
+}
+.toll_box{
+  display: flex;
+  flex-direction: column; /* Stack the elements vertically */
+  max-width: 58%; /* Limit the maximum width to 80% of the parent container */
+  margin: 0 auto;
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  right: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
