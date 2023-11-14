@@ -17,15 +17,33 @@ function closeModalAddExamSchedule() {
     hiddenTable.style.display = "none";
 }
 
+let date;
 function showTable2(button) {
     const hiddenTable = document.getElementById("hiddenTable-2");
     idt = button.parentNode.parentNode.getAttribute('idt');
+    date = button.parentNode.parentNode.cells[0].innerText;
     console.log(idt);
+    console.log(date);
 
+    var currentDate = new Date();
+    var examDate = new Date(date);
+    console.log(currentDate);
+    console.log(examDate);
+
+    const buttonAdd = document.getElementById("button_add_subject");
+    if (examDate <= currentDate) {
+        buttonAdd.disabled = true;
+        buttonAdd.style.backgroundColor = 'grey';
+    } else {
+        buttonAdd.disabled = false;
+        buttonAdd.style.backgroundColor = 'rgb(57, 180, 205)';
+
+    }
     if (hiddenTable.style.display === "none") {
         hiddenTable.style.display = "block";
         renderExamSchedule(idt);
 
+        // console.log(examDate);
     } else {
         hiddenTable.style.display = 'none';
     }
@@ -61,7 +79,21 @@ async function showSupervisor(button) {
     res.data.forEach((item, index) => {
         const tablerow = document.createElement('tr');
         listItem.push(tablerow);
-        tablerow.innerHTML = `
+        var currentDate = new Date();
+        var examDate = new Date(date); // Chuyển đổi định dạng ngày nếu cần
+        if (examDate <= currentDate) {
+            tablerow.innerHTML = `
+        <td><input onclick="getDataSupervisorByCheckBox(this)" type="checkbox"></input></td>
+            <td>${index + 1}</td>
+            <td>${item.name}</td>
+            <td>${item.username}</td>
+            <td>${item.email}</td>
+            <td><button class="remove-button" onclick="showConfirmationModalRemoveSupervisorByButton(this)" disabled style="background-color: grey;">Remove</button></td>
+
+          `;
+            table.appendChild(tablerow);
+        } else {
+            tablerow.innerHTML = `
         <td><input onclick="getDataSupervisorByCheckBox(this)" type="checkbox"></input></td>
             <td>${index + 1}</td>
             <td>${item.name}</td>
@@ -70,7 +102,9 @@ async function showSupervisor(button) {
             <td><button class="remove-button" onclick="showConfirmationModalRemoveSupervisorByButton(this)">Remove</button></td>
 
           `;
-        table.appendChild(tablerow);
+            table.appendChild(tablerow);
+        }
+
     });
 
     if (hiddenTable.style.display === "none") {
@@ -110,14 +144,17 @@ async function reFetchSup(button) {
 }
 // ============================================ REMOVE SCHEDULE ===============================================================
 function showConfirmationModalExamSchedule(button) {
+
     var modal = document.getElementById("confirmationModalExamSchedule");
     modal.style.display = "block";
-    // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
+
     selectedButton = button;
     subject = button.parentNode.parentNode.cells[1].innerText; // Lấy giá trị từ cột thứ 2
     room = button.parentNode.parentNode.cells[3].innerText;
-    console.log(idt);
+
+
 }
+
 async function confirmRemoveExamSchedule(confirmation) {
 
     console.log(idt);
@@ -172,6 +209,9 @@ function textEreaAddSup() {
 
 async function showModalAddExamSchedule() {
     const hiddenTable = document.getElementById("hiddenTable-addTableExamSchedule");
+
+
+
     const data = {
         body: {
 
@@ -759,6 +799,8 @@ function closeTable2() {
 
     hiddenTable2.style.display = 'none';
     // hiddenTable5.style.display = 'none';
+    const innerHTML2 = document.getElementById('table_body_3');
+    innerHTML2.innerHTML = '';
 }
 function closeSupervisorTable() {
     const SPtable = document.getElementById('SupervisorTable');
@@ -826,18 +868,7 @@ function showConfirmationModalEdit(button) {
     timeRange = button.parentNode.parentNode.cells[1].innerText;
     publishDate = button.parentNode.parentNode.cells[5].innerText; // Lấy giá trị từ cột thứ 2
     slot = button.parentNode.parentNode.cells[6].innerText;
-    var currentDate = new Date();
-    var examDate = new Date(date); // Replace with your actual date
-    console.log(currentDate);
-    console.log(examDate);
-    if (examDate <= currentDate) {
-        // Disable remove button
-        console.log("Cannot edit.");
-        selectedButton.disabled = true;
-        // Optionally, you can hide the modal as well
-        hiddenTable.style.display = 'none';
-        return;
-    }
+
     console.log(idt);
     console.log(date);
     console.log(timeRange);
@@ -974,20 +1005,7 @@ function showConfirmationModal(button) {
 
     idt = button.parentNode.parentNode.getAttribute('idt');
     date = button.parentNode.parentNode.cells[0].innerText;
-    var currentDate = new Date();
-    var examDate = new Date(date); // Replace with your actual date
-    console.log(currentDate);
-    console.log(examDate);
-    if (examDate <= currentDate) {
-        // Disable remove button
-        console.log("Cannot remove.");
-        selectedButton.disabled = true;
 
-        // Optionally, you can hide the modal as well
-        modal.style.display = 'none';
-
-        return;
-    }
     console.log(idt);
     console.log(date);
 }
@@ -1198,7 +1216,21 @@ async function renderExamTime() {
             const tablerow = document.createElement('tr');
             tablerow.setAttribute('idt', examTime.idt);
             listItem.push(tablerow);
-            tablerow.innerHTML = `
+            var currentDate = new Date();
+            var examDate = new Date(examTime.date); // Chuyển đổi định dạng ngày nếu cần
+            if (examDate <= currentDate) {
+                tablerow.innerHTML = `
+                <td>${examTime.date}</td>
+                <td>${examTime.start} - ${examTime.end}</td>
+                <td><button class="button-supervisor" onclick="showSupervisor(this)">${examTime.totalSupervisor}/${examTime.requireSupervisor}</button></td>
+                <td><button class="edit-button" onclick="showConfirmationModalEdit(this)" disabled style="background-color: grey;">Edit</button></td>
+                <td><button class="remove-button" onclick="showConfirmationModal(this)" disabled style="background-color: grey;">Remove</button></td>
+                <td>${examTime.publishDate}</td>
+                <td>${examTime.slot}</td>
+                <td><i onclick="showTable2(this) "class="fa-solid fa-square-caret-down fa-2xl btn-showExamSchedule"></i></td>
+              `;
+            } else {
+                tablerow.innerHTML = `
                 <td>${examTime.date}</td>
                 <td>${examTime.start} - ${examTime.end}</td>
                 <td><button class="button-supervisor" onclick="showSupervisor(this)">${examTime.totalSupervisor}/${examTime.requireSupervisor}</button></td>
@@ -1208,8 +1240,9 @@ async function renderExamTime() {
                 <td>${examTime.slot}</td>
                 <td><i onclick="showTable2(this) "class="fa-solid fa-square-caret-down fa-2xl btn-showExamSchedule"></i></td>
 
-
               `;
+            }
+
 
             list.appendChild(tablerow);
         });
@@ -1252,25 +1285,45 @@ async function renderExamSchedule(idt) {
                 const noScheduleRow = document.createElement('tr');
                 noScheduleRow.innerHTML =
                     '<td colspan="8" class="no-schedule">No exam schedule</td>';
+
                 list01.appendChild(noScheduleRow);
+            } else {
+                examSchedules.forEach((schedule) => {
+                    const tablerow = document.createElement('tr');
+                    listItem01.push(tablerow);
+                    var currentDate = new Date();
+                    var examDate = new Date(date);
+                    if (examDate <= currentDate) {
+                        tablerow.innerHTML = `
+                        <td>${numgrade++}</td>
+                        <td>${schedule.subject}</td>
+                        <td>${schedule.form}</td>
+                        <td>${schedule.room}</td>
+                        <td>${schedule.type}</td>
+                        <td><button class="button-supervisor" onclick="showTable3(this)">${schedule.totalStudent}/${schedule.capacity}</button></td>
+                        <td><button class="button-supervisor" onclick="showProctorUnassign(this)">${schedule.proctor}</button></td>
+                        <td><button class="edit-button" onclick="showModalEditExamSchedule(this)" disabled style="background-color: grey;">Edit</button></td>
+                        <td><button class="remove-button" onclick="showConfirmationModalExamSchedule(this)" disabled style="background-color: grey;">Remove</button></td>
+                      `;
+                        list01.appendChild(tablerow);
+                    } else {
+                        tablerow.innerHTML = `
+                        <td>${numgrade++}</td>
+                        <td>${schedule.subject}</td>
+                        <td>${schedule.form}</td>
+                        <td>${schedule.room}</td>
+                        <td>${schedule.type}</td>
+                        <td><button class="button-supervisor" onclick="showTable3(this)">${schedule.totalStudent}/${schedule.capacity}</button></td>
+                        <td><button class="button-supervisor" onclick="showProctorUnassign(this)">${schedule.proctor}</button></td>
+                        <td><button class="edit-button" onclick="showModalEditExamSchedule(this)">Edit</button></td>
+                        <td><button class="remove-button" onclick="showConfirmationModalExamSchedule(this)">Remove</button></td>
+                      `;
+                        list01.appendChild(tablerow);
+                    }
+
+                });
             }
 
-            examSchedules.forEach((schedule) => {
-                const tablerow = document.createElement('tr');
-                listItem01.push(tablerow);
-                tablerow.innerHTML = `
-            <td>${numgrade++}</td>
-            <td>${schedule.subject}</td>
-            <td>${schedule.form}</td>
-            <td>${schedule.room}</td>
-            <td>${schedule.type}</td>
-            <td><button class="button-supervisor" onclick="showTable3(this)">${schedule.totalStudent}/${schedule.capacity}</button></td>
-            <td><button class="button-supervisor" onclick="showProctorUnassign(this)">${schedule.proctor}</button></td>
-            <td><button class="edit-button" onclick="showModalEditExamSchedule(this)">Edit</button></td>
-            <td><button class="remove-button" onclick="showConfirmationModalExamSchedule(this)">Remove</button></td>
-          `;
-                list01.appendChild(tablerow);
-            });
         });
     });
 }
@@ -1283,46 +1336,7 @@ function showConfirmationModalRemoveStudentByButton(button) {
     userName = button.parentNode.parentNode.cells[4].innerText;
     console.log(idt);
 }
-// async function confirmRemoveStudentByButton(confirmation) {
 
-//     console.log(idt);
-//     var modal = document.getElementById("confirmationModalRemoveStudentByButton");
-//     modal.style.display = "none";
-//     if (confirmation) {
-//         // Perform delete action here
-//         var row = selectedButton.parentNode.parentNode;
-//         row.remove();
-//         const data = {
-//             body: {
-//                 "idt": idt,
-//                 "subject": subject,
-//                 "room": room,
-//                 "students": [
-//                     userName
-//                 ]
-//             }
-//         }
-
-//         const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/students/remove", "DELETE", data);
-//         renderExamSchedule(idt);
-//         reFetch();
-//         if (res.isSuccess == true) {
-//             console.log(res.message);
-//             var messageElement = document.getElementById('messageRemove');
-//             messageElement.innerHTML = res.message;
-//             messageElement.style.display = "block";
-
-//             // Close modal
-//             document.addEventListener("click", function (event) {
-//                 if (event.target !== messageElement && !messageElement.contains(event.target)) {
-//                     messageElement.style.display = "none";
-//                 }
-//             });
-//         }
-
-
-//     }
-// }
 
 async function confirmRemoveStudentByButton(confirmation) {
     console.log(idt);
@@ -1817,7 +1831,7 @@ async function changeProc(button) {
         }
     }
     const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/update-proctor", "PATCH", data);
-   
+
     console.log(res);
     renderExamSchedule(idt);
     const updatedData = await fetchDataAfterChange();
