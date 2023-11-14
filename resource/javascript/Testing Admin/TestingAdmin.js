@@ -255,6 +255,7 @@ async function addRowToTablesch() {
         errorMessage.style.display = "flex";
         errorMessage.innerHTML = res.message;
         renderExamSchedule(idt);
+        renderExamTime();
     } else {
         console.log(res.message);
         errorMessage.style.display = "flex";
@@ -389,7 +390,7 @@ async function getSelectedData() {
         const notificationContainer = document.getElementById("notificationContainer");
 
         const notification = document.createElement("div");
-        notification.className = "notification";
+        notification.className = "notificationERR";
         notification.innerText = "Please Input UserName!";
 
         notificationContainer.appendChild(notification);
@@ -419,9 +420,8 @@ async function getSelectedData() {
         updateUIStudent(updatedData);
         renderExamSchedule(idt);
         console.log(res);
-
-
-        const notificationContainer = document.getElementById("notificationContainer");
+if(res.isSuccess == true){
+    const notificationContainer = document.getElementById("notificationContainer");
         const notification = document.createElement("div");
 
         notification.className = "notification";
@@ -432,6 +432,21 @@ async function getSelectedData() {
         setTimeout(function () {
             notification.style.display = "none"; // Ẩn thông báo
         }, 3000);
+}else{
+    const notificationContainer = document.getElementById("notificationContainer");
+    const notification = document.createElement("div");
+
+    notification.className = "notification";
+    notification.innerText = res.message;
+    notificationContainer.appendChild(notification);
+
+    // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
+    setTimeout(function () {
+        notification.style.display = "none"; // Ẩn thông báo
+    }, 3000);
+}
+
+        
     }
 };
 function AddStudent() {
@@ -458,7 +473,7 @@ async function getSelectedDataSup() {
     if (usernameArray.length === 0) {
         console.log("Empty Array");
         const notification = document.createElement("div");
-        notification.className = "notification";
+        notification.className = "notificationERR";
         notification.innerText = "Please Input UserName!";
         notificationContainer.appendChild(notification);
 
@@ -493,7 +508,7 @@ async function getSelectedDataSup() {
             reFetchSup();
         } else {
             const notification = document.createElement("div");
-            notification.className = "notification";
+            notification.className = "notificationERR";
             notification.innerText = res.message;
             notificationContainer.appendChild(notification);
 
@@ -1163,6 +1178,7 @@ renderExamSchedule();
 
 
 async function renderExamTime() {
+    console.log("this")
     const list = document.getElementById('table_body');
     const listItem = [];
 
