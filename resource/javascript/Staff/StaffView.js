@@ -1700,3 +1700,24 @@ const errorResponse = await response.json();
     }
 
 };
+function clearSearchFields() {
+    // Get references to the input elements
+    const dateInput = document.querySelector(".search-group label[for='date'] + input[type='date']");
+    const startTimeInput = document.getElementById("start-time-input");
+    const endTimeInput = document.getElementById("end-time-input");
+    const publishDateInput = document.querySelector(".search-group label[for='date'] + input[type='date']:nth-of-type(2)");
+
+    // Clear the values
+    if (dateInput) {
+        dateInput.value = "";
+    }
+    if (startTimeInput) {
+        startTimeInput.value = "";
+    }
+    if (endTimeInput) {
+        endTimeInput.value = "";
+    }
+    if (publishDateInput) {
+        publishDateInput.value = "";
+    }
+}
