@@ -806,8 +806,6 @@ function showStudentListToAdd() {
         hiddenTable4.style.display = 'block';
         hiddenTable4.style.position = 'absolute';
         hiddenTable4.style.top = getComputedStyle(hiddenTable).top;
-        hiddenTable4.style.left =
-            parseInt(getComputedStyle(hiddenTable).left) + 250 + 'px';
     } else {
         hiddenTable4.style.display = 'none'; // Close hiddenTable4
     }
