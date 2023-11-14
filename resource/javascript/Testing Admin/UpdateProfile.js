@@ -1,20 +1,17 @@
 //================================================================update profile nha ======================================================================
 
-async function fetchDataFromApi(){
-    try{
-      const response = await fetchAPIData(
-        'https://swp-esms-api.azurewebsites.net/api/user/profile',
-        'GET'
-      );
+async function fetchDataFromApi() {
+  try {
+    const response = await fetchAPIData(
+      'https://swp-esms-api.azurewebsites.net/api/user/profile',
+      'GET'
+    );
     const data = response.data;
     console.log(data);
     renderUpdateProfile(data);
-    }catch(error){
-      console.error(error);
-    }
-    
+  } catch (error) {
+    console.error(error);
   }
-  fetchDataFromApi();
 
   //function load luôn cái update dữ liệu data=============================================
   const container = document.getElementsByClassName("container");
@@ -38,31 +35,29 @@ async function fetchDataFromApi(){
 
 
 
-    const genderData = ["M","F"];
-    const genderSelectElement = document.getElementById("gender-input-update");
-        genderData.forEach((gender) => {
-            const optionElement = document.createElement("option");
-            optionElement.value = gender;
-            optionElement.text = gender;
-            genderSelectElement.appendChild(optionElement);
+const genderData = ["M", "F"];
+const genderSelectElement = document.getElementById("gender-input-update");
+genderData.forEach((gender) => {
+  const optionElement = document.createElement("option");
+  optionElement.value = gender;
+  optionElement.text = gender;
+  genderSelectElement.appendChild(optionElement);
 });
 
 
-async function UpdateProfile(confirmation){
-    
-    const errorMessage = document.getElementById("error-messagesche-Update");
-    const errorMessage2 = document.getElementById("error-messagesche-Update2");
-    const nameInput = document.querySelector("#full-name");      //Fullname
-    const dateInput  = document.querySelector("#info input[type='date']");     //Date of Birth
-    //==========================================Gender===================================
-    const genderSelectElement = document.getElementById("gender-input-update");
-    const selectedGender = genderSelectElement.value;
-    //=====================================================================================
-    const idInput = document.querySelector("#id-card");         //IDCard
-    const addressInput = document.querySelector("#address");    //address
-    const phoneInput = document.querySelector("#phone");      //Phone
+async function UpdateProfile(confirmation) {
 
-    if(!nameInput || !dateInput || !idInput || !addressInput || !phoneInput || !selectedGender){
+  const errorMessage = document.getElementById("error-messagesche-Update");
+  const errorMessage2 = document.getElementById("error-messagesche-Update2");
+  const nameInput = document.querySelector("#full-name");      //Fullname
+  const dateInput = document.querySelector("#info input[type='date']");     //Date of Birth
+  //==========================================Gender===================================
+  const genderSelectElement = document.getElementById("gender-input-update");
+  const selectedGender = genderSelectElement.value;
+  //=====================================================================================
+  const idInput = document.querySelector("#id-card");         //IDCard
+  const addressInput = document.querySelector("#address");    //address
+  const phoneInput = document.querySelector("#phone");      //Phone
 
         errorMessage2.style.display = "flex";
         setTimeout(() => {
@@ -70,8 +65,18 @@ async function UpdateProfile(confirmation){
         }, 3000);
         return;
     }
-    else{
+    console.log(data);
+    const response = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/user/update", "PATCH", data);
+    if (response.isSuccess == true) {
+      errorMessage.style.display = "flex";
+      errorMessage.innerHTML = response.message;
+      console.log(response.message);
+      // thêm function load lại data dô
+
+      setTimeout(() => {
         errorMessage.style.display = "none";
+      }, 3000);
+      renderUpdateProfile(data);
     }
 
     const nameValue = nameInput.value;
