@@ -625,6 +625,7 @@ async function getSelectedDataSup() {
             }
         }
         const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/proctors/add", "POST", data);
+        renderExamTime();
         console.log(res);
         if (res.isSuccess = true) {
             const notification = document.createElement("div");
