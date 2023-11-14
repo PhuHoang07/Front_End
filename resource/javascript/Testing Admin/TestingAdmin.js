@@ -241,7 +241,8 @@ function textEreaAddSup() {
         hiddenTable4.style.display = 'block';
         hiddenTable4.style.position = 'absolute';
         hiddenTable4.style.top = getComputedStyle(hiddenTable).top;
-
+        hiddenTable4.style.left =
+        parseInt(getComputedStyle(hiddenTable).left) + 250 + 'px';
     } else {
         hiddenTable4.style.display = 'none';
     }
@@ -527,6 +528,7 @@ async function getSelectedData() {
         // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
         setTimeout(function () {
             notification.style.display = "none"; // Ẩn thông báo
+            notification.remove();
         }, 3000);
 
         return;
@@ -549,19 +551,34 @@ async function getSelectedData() {
         updateUIStudent(updatedData);
         renderExamSchedule(idt);
         console.log(res);
+if(res.isSuccess == true){
+    const notificationContainer = document.getElementById("notificationContainer");
+    const notification = document.createElement("div");
 
-
-        const notificationContainer = document.getElementById("notificationContainer");
-        const notification = document.createElement("div");
-
-        notification.className = "notification";
-        notification.innerText = res.message;
-        notificationContainer.appendChild(notification);
-
+    notification.className = "notificationERR";
+    notification.innerText = res.message;
+    notificationContainer.appendChild(notification);
         // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
         setTimeout(function () {
             notification.style.display = "none"; // Ẩn thông báo
+            notification.remove();
         }, 3000);
+}else{
+    const notificationContainer = document.getElementById("notificationContainer");
+    const notification = document.createElement("div");
+
+    notification.className = "notificationERR";
+    notification.innerText = res.message;
+    notificationContainer.appendChild(notification);
+
+    // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
+    setTimeout(function () {
+        notification.style.display = "none"; // Ẩn thông báo
+        notification.remove();
+    }, 3000);
+}
+
+        
     }
 };
 function AddStudent() {
@@ -595,6 +612,7 @@ async function getSelectedDataSup() {
         // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
         setTimeout(function () {
             notification.style.display = "none"; // Ẩn thông báo
+            notification.remove();
         }, 3000);
 
         return;
@@ -617,6 +635,7 @@ async function getSelectedDataSup() {
             // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
             setTimeout(function () {
                 notification.style.display = "none"; // Ẩn thông báo
+                notification.remove();
             }, 3000);
             const table = document.getElementById("table_body_super");
             table.innerHTML = ``;
@@ -630,6 +649,7 @@ async function getSelectedDataSup() {
             // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
             setTimeout(function () {
                 notification.style.display = "none"; // Ẩn thông báo
+                notification.remove();
             }, 3000);
         }
     }
