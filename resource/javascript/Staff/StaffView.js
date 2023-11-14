@@ -27,7 +27,6 @@ window.addEventListener('load', async function() {
   const listview = document.getElementById('Schedule_TableView');
 const listItemview = [];
 const showSemester = document.getElementById('ShowSemester');
-renderExamTimeview();
 
 
 //------------------------------------------------fectch data into table------------------------------------------------------------------
@@ -608,8 +607,9 @@ async function StartFilter(){
     const selectElement = document.getElementById("Subject_filter_Left"); 
     const ListTime = document.getElementById('time_tbody_filtered');
     const list = document.getElementById('Schedule_TableView');
-    list.innerHTML = ``;
+    const showSemester = document.getElementById('ShowSemester');
     ListTime.innerHTML = ``;
+    showSemester.innerHTML = ``;
     const semester = selectedSemester.value;
     const from = dateInput.value;
     const to = publishDateInput.value;
@@ -625,17 +625,18 @@ async function StartFilter(){
     end && (params.end = end);
     subjects.length > 0 && (params.subjects = subjects);
     
-
   const data = {
     params
   };
   console.log(data);
- 
+
   const loadingContainer = document.getElementById('loading-container');
+  
   loadingContainer.style.display = 'block';
+
   const listItem = [];
   try {
-      const res = await fetchAPIDataS("https://swp-esms-api.azurewebsites.net/api/exams/filter","GET",data);
+      const res = await fetchAPIDataFilter("https://swp-esms-api.azurewebsites.net/api/exams/filter","GET",data);
       loadingContainer.style.display = 'none';
       const dataKeysCount = Object.keys(res.data).length;
       console.log(res);
@@ -651,37 +652,65 @@ async function StartFilter(){
         list.appendChild(noScheduleRow);
         return;
     }
-      function renderExamTimeFiltered() {
-        list.innerHTML = '';
+
+    function renderExamTimeFiltered() {
+        const container = document.getElementById("Exam_schedule_table");
+        container.innerHTML = ''; // Clear the container
     
-        // showSemester.innerHTML = '';
-        // const Semter = document.createElement('h2');
-        // Semter.innerHTML = `Semster:${Object.getOwnPropertyNames(OBJ)}`;
-       
-        //  showSemester.appendChild(Semter);
-     
+        const semesters = Object.keys(OBJ);
     
-        Object.keys(OBJ).forEach((semester) => {
-            OBJ[semester].forEach((examTime) => {
-                console.log(semester.length);
-                
+        semesters.forEach((semester) => {
+            const semesterTable = document.createElement('table');
+            const semesterHeaderRow = document.createElement('tr');
+            semesterHeaderRow.innerHTML = `
+                <th></th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Supervisor</th>
+                <th>Publish Date</th>
+                <th>Slot</th>
+                <th></th>
+            `;
+            semesterTable.appendChild(semesterHeaderRow);
     
-                const tablerow = document.createElement('tr');
-                tablerow.setAttribute('idt', examTime.idt);
-                listItem.push(tablerow);
-                tablerow.innerHTML = `
-                    <td>${examTime.date}</td>
-                    <td>${examTime.start} - ${examTime.end}</td>
-                    <td><button class="button-supervisor" onclick="showSupervisor(this)">${examTime.totalSupervisor}/${examTime.requireSupervisor}</button></td>
-                    <td>${examTime.publishDate}</td>
-                    <td>${examTime.slot}</td>
-                    <td><i onclick="showTimeFiltered(this) "class="fa-solid fa-square-caret-down fa-2xl btn-showExamSchedule"></i></td>
+            if (OBJ[semester].length === 0) {
+                // If no data for this semester, display a message row
+                const messageRow = document.createElement('tr');
+                messageRow.innerHTML = `
+                    <td colspan="7" class="no-data-message">No exam schedule for this semester</td>
+                `;
+                semesterTable.appendChild(messageRow);
+            } else {
+                // If there is data, render the rows
+                OBJ[semester].forEach((examTime) => {
+                    const tablerow = document.createElement('tr');
+                    tablerow.setAttribute('idt', examTime.idt);
+                    listItem.push(tablerow);
+                    tablerow.innerHTML = `
+                        <td>
+                            <i onclick="exportExcel(this)" class="fa-solid fa-file-excel fa-2xl tooltip" style="cursor:pointer">
+                                <span class="tooltiptext">Export To Excel!</span>
+                            </i>
+                        </td>
+                        <td>${examTime.date}</td>
+                        <td>${examTime.start} - ${examTime.end}</td>
+                        <td><button class="button-supervisor" onclick="showSupervisor(this)">${examTime.totalSupervisor}/${examTime.requireSupervisor}</button></td>
+                        <td>${examTime.publishDate}</td>
+                        <td>${examTime.slot}</td>
+                        <td>
+                            <i onclick="showTimeFiltered(this)" class="fa-solid fa-square-caret-down fa-2xl btn-showExamSchedule"></i>
+                        </td>
+                    `;
+                    semesterTable.appendChild(tablerow);
+                });
+            }
     
+            const showSemester = document.createElement('h2');
+            showSemester.className = 'semester-title';
+            showSemester.innerHTML = `Semester: ${semester}`;
     
-                  `;
-    
-                list.appendChild(tablerow);
-            });
+            container.appendChild(showSemester);
+            container.appendChild(semesterTable);
         });
     
         Array.from(document.getElementsByClassName('btn-showExamSchedule')).forEach(
@@ -691,6 +720,7 @@ async function StartFilter(){
                 btn.addEventListener('click', () => renderExamScheduleFIltered(idt));
             }
         );
+        loadingContainer.style.display = 'none';
     }
     
 
@@ -731,6 +761,7 @@ async function StartFilter(){
                 <td>${schedule.form}</td>
                 <td>${schedule.room}</td>
                 <td>${schedule.type}</td>
+                <td>${schedule.proctor}</td>
                 <td><button class="button-supervisor" onclick="showTable3(this)">${schedule.totalStudent}/${schedule.capacity}</button></td>
               `;
               console.log(tablerow);
@@ -741,14 +772,29 @@ async function StartFilter(){
         });
     }
     } catch (error) {
+        const container = document.getElementById("Exam_schedule_table");
       // Handle API request error and hide the loading container
-      list.innerHTML = `<h2 class="title">Failed to fetch data!</h2>`;
+      container.innerHTML = `<h2 class="title toll_box">Empty OR Failed to fetch data!</h2>`;
       loadingContainer.style.display = 'none';
     }
   }
       
 
+// async function exportExcel(button) {
+//     idt = button.parentNode.parentNode.getAttribute('idt');
+//     console.log(idt);
+//     const data = {
+//         params :{
+//             idt
+//         }
+//     }
+//     const res = fetchAPIData('https://swp-esms-api.azurewebsites.net/api/exams/time/export-excel','GET',data);
+//     console.log(res);
+//     const downloadLink = res.downloadLink;
 
+//     // Use the download link as needed (e.g., create a download button)
+//     console.log('Download Link:', downloadLink);
+// }
 function showTimeTable(button){
     console.log(idt);
     idt = button.parentNode.parentNode.getAttribute('idt');
@@ -1540,58 +1586,117 @@ async function renderExamSchedule(idt) {
     });
 }
 
-document.getElementById('exportToExcel').addEventListener('click', function () {
-    const table = document.getElementById('Exam_schedule_table'); // Replace 'yourTableId' with the actual table ID
-    const rows = table.querySelectorAll('tr');
+// document.getElementById('exportToExcel').addEventListener('click', function () {
+//     const table = document.getElementById('Exam_schedule_table'); // Replace 'yourTableId' with the actual table ID
+//     const rows = table.querySelectorAll('tr');
 
-    // Create a new Excel workbook
-    const workbook = new ExcelJS.Workbook();
+//     // Create a new Excel workbook
+//     const workbook = new ExcelJS.Workbook();
 
-    // Add a worksheet to the workbook
-    const sheet = workbook.addWorksheet('Exam Time');
+//     // Add a worksheet to the workbook
+//     const sheet = workbook.addWorksheet('Exam Time');
 
-    // Define and apply styles to the headers (entire row)
-    sheet.getRow(1).font = { bold: true };
-    sheet.getRow(1).alignment = { horizontal: 'center' };
+//     // Define and apply styles to the headers (entire row)
+//     sheet.getRow(1).font = { bold: true };
+//     sheet.getRow(1).alignment = { horizontal: 'center' };
 
-    // Populate the sheet with table headers
-    const headerCells = rows[0].querySelectorAll('th');
-    headerCells.forEach((cell, index) => {
-        sheet.getCell(1, index + 1).value = cell.textContent;
-        sheet.getCell(1, index + 1).fill = {
-            type: 'pattern',
-            pattern: 'solid',
-            fgColor: { argb: '00FF00' }, // Green color
-        };
-        sheet.getCell(1, index + 1).alignment = { horizontal: 'center' };
-    });
+//     // Populate the sheet with table headers
+//     const headerCells = rows[0].querySelectorAll('th');
+//     headerCells.forEach((cell, index) => {
+//         sheet.getCell(1, index + 1).value = cell.textContent;
+//         sheet.getCell(1, index + 1).fill = {
+//             type: 'pattern',
+//             pattern: 'solid',
+//             fgColor: { argb: '00FF00' }, // Green color
+//         };
+//         sheet.getCell(1, index + 1).alignment = { horizontal: 'center' };
+//     });
 
-    // Populate the sheet with table data
-    for (let i = 1; i < rows.length; i++) {
-        const dataRow = rows[i].querySelectorAll('td');
-        dataRow.forEach((cell, index) => {
-            const excelCell = sheet.getCell(i + 1, index + 1);
-            excelCell.value = cell.textContent;
+//     // Populate the sheet with table data
+//     for (let i = 1; i < rows.length; i++) {
+//         const dataRow = rows[i].querySelectorAll('td');
+//         dataRow.forEach((cell, index) => {
+//             const excelCell = sheet.getCell(i + 1, index + 1);
+//             excelCell.value = cell.textContent;
 
-            // Apply styles to the data rows (white and grey stripes)
-            excelCell.fill = {
-                type: 'pattern',
-                pattern: 'solid',
-                fgColor: { argb: (i % 2 === 0) ? 'FFFFFF' : 'DDDDDD' }, // Alternate between white and grey
-            };
+//             // Apply styles to the data rows (white and grey stripes)
+//             excelCell.fill = {
+//                 type: 'pattern',
+//                 pattern: 'solid',
+//                 fgColor: { argb: (i % 2 === 0) ? 'FFFFFF' : 'DDDDDD' }, // Alternate between white and grey
+//             };
 
-            // Center-align the cell content
-            excelCell.alignment = { horizontal: 'center' };
+//             // Center-align the cell content
+//             excelCell.alignment = { horizontal: 'center' };
+//         });
+//     }
+
+//     // Generate the Excel file
+//     workbook.xlsx.writeBuffer().then(function (data) {
+//         const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+//         saveAs(blob, 'table_data.xlsx'); // Use the saveAs function to download the file
+//     });
+// });
+
+
+const notificationContainer = document.getElementById("notificationContainerSup");
+
+async function exportExcel(button){
+    const row = button.parentNode.parentNode;
+    idt = button.parentNode.parentNode.getAttribute('idt');
+    const token = localStorage.getItem('token');
+    const date = row.cells[1].textContent;
+    const time = row.cells[2].textContent;
+    console.log(date,time);
+    console.log(idt);
+    try {
+        const response = await fetch(`https://swp-esms-api.azurewebsites.net/api/exams/time/export-excel?idt=${idt}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`, // Add your authorization token if required
+            },
         });
+
+        if (!response.ok) {
+           
+const errorResponse = await response.json();
+            const notification = document.createElement("div");
+            notification.className = "notificationERR";
+            notification.innerText = errorResponse.message;
+            notificationContainer.appendChild(notification);
+    
+            // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
+            setTimeout(function () {
+                notification.style.display = "none"; // Ẩn thông báo
+                notification.remove();
+            }, 3000);
+
+            
+            console.error('API Error:', errorResponse.message);
+            return;
+        }
+
+        // The response is a File, Blob, or other binary data
+        const fileBlob = await response.blob();
+
+        // Create a link element and initiate the download
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(fileBlob);
+        link.download = `${date} (${time}).xlsx`; // Specify the desired filename
+        document.body.appendChild(link);
+        link.click();
+
+        // Clean up the link element
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+    } catch (error) {
+        const notification = document.createElement("div");
+        notification.className = "notificationERR";
+        notification.innerText = error.message;
+        console.log(notification);
+        notificationContainer.appendChild(notification);
+        console.error('Fetch Error:', error);
+
     }
 
-    // Generate the Excel file
-    workbook.xlsx.writeBuffer().then(function (data) {
-        const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        saveAs(blob, 'table_data.xlsx'); // Use the saveAs function to download the file
-    });
-});
-
-
-
-
+};

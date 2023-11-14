@@ -13,27 +13,24 @@ async function fetchDataFromApi() {
     console.error(error);
   }
 
-}
-fetchDataFromApi();
+  //function load luôn cái update dữ liệu data=============================================
+  const container = document.getElementsByClassName("container");
+  function renderUpdateProfile(data){
+ 
+    document.getElementById("full-name").value = data.name;
+    document.getElementById("gender-input-update").value = data.gender;
+    document.getElementById("id-card").value = data.idcard;
+    document.getElementById("address").value = data.address;
+    document.getElementById("phone").value = data.phoneNumber;
+    document.querySelector("#info input[type='date']").value = formatDate(data.dateOfBirth);
+      
 
-//function load luôn cái update dữ liệu data=============================================
-const container = document.getElementsByClassName("container");
-function renderUpdateProfile(data) {
-
-  document.getElementById("full-name").value = data.name;
-  document.getElementById("gender-input-update").value = data.gender;
-  document.getElementById("id-card").value = data.idcard;
-  document.getElementById("address").value = data.address;
-  document.getElementById("phone").value = data.phoneNumber;
-  document.querySelector("#info input[type='date']").value = formatDate(data.dateOfBirth);
-
-}
-function formatDate(dateString) {
-  // Assuming the provided date is in the format "yyyy-MM-dd"
-  const parts = dateString.split('-');
-  const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
-  return formattedDate;
-}
+    }
+    function formatDate(dateString) {
+      const parts = dateString.split("/");
+      const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+      return formattedDate;
+  }
 //=========================================================================================
 
 
@@ -62,32 +59,11 @@ async function UpdateProfile(confirmation) {
   const addressInput = document.querySelector("#address");    //address
   const phoneInput = document.querySelector("#phone");      //Phone
 
-  if (!nameInput || !dateInput || !idInput || !addressInput || !phoneInput || !selectedGender) {
-
-    errorMessage2.style.display = "flex";
-    return;
-  }
-  else {
-    errorMessage.style.display = "none";
-  }
-
-  const nameValue = nameInput.value;
-  const dateValue = dateInput.value;
-  const idValue = idInput.value;
-  const addressValue = addressInput.value;
-  const phoneValue = phoneInput.value;
-
-  if (confirmation) {
-
-    const data = {
-      body: {
-        name: nameValue,
-        dateOfBirth: dateValue,
-        gender: selectedGender,
-        idcard: idValue,
-        address: addressValue,
-        phoneNumber: phoneValue
-      }
+        errorMessage2.style.display = "flex";
+        setTimeout(() => {
+          errorMessage2.style.display = "none";
+        }, 3000);
+        return;
     }
     console.log(data);
     const response = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/user/update", "PATCH", data);
@@ -102,13 +78,47 @@ async function UpdateProfile(confirmation) {
       }, 3000);
       renderUpdateProfile(data);
     }
-    else {
-      errorMessage.style.display = "flex";
-      errorMessage.innerHTML = response.message;
-      console.log(response.message);
-      setTimeout(() => {
-        errorMessage.style.display = "none";
-      }, 3000);
-    }
-  }
+
+    const nameValue = nameInput.value;
+    const dateValue = dateInput.value;
+    const idValue = idInput.value;
+    const addressValue = addressInput.value;
+    const phoneValue = phoneInput.value;
+
+    
+
+    if(confirmation){
+        
+            const data = {
+                body: {
+                    name: nameValue,
+                    dateOfBirth: dateValue,
+                    gender: selectedGender,
+                    idcard: idValue,
+                    address: addressValue,
+                    phoneNumber: phoneValue
+                }
+            }
+            console.log(data);
+            const response = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/user/update","PATCH",data);
+            if (response.isSuccess == true) {
+                errorMessage.style.display = "flex";
+                errorMessage.innerHTML = response.message;
+                console.log(response.message);
+                // thêm function load lại data dô
+
+                setTimeout(() => {
+                    errorMessage.style.display = "none";
+                  }, 2000);
+            }
+            else{
+                errorMessage.style.display = "flex";
+                errorMessage.innerHTML = response.message;
+                console.log(response.message);
+                setTimeout(() => {
+                    errorMessage.style.display = "none";
+                  }, 3000);
+            }
+        }     
 }
+renderUpdateProfile(data);

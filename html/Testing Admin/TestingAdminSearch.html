@@ -70,7 +70,7 @@
         <div class="title">
             <h2>VIEW EXAM TIME</h2>
         </div>
-        <div class="Semester" id="ShowSemester">
+        <div class="Semester toll_box" id="ShowSemester">
         </div>
 
         <div class="table-container ">
@@ -152,26 +152,20 @@
                     <i class="fa-solid fa-user-minus fa-lg"></i>
                 </button>
 
-                <button class="add-button-proctor" onclick="addProctorToSchedule(this)">
-                    Add proctor to exam schedule
-                </button>
-
-              
-
+                <div class="textArea" id="superTextToAdd" style="display: none;">
+                    <form>
+                        <textarea id="inputSuper" name="inputSuper" placeholder="Username..."></textarea>
+                    </form>
+                    <div class="AddstudentButton">
+                        <a href="#" title="button shiny 3" onclick="addSuper()" class="fui-button-shiny-3"> Add +</a>
+                        <button id="clearButtonSup" class="fui-button-shiny-3">Clear Text</button>
+                    </div>
+                    <div class="notification-container" id="notificationContainerSup"></div>
+                </div>
+                
             </table>
 
-
-        </div>
-
-        <div class="table-container-hidden-3" id="superTextToAdd" style="display: none;">
-            <form>
-                <textarea id="inputSuper" name="inputSuper" placeholder="Username..."></textarea>
-            </form>
-            <div class="AddstudentButton">
-                <a href="#" title="button shiny 3" onclick="addSuper()" class="fui-button-shiny-3"> Add +</a>
-                <button id="clearButtonSup" class="fui-button-shiny-3">Clear Text</button>
-            </div>
-            <div class="notification-container" id="notificationContainerSup"></div>
+            
         </div>
 
         <!-- VIEW STUDENT LIST TABLE -->
@@ -200,6 +194,17 @@
 
                 <br />
             </table>
+            <div class="textArea" id="hiddenTable-StudentListToAdd" style="display: none;">
+                <form>
+                    <textarea id="inputStu" name="inputStu" placeholder="Username..."></textarea>
+                </form>
+                <div class="AddstudentButton">
+                    <a href="#" title="button shiny 3" onclick="AddStudent()" class="fui-button-shiny-3"> Add +</a>
+                    <button id="clearButtonStu" class="fui-button-shiny-3" onclick="ClearTextStu()">Clear Text</button>
+                </div>
+    
+                <div class="notification-container" id="notificationContainer"></div>
+            </div>
         </div>
 
         <div class="table-container-hidden-2 follow_Scroll" id="hiddenTable-showProctorUnassign" style="display: none">
@@ -220,17 +225,7 @@
         </div>
 
         <!-- <div id="messageRemoveStudent" class="messageRemove"></div> -->
-        <div class="table-container-hidden-3" id="hiddenTable-StudentListToAdd" style="display: none;">
-            <form>
-                <textarea id="inputStu" name="inputStu" placeholder="Username..."></textarea>
-            </form>
-            <div class="AddstudentButton">
-                <a href="#" title="button shiny 3" onclick="AddStudent()" class="fui-button-shiny-3"> Add +</a>
-                <button id="clearButtonStu" class="fui-button-shiny-3" onclick="ClearTextStu()">Clear Text</button>
-            </div>
-
-            <div class="notification-container" id="notificationContainer"></div>
-        </div>
+        
 
         <div class="table-container-hidden-3 follow_Scroll" id="hiddenTable-4" style="display: none">
             <div class="search-field-2">

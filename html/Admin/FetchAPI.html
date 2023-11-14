@@ -60,7 +60,7 @@
                             ><i class="fa-regular fa-address-card"></i
                             >Profile</a
                         >
-                        <a href="#"
+                        <a href="TestingAdminProfile.html"
                             ><i class="fa-regular fa-pen-to-square"></i>Update
                             Profile</a
                         >
@@ -95,6 +95,31 @@
                 </thead>
                 <tbody id="table_body"></tbody>
             </table>
+
+            <div id="myModal" class="modal" style="display: none;">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <p class="modal-text">
+                        Are You Sure to Set Role for this
+                        Account?
+                    </p>
+                    <span class="confirm">
+                        <p class="cofirmbutton" id="yes-button">Yes</p>
+                    </span>
+                    <span class="close">
+                        <p class="closebutton" id="no-button">No</p>
+                    </span>
+                </div>
+            </div>
+
+            <div class="result" id="result" style="display: none;">
+                <div class="result-content">
+                    <h3 class="result-text">Set role Successfully!!!</h3>
+                    <span class="confirm">
+                        <p class="cofirmbutton" id="confirm-button">Return</p>
+                    </span>
+                </div>
+            </div>
             <!------------------------------------------------------------------->
             <!-------------------------Pagination--------------------------------->
             <!-- <div
@@ -141,6 +166,8 @@
         <script src="/resource/javascript/FetchAPI-Authen/utils.js"></script>
         <script src="/resource/javascript/Admin/fetchapi.js"></script>
         <script src="/resource/javascript/Login-Google/welcome.js"></script>
+        <!-- <script src="/resource/javascript/Admin/AccountProfile.js"></script> -->
+       
         
     </body>
 </html>

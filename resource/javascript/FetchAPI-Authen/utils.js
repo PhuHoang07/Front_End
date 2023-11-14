@@ -12,7 +12,7 @@ function Authenticate() {
     })
         .then((response) => response.text())
         .then((response) => {
-            if (response == 'Invalid') {
+            if (response !== 'Valid') {
                 // log out when token is invalid
                 logOut();
             }
@@ -29,8 +29,7 @@ function fetchAPIData(url, method, data = {}) {
     const token = localStorage.getItem('token');
 
     if (method === 'GET') {
-        
-        const params = new URLSearchParams(data.params ?? '' );
+        const params = new URLSearchParams(data.params ?? '');
 
         return fetch(url + `?${params}`, {
             method: method, // or 'POST', 'PUT', etc.
@@ -59,18 +58,21 @@ function showUserName() {
     userField.innerText = userName;
 }
 
-function fetchAPIDataS(url, method, data = {}) {
+function fetchAPIDataFilter(url, method, data = {}) {
     const token = localStorage.getItem('token');
 
     if (method === 'GET' && data.params) {
-        const queryParams = Object.entries(data.params).reduce((acc, [key, value]) => {
-            if (Array.isArray(value)) {
-                value.forEach(item => acc.append(key, item));
-            } else {
-                acc.append(key, value);
-            }
-            return acc;
-        }, new URLSearchParams());
+        const queryParams = Object.entries(data.params).reduce(
+            (acc, [key, value]) => {
+                if (Array.isArray(value)) {
+                    value.forEach((item) => acc.append(key, item));
+                } else {
+                    acc.append(key, value);
+                }
+                return acc;
+            },
+            new URLSearchParams()
+        );
 
         const queryString = queryParams.toString();
 

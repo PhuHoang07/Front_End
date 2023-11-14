@@ -465,7 +465,8 @@ async function getSelectedDataSup() {
         // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
         setTimeout(function () {
             notification.style.display = "none"; // Ẩn thông báo
-        }, 3000);
+            notification.remove();
+        }, 4000);
 
         return;
 
@@ -487,7 +488,8 @@ async function getSelectedDataSup() {
             // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
             setTimeout(function () {
                 notification.style.display = "none"; // Ẩn thông báo
-            }, 3000);
+                notification.remove();
+            }, 4000);
             const table = document.getElementById("table_body_super");
             table.innerHTML = ``;
             reFetchSup();
@@ -500,7 +502,8 @@ async function getSelectedDataSup() {
             // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
             setTimeout(function () {
                 notification.style.display = "none"; // Ẩn thông báo
-            }, 3000);
+                notification.remove();
+            }, 4000);
         }
     }
 
@@ -806,8 +809,6 @@ function showStudentListToAdd() {
         hiddenTable4.style.display = 'block';
         hiddenTable4.style.position = 'absolute';
         hiddenTable4.style.top = getComputedStyle(hiddenTable).top;
-        hiddenTable4.style.left =
-            parseInt(getComputedStyle(hiddenTable).left) + 250 + 'px';
     } else {
         hiddenTable4.style.display = 'none'; // Close hiddenTable4
     }
@@ -1183,7 +1184,7 @@ async function renderExamTime() {
 
     showSemester.innerHTML = '';
     const Semter = document.createElement('h2');
-    Semter.innerHTML = `Semster:${Object.getOwnPropertyNames(data)}`;
+    Semter.innerHTML = `Semester:${Object.getOwnPropertyNames(data)}`;
    console.log(Object.getOwnPropertyNames(data));
      showSemester.appendChild(Semter);
 
@@ -1743,10 +1744,11 @@ async function addProctorToSchedule(button) {
 
 let subject;
 let room;
+const table = document.getElementById("proctor-unassign");
 async function showProctorUnassign(button) {
     // const list = document.getElementById('add-tsu');
 
-    const table = document.getElementById("proctor-unassign");
+    
     table.innerHTML = ``;
 
     const listItem = [];

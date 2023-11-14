@@ -63,7 +63,9 @@ button {
   margin-top: 10px;
   justify-content: center;    
 }
-
+.header-info img{
+  margin: auto;
+}
 
 
 
