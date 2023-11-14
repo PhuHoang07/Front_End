@@ -135,8 +135,10 @@ async function confirmRemoveExamSchedule(confirmation) {
         }
         const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/delete", "DELETE", data);
         renderExamSchedule(idt);
+        renderExamTime();
         if (res.isSuccess == true) {
             console.log(res.message);
+            
             var messageElement = document.getElementById('messageRemove');
             messageElement.innerHTML = res.message;
             messageElement.style.display = "block";
@@ -192,8 +194,8 @@ async function showModalAddExamSchedule() {
         const noiDungLuaChon = selectedOption.textContent; // Lấy nội dung của lựa chọn
         const datar = {
             params: {
-                'idt': idt,
-                'subjectId': noiDungLuaChon
+                'idt': idt
+                // 'subjectId': noiDungLuaChon
             }
         }
         const resr = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/available-rooms", "GET", datar);
@@ -589,8 +591,8 @@ async function showModalEditExamSchedule(button) { // do chung async nên nó ch
         const noiDungLuaChon = selectedOption.textContent; // Lấy nội dung của lựa chọn
         const datar = {
             params: {
-                'idt': idt,
-                'subjectId': noiDungLuaChon
+                'idt': idt
+                // 'subjectId': noiDungLuaChon
             }
         }
         console.log(datar);
@@ -824,6 +826,20 @@ function showConfirmationModalEdit(button) {
     timeRange = button.parentNode.parentNode.cells[1].innerText;
     publishDate = button.parentNode.parentNode.cells[5].innerText; // Lấy giá trị từ cột thứ 2
     slot = button.parentNode.parentNode.cells[6].innerText;
+    var currentDate = new Date();
+    var examDate = new Date(date); // Replace with your actual date
+    console.log(currentDate);
+    console.log(examDate);
+    if (examDate <= currentDate) {
+        // Disable remove button
+        console.log("Cannot edit.");
+        selectedButton.disabled = true;
+        
+        // Optionally, you can hide the modal as well
+        hiddenTable.style.display = 'none';
+        
+        return;
+    }
     console.log(idt);
     console.log(date);
     console.log(timeRange);
@@ -951,6 +967,7 @@ async function editRows() {
 }
 //=================================================================================================================================================================================================
 function showConfirmationModal(button) {
+   
     var modal = document.getElementById("confirmationModal");
     modal.style.display = "block";
 
@@ -958,13 +975,33 @@ function showConfirmationModal(button) {
     selectedButton = button;
 
     idt = button.parentNode.parentNode.getAttribute('idt');
+    date = button.parentNode.parentNode.cells[0].innerText;
+    var currentDate = new Date();
+    var examDate = new Date(date); // Replace with your actual date
+    console.log(currentDate);
+    console.log(examDate);
+    if (examDate <= currentDate) {
+        // Disable remove button
+        console.log("Cannot remove.");
+        selectedButton.disabled = true;
+        
+        // Optionally, you can hide the modal as well
+        modal.style.display = 'none';
+        
+        return;
+    }
     console.log(idt);
+    console.log(date);
 }
 async function confirmRemove(confirmation) {
     console.log(idt);
+    
     var modal = document.getElementById('confirmationModal');
     modal.style.display = 'none';
+    
     if (confirmation) {
+       
+        
         // Perform delete action here
         var row = selectedButton.parentNode.parentNode;
         row.remove();
@@ -1721,10 +1758,6 @@ async function showProctorUnassign(button) {
     console.log(subject);
     console.log(room);
 
-
-
-
-
     const hiddenTable = document.getElementById("hiddenTable-showProctorUnassign");
     if (hiddenTable.style.display === "none") {
         hiddenTable.style.display = "block";
@@ -1735,7 +1768,6 @@ async function showProctorUnassign(button) {
         params: {
             'idt': idt
         }
-
     }
 
 
@@ -1758,8 +1790,8 @@ async function showProctorUnassign(button) {
         tablerow.innerHTML = `
     
                     <td>${index + 1}</td>
-                    <td>${item.username}</td>
-                    <td>${item}</td>
+                    <td>${item.name}</td>
+                    <td>${item.userName}</td>
                     <td><button class="change-button" onclick="changeProc(this)">Change</button></td>
                   `;
         table.appendChild(tablerow);
