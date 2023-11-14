@@ -31,6 +31,7 @@ function showTable2(button) {
     console.log(examDate);
 
     const buttonAdd = document.getElementById("button_add_subject");
+
     if (examDate <= currentDate) {
         buttonAdd.disabled = true;
         buttonAdd.style.backgroundColor = 'grey';
@@ -53,6 +54,41 @@ async function showSupervisor(button) {
     const hiddenTable = document.getElementById("SupervisorTable");
     idt = button.parentNode.parentNode.getAttribute('idt');
     date = button.parentNode.parentNode.cells[0].innerText;
+
+    var currentDate = new Date();
+    var examDate = new Date(date);
+    console.log(currentDate);
+    console.log(examDate);
+
+    const buttonAdd = document.getElementById("button_add_sup");
+    const buttonRemove = document.getElementById("button_remove_sup");
+    const buttonSelectAll = document.getElementById("select-all-checkbox-supervisor");
+    const buttonAddProcRandom = document.getElementById("button_add_proc");
+    if (examDate <= currentDate) {
+        buttonAdd.disabled = true;
+        buttonRemove.disabled = true;
+        buttonSelectAll.disabled = true;
+        buttonAddProcRandom.disabled = true;
+        buttonAdd.style.backgroundColor = 'grey';
+        buttonRemove.style.backgroundColor = 'grey';
+        buttonSelectAll.style.backgroundColor = 'grey';
+        buttonAddProcRandom.style.backgroundColor = 'grey';
+        console.log("if (examDate <= currentDate)");
+
+
+    } else {
+        buttonAdd.disabled = false;
+        buttonRemove.disabled = false;
+        buttonSelectAll.disabled = false;
+        buttonAddProcRandom.disabled = false;
+        buttonAdd.style.backgroundColor = 'rgb(57, 180, 205)';
+        buttonRemove.style.backgroundColor = 'red';
+        buttonSelectAll.style.backgroundColor = '';
+        buttonAddProcRandom.style.backgroundColor = 'rgb(57, 180, 205)';
+        console.log("else");
+
+    }
+
     console.log(idt);
     const table = document.getElementById("table_body_super");
 
@@ -76,7 +112,7 @@ async function showSupervisor(button) {
             hiddenTable.style.display = 'none';
         }
         return;
-    }else{
+    } else {
         res.data.forEach((item, index) => {
             const tablerow = document.createElement('tr');
             listItem.push(tablerow);
@@ -85,7 +121,7 @@ async function showSupervisor(button) {
             console.log(examDate);
             if (examDate <= currentDate) {
                 tablerow.innerHTML = `
-            <td><input onclick="getDataSupervisorByCheckBox(this)" type="checkbox"></input></td>
+            <td></td>
                 <td>${index + 1}</td>
                 <td>${item.name}</td>
                 <td>${item.username}</td>
@@ -106,10 +142,10 @@ async function showSupervisor(button) {
               `;
                 table.appendChild(tablerow);
             }
-    
+
         });
     }
-    
+
 
     if (hiddenTable.style.display === "none") {
         hiddenTable.style.display = "block";
@@ -321,6 +357,40 @@ async function showTable3(button) {
     console.log(room);
     console.log(subject);
 
+    var currentDate = new Date();
+    var examDate = new Date(date);
+    console.log(currentDate);
+    console.log(examDate);
+
+    const buttonAdd = document.getElementById("button_add_stu");
+    const buttonRemove = document.getElementById("button_remove_stu");
+    const buttonSelectAll = document.getElementById("select-all-checkbox");
+    const buttonAddProcRandom = document.getElementById("button_add_proc");
+    if (examDate <= currentDate) {
+        buttonAdd.disabled = true;
+        buttonRemove.disabled = true;
+        buttonSelectAll.disabled = true;
+        buttonAddProcRandom.disabled = true;
+        buttonAdd.style.backgroundColor = 'grey';
+        buttonRemove.style.backgroundColor = 'grey';
+        buttonSelectAll.style.backgroundColor = 'grey';
+        buttonAddProcRandom.style.backgroundColor = 'grey';
+        console.log("if (examDate <= currentDate)");
+
+
+    } else {
+        buttonAdd.disabled = false;
+        buttonRemove.disabled = false;
+        buttonSelectAll.disabled = false;
+        buttonAddProcRandom.disabled = false;
+        buttonAdd.style.backgroundColor = 'rgb(57, 180, 205)';
+        buttonRemove.style.backgroundColor = 'red';
+        buttonSelectAll.style.backgroundColor = '';
+        buttonAddProcRandom.style.backgroundColor = 'rgb(57, 180, 205)';
+        console.log("else");
+
+    }
+
 
     const hiddenTable = document.getElementById("hiddenTable-3");
     if (hiddenTable.style.display === "none") {
@@ -354,16 +424,32 @@ async function showTable3(button) {
     res.data.studentList.forEach((item, index) => {
         const tablerow = document.createElement('tr');
         listItem.push(tablerow);
-        tablerow.innerHTML = `
-        <td><input onclick="getDataStudentByCheckBox(this)" type="checkbox"></input></td>
-                <td>${index + 1}</td>
-                <td>${item.rollNumber}</td>
-                <td>${item.name}</td>
-                <td>${item.userName}</td>
-                <td><button class="remove-button" onclick="showConfirmationModalRemoveStudentByButton(this)">Remove</button></td>
+        var currentDate = new Date();
+        var examDate = new Date(date);
+        if (examDate <= currentDate) {
+            tablerow.innerHTML = `
+                        <td></td>
+                                <td>${index + 1}</td>
+                                <td>${item.rollNumber}</td>
+                                <td>${item.name}</td>
+                                <td>${item.userName}</td>
+                                <td><button class="remove-button" onclick="showConfirmationModalRemoveStudentByButton(this)" disabled style="background-color: grey;" >Remove</button></td>
+                
+                              `;
+            tableBody.appendChild(tablerow);
+        } else {
+            tablerow.innerHTML = `
+                        <td><input onclick="getDataStudentByCheckBox(this)" type="checkbox"></input></td>
+                                <td>${index + 1}</td>
+                                <td>${item.rollNumber}</td>
+                                <td>${item.name}</td>
+                                <td>${item.userName}</td>
+                                <td><button class="remove-button" onclick="showConfirmationModalRemoveStudentByButton(this)">Remove</button></td>
+                
+                              `;
+            tableBody.appendChild(tablerow);
+        }
 
-              `;
-        tableBody.appendChild(tablerow);
     });
 
 }
@@ -1803,14 +1889,28 @@ async function showProctorUnassign(button) {
 
         const tablerow = document.createElement('tr');
         listItem.push(tablerow);
-        tablerow.innerHTML = `
+        var currentDate = new Date();
+        var examDate = new Date(date);
+        if (examDate <= currentDate) {
+            tablerow.innerHTML = `
     
-                    <td>${index + 1}</td>
-                    <td>${item.name}</td>
-                    <td>${item.userName}</td>
-                    <td><button class="change-button" onclick="changeProc(this)">Change</button></td>
-                  `;
-        table.appendChild(tablerow);
+            <td>${index + 1}</td>
+            <td>${item.name}</td>
+            <td>${item.userName}</td>
+            <td><button class="change-button" onclick="changeProc(this)" disabled style="background-color: grey;">Change</button></td>
+          `;
+            table.appendChild(tablerow);
+        } else {
+            tablerow.innerHTML = `
+    
+            <td>${index + 1}</td>
+            <td>${item.name}</td>
+            <td>${item.userName}</td>
+            <td><button class="change-button" onclick="changeProc(this)">Change</button></td>
+          `;
+            table.appendChild(tablerow);
+        }
+
 
     });
 }

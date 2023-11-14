@@ -166,7 +166,7 @@ tr:hover {
 .button-supervisor {
   cursor: pointer;
   padding: 2px;
-  width: 70px;
+  width: inherit;
   text-align: center;
 }
 

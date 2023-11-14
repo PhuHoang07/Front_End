@@ -142,17 +142,17 @@
                 <div id="messageRemove" class="messageRemove"></div>
                 <div id="messageAddProctor" ></div>
 
-                <button class="add-button" onclick="textEreaAddSup()">
+                <button class="add-button" id="button_add_sup" onclick="textEreaAddSup()">
                     <i class="fa-solid fa-plus fa-xl"></i>
                 </button>
 
                 <button id="select-all-checkbox-supervisor" class="select-all-button">Select All</button>
 
-                <button class="delete-button" onclick="showConfirmationModalRemoveSupervisorByButtonSelect(this)">
+                <button class="delete-button" id="button_remove_sup" onclick="showConfirmationModalRemoveSupervisorByButtonSelect(this)">
                     <i class="fa-solid fa-user-minus fa-lg"></i>
                 </button>
 
-                <button class="add-button-proctor" onclick="addProctorToSchedule(this)">
+                <button class="add-button-proctor" id="button_add_proc" onclick="addProctorToSchedule(this)">
                     Add proctor to exam schedule
                 </button>
 
@@ -188,13 +188,13 @@
                     </tr>
                 </thead>
                 <tbody id="add-tsu"></tbody>
-                <button class="add-button" onclick="showStudentListToAdd()">
+                <button class="add-button" id="button_add_stu" onclick="showStudentListToAdd()">
                     <i class="fa-solid fa-user-plus fa-lg"></i>
                 </button>
 
                 <button id="select-all-checkbox" class="select-all-button">Select All</button>
 
-                <button class="delete-button" onclick="showConfirmationModalRemoveStudentByButtonSelect(this)">
+                <button class="delete-button"  id="button_remove_stu" onclick="showConfirmationModalRemoveStudentByButtonSelect(this)">
                     <i class="fa-solid fa-user-minus fa-lg"></i>
                 </button>
 
