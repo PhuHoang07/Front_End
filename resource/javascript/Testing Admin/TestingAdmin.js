@@ -52,6 +52,7 @@ async function showSupervisor(button) {
     const listItem = [];
     const hiddenTable = document.getElementById("SupervisorTable");
     idt = button.parentNode.parentNode.getAttribute('idt');
+    date = button.parentNode.parentNode.cells[0].innerText;
     console.log(idt);
     const table = document.getElementById("table_body_super");
 
@@ -75,37 +76,40 @@ async function showSupervisor(button) {
             hiddenTable.style.display = 'none';
         }
         return;
+    }else{
+        res.data.forEach((item, index) => {
+            const tablerow = document.createElement('tr');
+            listItem.push(tablerow);
+            var currentDate = new Date();
+            var examDate = new Date(date); // Chuyển đổi định dạng ngày nếu cần
+            console.log(examDate);
+            if (examDate <= currentDate) {
+                tablerow.innerHTML = `
+            <td><input onclick="getDataSupervisorByCheckBox(this)" type="checkbox"></input></td>
+                <td>${index + 1}</td>
+                <td>${item.name}</td>
+                <td>${item.username}</td>
+                <td>${item.email}</td>
+                <td><button class="remove-button" onclick="showConfirmationModalRemoveSupervisorByButton(this)" disabled style="background-color: grey;">Remove</button></td>
+    
+              `;
+                table.appendChild(tablerow);
+            } else {
+                tablerow.innerHTML = `
+            <td><input onclick="getDataSupervisorByCheckBox(this)" type="checkbox"></input></td>
+                <td>${index + 1}</td>
+                <td>${item.name}</td>
+                <td>${item.username}</td>
+                <td>${item.email}</td>
+                <td><button class="remove-button" onclick="showConfirmationModalRemoveSupervisorByButton(this)">Remove</button></td>
+    
+              `;
+                table.appendChild(tablerow);
+            }
+    
+        });
     }
-    res.data.forEach((item, index) => {
-        const tablerow = document.createElement('tr');
-        listItem.push(tablerow);
-        var currentDate = new Date();
-        var examDate = new Date(date); // Chuyển đổi định dạng ngày nếu cần
-        if (examDate <= currentDate) {
-            tablerow.innerHTML = `
-        <td><input onclick="getDataSupervisorByCheckBox(this)" type="checkbox"></input></td>
-            <td>${index + 1}</td>
-            <td>${item.name}</td>
-            <td>${item.username}</td>
-            <td>${item.email}</td>
-            <td><button class="remove-button" onclick="showConfirmationModalRemoveSupervisorByButton(this)" disabled style="background-color: grey;">Remove</button></td>
-
-          `;
-            table.appendChild(tablerow);
-        } else {
-            tablerow.innerHTML = `
-        <td><input onclick="getDataSupervisorByCheckBox(this)" type="checkbox"></input></td>
-            <td>${index + 1}</td>
-            <td>${item.name}</td>
-            <td>${item.username}</td>
-            <td>${item.email}</td>
-            <td><button class="remove-button" onclick="showConfirmationModalRemoveSupervisorByButton(this)">Remove</button></td>
-
-          `;
-            table.appendChild(tablerow);
-        }
-
-    });
+    
 
     if (hiddenTable.style.display === "none") {
         hiddenTable.style.display = "block";
@@ -295,7 +299,6 @@ async function addRowToTablesch() {
         errorMessage.style.display = "flex";
         errorMessage.innerHTML = res.message;
         renderExamSchedule(idt);
-        renderExamTime();
     } else {
         console.log(res.message);
         errorMessage.style.display = "flex";
@@ -430,7 +433,7 @@ async function getSelectedData() {
         const notificationContainer = document.getElementById("notificationContainer");
 
         const notification = document.createElement("div");
-        notification.className = "notificationERR";
+        notification.className = "notification";
         notification.innerText = "Please Input UserName!";
 
         notificationContainer.appendChild(notification);
@@ -460,8 +463,9 @@ async function getSelectedData() {
         updateUIStudent(updatedData);
         renderExamSchedule(idt);
         console.log(res);
-if(res.isSuccess == true){
-    const notificationContainer = document.getElementById("notificationContainer");
+
+
+        const notificationContainer = document.getElementById("notificationContainer");
         const notification = document.createElement("div");
 
         notification.className = "notification";
@@ -472,21 +476,6 @@ if(res.isSuccess == true){
         setTimeout(function () {
             notification.style.display = "none"; // Ẩn thông báo
         }, 3000);
-}else{
-    const notificationContainer = document.getElementById("notificationContainer");
-    const notification = document.createElement("div");
-
-    notification.className = "notification";
-    notification.innerText = res.message;
-    notificationContainer.appendChild(notification);
-
-    // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
-    setTimeout(function () {
-        notification.style.display = "none"; // Ẩn thông báo
-    }, 3000);
-}
-
-        
     }
 };
 function AddStudent() {
@@ -513,7 +502,7 @@ async function getSelectedDataSup() {
     if (usernameArray.length === 0) {
         console.log("Empty Array");
         const notification = document.createElement("div");
-        notification.className = "notificationERR";
+        notification.className = "notification";
         notification.innerText = "Please Input UserName!";
         notificationContainer.appendChild(notification);
 
@@ -548,7 +537,7 @@ async function getSelectedDataSup() {
             reFetchSup();
         } else {
             const notification = document.createElement("div");
-            notification.className = "notificationERR";
+            notification.className = "notification";
             notification.innerText = res.message;
             notificationContainer.appendChild(notification);
 
@@ -863,6 +852,8 @@ function showStudentListToAdd() {
         hiddenTable4.style.display = 'block';
         hiddenTable4.style.position = 'absolute';
         hiddenTable4.style.top = getComputedStyle(hiddenTable).top;
+        hiddenTable4.style.left =
+            parseInt(getComputedStyle(hiddenTable).left) + 250 + 'px';
     } else {
         hiddenTable4.style.display = 'none'; // Close hiddenTable4
     }
@@ -1196,7 +1187,6 @@ renderExamSchedule();
 
 
 async function renderExamTime() {
-    console.log("this")
     const list = document.getElementById('table_body');
     const listItem = [];
 
