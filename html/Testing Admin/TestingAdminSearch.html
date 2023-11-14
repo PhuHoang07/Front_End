@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Responsive Sidebar Menu | CodingLab</title>
+    <title>Exam Schedule Management System</title>
     <link rel="stylesheet" href="/resource/css/Login-Google/Welcome.css" />
     <link rel="stylesheet" href="/resource/css/Testing Admin/TestingAdminSearch.css" />
 
@@ -117,8 +117,8 @@
                 <button class="add-button" id="button_add_subject" onclick="showModalAddExamSchedule(this)">
                     <i class="fa-solid fa-plus fa-xl"></i>
                 </button>
-              
-               
+
+
 
             </table>
         </div>
@@ -140,7 +140,7 @@
                 <tbody id="table_body_super"></tbody>
 
                 <div id="messageRemove" class="messageRemove"></div>
-                <div id="messageAddProctor" ></div>
+                <div id="messageAddProctor"></div>
 
                 <button class="add-button" id="button_add_sup" onclick="textEreaAddSup()">
                     <i class="fa-solid fa-plus fa-xl"></i>
@@ -148,7 +148,8 @@
 
                 <button id="select-all-checkbox-supervisor" class="select-all-button">Select All</button>
 
-                <button class="delete-button" id="button_remove_sup" onclick="showConfirmationModalRemoveSupervisorByButtonSelect(this)">
+                <button class="delete-button" id="button_remove_sup"
+                    onclick="showConfirmationModalRemoveSupervisorByButtonSelect(this)">
                     <i class="fa-solid fa-user-minus fa-lg"></i>
                 </button>
 
@@ -156,7 +157,7 @@
                     Add proctor to exam schedule
                 </button>
 
-              
+
 
             </table>
 
@@ -194,7 +195,8 @@
 
                 <button id="select-all-checkbox" class="select-all-button">Select All</button>
 
-                <button class="delete-button"  id="button_remove_stu" onclick="showConfirmationModalRemoveStudentByButtonSelect(this)">
+                <button class="delete-button" id="button_remove_stu"
+                    onclick="showConfirmationModalRemoveStudentByButtonSelect(this)">
                     <i class="fa-solid fa-user-minus fa-lg"></i>
                 </button>
 
@@ -206,16 +208,17 @@
             <table>
                 <thead>
                     <tr>
-                      
+
                         <th>No</th>
                         <th>Full name</th>
                         <th>User name</th>
-                        <th><i class="fa-regular fa-circle-xmark fa-lg close-button-change" onclick="closeShowProctorUnassgin()"></i></th>
+                        <th><i class="fa-regular fa-circle-xmark fa-lg close-button-change"
+                                onclick="closeShowProctorUnassgin()"></i></th>
                     </tr>
                 </thead>
                 <tbody id="proctor-unassign"></tbody>
                 <div id="messageChange" class="messageChange"></div>
-             
+
             </table>
         </div>
 
