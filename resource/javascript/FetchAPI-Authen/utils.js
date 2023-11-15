@@ -33,6 +33,7 @@ function fetchAPIData(url, method, data = {}) {
 
         return fetch(url + `?${params}`, {
             method: method, // or 'POST', 'PUT', etc.
+            // mode: 'no-cors',
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',
@@ -43,6 +44,7 @@ function fetchAPIData(url, method, data = {}) {
 
         return fetch(url, {
             method: method, // or 'POST', 'PUT', etc.
+            // mode: 'no-cors',
             body: body,
             headers: {
                 Authorization: `Bearer ${token}`,

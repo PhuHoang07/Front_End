@@ -191,8 +191,21 @@ function showConfirmationModalExamSchedule(button) {
     selectedButton = button;
     subject = button.parentNode.parentNode.cells[1].innerText; // Lấy giá trị từ cột thứ 2
     room = button.parentNode.parentNode.cells[3].innerText;
+    console.log(idt, subject, room);
 
 
+}
+
+async function sendEmail(url, body){
+    await fetch(url, {
+            method: "POST", // or 'POST', 'PUT', etc.
+            // mode: 'no-cors',
+            body: JSON.stringify(body),
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                'Content-Type': 'application/json',
+            },
+        });
 }
 
 async function confirmRemoveExamSchedule(confirmation) {
@@ -203,14 +216,20 @@ async function confirmRemoveExamSchedule(confirmation) {
     if (confirmation) {
         // Perform delete action here
 
+        const body = {
+            'idt': idt,
+            'subjectID': subject,
+            'roomNumber': room
+        };
+
         const data = {
-            body: {
-                'idt': idt,
-                'subjectID': subject,
-                'roomNumber': room
-            }
+            body
         }
+
+        await sendEmail("https://swp-esms-api.azurewebsites.net/api/email/send/delete/schedule", body);
+
         const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/delete", "DELETE", data);
+
         renderExamSchedule(idt);
         renderExamTime();
         if (res.isSuccess == true) {
@@ -229,7 +248,6 @@ async function confirmRemoveExamSchedule(confirmation) {
         }
 
 
-
     }
 }
 // ===================================================================================================================================
@@ -242,7 +260,7 @@ function textEreaAddSup() {
         hiddenTable4.style.position = 'absolute';
         hiddenTable4.style.top = getComputedStyle(hiddenTable).top;
         hiddenTable4.style.left =
-        parseInt(getComputedStyle(hiddenTable).left) + 250 + 'px';
+            parseInt(getComputedStyle(hiddenTable).left) + 250 + 'px';
     } else {
         hiddenTable4.style.display = 'none';
     }
@@ -336,6 +354,7 @@ async function addRowToTablesch() {
         errorMessage.style.display = "flex";
         errorMessage.innerHTML = res.message;
         renderExamSchedule(idt);
+        renderExamTime();
     } else {
         console.log(res.message);
         errorMessage.style.display = "flex";
@@ -551,34 +570,34 @@ async function getSelectedData() {
         updateUIStudent(updatedData);
         renderExamSchedule(idt);
         console.log(res);
-if(res.isSuccess == true){
-    const notificationContainer = document.getElementById("notificationContainer");
-    const notification = document.createElement("div");
+        if (res.isSuccess == true) {
+            const notificationContainer = document.getElementById("notificationContainer");
+            const notification = document.createElement("div");
 
-    notification.className = "notificationERR";
-    notification.innerText = res.message;
-    notificationContainer.appendChild(notification);
-        // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
-        setTimeout(function () {
-            notification.style.display = "none"; // Ẩn thông báo
-            notification.remove();
-        }, 3000);
-}else{
-    const notificationContainer = document.getElementById("notificationContainer");
-    const notification = document.createElement("div");
+            notification.className = "notificationERR";
+            notification.innerText = res.message;
+            notificationContainer.appendChild(notification);
+            // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
+            setTimeout(function () {
+                notification.style.display = "none"; // Ẩn thông báo
+                notification.remove();
+            }, 3000);
+        } else {
+            const notificationContainer = document.getElementById("notificationContainer");
+            const notification = document.createElement("div");
 
-    notification.className = "notificationERR";
-    notification.innerText = res.message;
-    notificationContainer.appendChild(notification);
+            notification.className = "notificationERR";
+            notification.innerText = res.message;
+            notificationContainer.appendChild(notification);
 
-    // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
-    setTimeout(function () {
-        notification.style.display = "none"; // Ẩn thông báo
-        notification.remove();
-    }, 3000);
-}
+            // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
+            setTimeout(function () {
+                notification.style.display = "none"; // Ẩn thông báo
+                notification.remove();
+            }, 3000);
+        }
 
-        
+
     }
 };
 function AddStudent() {
@@ -1040,6 +1059,9 @@ async function confirmEdit(confirmation, dateValue, startTimeValue, endTimeValue
                 publishDate: publishDate
             }
         }
+
+        await sendEmail("https://swp-esms-api.azurewebsites.net/api/email/send/delete-update/time", idt);
+
         const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/update", "PATCH", data);
         console.log(res);
         if (res.isSuccess == true) {
@@ -1137,6 +1159,8 @@ async function confirmRemove(confirmation) {
                 'idt': idt
             }
         }
+
+        await sendEmail("https://swp-esms-api.azurewebsites.net/api/email/send/delete-update/time", idt);
 
         const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/delete", "DELETE", data);
         if (res.isSuccess == true) {
@@ -1253,6 +1277,9 @@ async function editRowInTableContainer() {
             publishDate: publisdate,
         },
     };
+
+    await sendEmail("https://swp-esms-api.azurewebsites.net/api/email/send/delete-update/time", idt);
+
     const res = await fetchAPIData(
         'https://swp-esms-api.azurewebsites.net/api/exams/update-time',
         'POST',
