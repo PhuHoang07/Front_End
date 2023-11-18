@@ -1,100 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-    </head>
 
-    <body>
-    </body>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loading</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-    <script>
-        function fetchData(url, method, data) {
-            if (data) {
-                data = JSON.stringify(data);
+        .loading-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+
+        .loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 8px solid #f3f3f3;
+            /* Light grey */
+            border-top: 8px solid #3498db;
+            /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
             }
 
-            return fetch(url, {
-                method,
-                body: data,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                mode: 'cors',
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loading-container">
+        <div class="loading-spinner"></div>
+    </div>
+</body>
+
+<script>
+    function fetchData(url, method, data) {
+        if (data) {
+            data = JSON.stringify(data);
+        }
+
+        return fetch(url, {
+            method,
+            body: data,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            mode: 'cors',
+        })
+            .then((response) => {
+                return response.json();
             })
-                .then((response) => {
-                    return response.json();
-                })
-                .then((response) => {
-                    return response;
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
-
-        function parseFragment(fragmentString) {
-            const params = {};
-            const regex = /([^&=]+)=([^&]*)/g;
-            let match;
-
-            while ((match = regex.exec(fragmentString)) !== null) {
-                const key = decodeURIComponent(match[1]);
-                const value = decodeURIComponent(match[2]);
-                params[key] = value;
-            }
-
-            return params;
-        }
-
-        const fragmentString = window.location.hash.substring(1);
-        const params = parseFragment(fragmentString);
-        const accessToken = params.access_token;
-
-        if (accessToken) {
-            const googleUserInfoUrl = `https://openidconnect.googleapis.com/v1/userinfo?access_token=${accessToken}`;
-
-            let userData;
-            fetchData(googleUserInfoUrl, 'GET').then((response) => {
-                userData = response;
-
-                authenticateAPI(userData.email).then((response) => {
-                    localStorage.setItem('token', response.data.token);
-                    localStorage.setItem('name', userData.name);
-                    let role = response.data.role;
-
-                    redirectPage(role);
-                });
+            .then((response) => {
+                return response;
+            })
+            .catch((error) => {
+                console.error(error);
             });
+    }
+
+    function parseFragment(fragmentString) {
+        const params = {};
+        const regex = /([^&=]+)=([^&]*)/g;
+        let match;
+
+        while ((match = regex.exec(fragmentString)) !== null) {
+            const key = decodeURIComponent(match[1]);
+            const value = decodeURIComponent(match[2]);
+            params[key] = value;
         }
 
-        function authenticateAPI(email) {
-            const signInUrl =
-                'https://swp-esms-api.azurewebsites.net/api/auth/signin';
-            // 'https://localhost:7212/api/auth/signin';
-            const data = { email };
+        return params;
+    }
 
-            return fetchData(signInUrl, 'POST', data);
+    const fragmentString = window.location.hash.substring(1);
+    const params = parseFragment(fragmentString);
+    const accessToken = params.access_token;
+
+    if (accessToken) {
+        const googleUserInfoUrl = `https://openidconnect.googleapis.com/v1/userinfo?access_token=${accessToken}`;
+
+        let userData;
+        fetchData(googleUserInfoUrl, 'GET').then((response) => {
+            userData = response;
+
+            authenticateAPI(userData.email).then((response) => {
+                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('name', userData.name);
+                let role = response.data.role;
+
+                redirectPage(role);
+            });
+        });
+    }
+    function authenticateAPI(email) {
+        const signInUrl =
+            'https://swp-esms-api.azurewebsites.net/api/auth/signin';
+        const data = { email };
+
+        return fetchData(signInUrl, 'POST', data);
+    }
+
+    function redirectPage(role) {
+        let page;
+
+        if (role == 'Student') {
+            page = '../Student/Student.html';
+        } else if (role == 'Lecturer') {
+            page = '../Lecturer/Lecturer.html';
+        } else if (role == 'Testing Staff') {
+            page = '../Staff/Staff.html';
+        } else if (role == 'Testing Admin') {
+            page = '../Testing Admin/TestingAdmin.html';
+        } else {
+            page = '../Admin/Admin.html';
         }
 
-        function redirectPage(role) {
-            let page;
+        window.location.href = page;
+    }
+</script>
 
-            if (role == 'Student') {
-                page = '../Student/Student.html';
-            } else if (role == 'Lecturer') {
-                page = '../Lecturer/Lecturer.html';
-            } else if (role == 'Testing Staff') {
-                page = '../Staff/Staff.html';
-            } else if (role == 'Testing Admin') {
-                page = '../Testing Admin/TestingAdmin.html';
-            } else {
-                page = '../Admin/Admin.html';
-            }
-
-            // page = '../Admin/Admin.html'; // for testing purposes, removing later
-            window.location.href = page;
-        }
-    </script>
 </html>
