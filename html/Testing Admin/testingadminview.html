@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Responsive Sidebar Menu | CodingLab</title>
+    <title>Exam Schedule Management System</title>
     <link rel="stylesheet" href="/resource/css/Login-Google/Welcome.css" />
     <link rel="stylesheet" href="/resource/css/Testing Admin/TestingAdminSearch.css" />
 
@@ -39,7 +39,7 @@
                 </a>
                 <span class="tooltip">Manage Exam Slots</span>
             </li>
-           
+
             <li>
                 <a href="testingadminview.html">
                     <i class="fa-solid fa-bars-progress"></i>
@@ -69,42 +69,42 @@
         <!---->
         <!--Welcome section-->
         <div class="Search-container">
-                         <div class="title">
-                     <h2>VIEW EXAM SLOTS</h2>
-                     </div>
+            <div class="title">
+                <h2>VIEW EXAM SLOTS</h2>
+            </div>
             <!-------------------------------------------------------SEARCH-------------------------------------------->
 
-            
-                <div class="selectSearch-container">
 
-                    <div class="search-group"><label>Semester:</label>
-                        <select class="Search_Select" id="Semester_Select">
-                            <option value="">All</option>
-                        </select>
-                    </div>
-                    <div class="search-group"><label>Subjects:</label>
-                        <div class="custom-dropdown">
-                            <button class="Search_Select Filter_Bt" id="open-dropdown">Subjects</button>
-                            <div class="Select_Subject_overLap" id="dropdown-Search">
-                                <div class="option_window" >
-                                    <h2 >Selected Subjects</h2>
-                                    <select class="option_window_left" id="Subject_filter_Left" multiple>
-                                        <!-- Options in the left select go here -->
-                                        
-                                    </select>
-                                </div>
+            <div class="selectSearch-container">
 
-                                <div class="option_window">
-                                    <h2>Available Subjects</h2>
-                                    <select class="option_window_right" id="Subject_filter_Right" multiple>
-                                    </select>
-                                </div>
+                <div class="search-group"><label>Semester:</label>
+                    <select class="Search_Select" id="Semester_Select">
+                        <option value="">All</option>
+                    </select>
+                </div>
+                <div class="search-group"><label>Subjects:</label>
+                    <div class="custom-dropdown">
+                        <button class="Search_Select Filter_Bt" id="open-dropdown">Subjects</button>
+                        <div class="Select_Subject_overLap" id="dropdown-Search">
+                            <div class="option_window">
+                                <h2>Selected Subjects</h2>
+                                <select class="option_window_left" id="Subject_filter_Left" multiple>
+                                    <!-- Options in the left select go here -->
 
+                                </select>
                             </div>
+
+                            <div class="option_window">
+                                <h2>Available Subjects</h2>
+                                <select class="option_window_right" id="Subject_filter_Right" multiple>
+                                </select>
+                            </div>
+
                         </div>
                     </div>
                 </div>
-            
+            </div>
+
 
 
 
@@ -130,14 +130,14 @@
                 </div>
 
             </div>
-        
+
             <div class="selectSearch-container">
                 <button class="Search_Select Filter_Bt" onclick="clearSearchFields()"> Clear time and date</button>
             </div>
-                     <div class="selectSearch-container">
-                     <button class="Search_Select Filter_Bt" onclick="StartFilter()"> Filter!</button>
-                 </div>
-        
+            <div class="selectSearch-container">
+                <button class="Search_Select Filter_Bt" onclick="StartFilter()"> Filter!</button>
+            </div>
+
         </div>
         <!-------------------------------------------------------SEARCH END-------------------------------------------->
         <div class="Semester toll_box" id="ShowSemester">
@@ -146,17 +146,17 @@
             <div id="loading-container" class="loading-container">
                 <div class="loading-spinner"></div>
             </div>
-        <div class="table-container" id="Exam_schedule_table">
-        
-            <table>
-                <tbody id="Schedule_TableView">
-                    
-                </tbody>
-                <div id="messageRemove" class="messageRemove"></div>
-               
-            </table>
+            <div class="table-container" id="Exam_schedule_table">
+
+                <table>
+                    <tbody id="Schedule_TableView">
+
+                    </tbody>
+                    <div id="messageRemove" class="messageRemove"></div>
+
+                </table>
+            </div>
         </div>
-    </div>
         <!-- TIME TABLE -->
         <div class="table-container-hidden-2 follow_Scroll" id="hiddenTable-2" style="display: none">
             <table>
@@ -180,29 +180,30 @@
             </table>
         </div>
 
-<!-- TIME TABLE FILTERED-->
-<div class="table-container-hidden-2 follow_Scroll" id="filtered_Time-2" style="display: none">
-    <table>
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Subject</th>
-                <th>Form</th>
-                <th>Room</th>
-                <th>Type</th>
-                <th>Proctor</th>
-                <th>Student<i class="fa-regular fa-circle-xmark fa-lg close-button" onclick="closeTableTimeFiltered()"></i>
-                </th>
+        <!-- TIME TABLE FILTERED-->
+        <div class="table-container-hidden-2 follow_Scroll" id="filtered_Time-2" style="display: none">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Subject</th>
+                        <th>Form</th>
+                        <th>Room</th>
+                        <th>Type</th>
+                        <th>Proctor</th>
+                        <th>Student<i class="fa-regular fa-circle-xmark fa-lg close-button"
+                                onclick="closeTableTimeFiltered()"></i>
+                        </th>
 
 
-            </tr>
-        </thead>
-        <tbody id="time_tbody_filtered"></tbody>
-        <div id="messageRemove" class="messageRemove"></div>
+                    </tr>
+                </thead>
+                <tbody id="time_tbody_filtered"></tbody>
+                <div id="messageRemove" class="messageRemove"></div>
 
 
-    </table>
-</div>
+            </table>
+        </div>
 
 
         <!-- SUPERVISOR TABLE -->
@@ -214,17 +215,17 @@
                         <th>Name</th>
                         <th>Username</th>
                         <th>Email <i class="fa-regular fa-circle-xmark fa-lg close-button"
-                            onclick="closeSupervisorTable()"></i></th>
+                                onclick="closeSupervisorTable()"></i></th>
 
                     </tr>
                 </thead>
                 <tbody id="table_body_super"></tbody>
                 <div id="messageRemove" class="messageRemove"></div>
-                
+
 
             </table>
 
-          
+
         </div>
 
         <!-- VIEW STUDENT LIST TABLE -->
@@ -327,7 +328,7 @@
         </div>
 
 
-       
+
 
         <!-- ADD -->
         <div class="table-container-hidden-4" id="hiddenTable-6" style="display: none">

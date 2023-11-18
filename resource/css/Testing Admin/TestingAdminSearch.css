@@ -667,6 +667,14 @@ select:invalid {
   z-index: 2;
   /* Specify a stack order in case you're using a different order for other elements */
 }
+.fllow {
+  display: none;
+  position: fixed;
+  top: 0; /* Adjust as needed based on your layout */
+  right: 0; /* Adjust as needed based on your layout */
+  max-height: 100vh; /* Set the maximum height to the height of the viewport */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
 .semester-title:not(:first-child) {
   margin-top: 50px; /* Adjust the margin to separate semester titles */
 }
