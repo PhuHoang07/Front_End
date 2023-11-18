@@ -265,10 +265,10 @@ function textEreaAddSup() {
 
   if (hiddenTable4.style.display === "none") {
     hiddenTable4.style.display = "block";
-    hiddenTable4.style.position = "absolute";
+    hiddenTable4.style.position = "fixed";
     hiddenTable4.style.top = getComputedStyle(hiddenTable).top;
     hiddenTable4.style.left =
-      parseInt(getComputedStyle(hiddenTable).left) + 250 + "px";
+      parseInt(getComputedStyle(hiddenTable).left) + 300 + "px";
   } else {
     hiddenTable4.style.display = "none";
   }
@@ -601,7 +601,7 @@ async function getSelectedData() {
       );
       const notification = document.createElement("div");
 
-      notification.className = "notificationERR";
+      notification.className = "notification";
       notification.innerText = res.message;
       notificationContainer.appendChild(notification);
       // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
@@ -1021,10 +1021,10 @@ function showStudentListToAdd() {
 
   if (hiddenTable4.style.display === "none") {
     hiddenTable4.style.display = "block";
-    hiddenTable4.style.position = "absolute";
+    hiddenTable4.style.position = "fixed";
     hiddenTable4.style.top = getComputedStyle(hiddenTable).top;
     hiddenTable4.style.left =
-      parseInt(getComputedStyle(hiddenTable).left) + 250 + "px";
+      parseInt(getComputedStyle(hiddenTable).left) + 300 + "px";
   } else {
     hiddenTable4.style.display = "none"; // Close hiddenTable4
   }

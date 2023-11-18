@@ -1,128 +1,113 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Exam Schedule Managemnet System</title>
-        <link rel="stylesheet" href="/resource/css/Login-Google/Welcome.css" />
-        <link rel="stylesheet" href="/resource/css/Admin/FetchAPI.css" />
-        <link rel="stylesheet" href="/resource/css/Admin/animation.css" />
-        <link rel="stylesheet" href="/resource/css/Folder Demo ứng dụng css/pagination.css" />
-        <!-- Boxicons CDN Link -->
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    </head>
-    <style>
-        img {
-            width: 100px;
-        }
-    </style>
 
-    <body>
-        <div class="sidebar">
-            <div class="logo-details">
-                <i class="fa-solid fa-calendar icon"></i>
-                <div class="logo_name">F-ESMS</div>
-                <i class="fa-solid fa-bars" id="btn"></i>
-            </div>
-            <ul class="nav-list">
-                <li>
-                    <a href="Admin.html">
-                        <i class="fa-solid fa-house"></i>
-                        <span class="links_name">Home</span>
-                    </a>
-                    <span class="tooltip">Home</span>
-                </li>
+<head>
+    <meta charset="UTF-8" />
+    <title>Exam Schedule Management System</title>
+    <link rel="stylesheet" href="/resource/css/Login-Google/Welcome.css" />
+    <link rel="stylesheet" href="/resource/css/Admin/FetchAPI.css" />
+    <link rel="stylesheet" href="/resource/css/Admin/animation.css" />
+    <link rel="stylesheet" href="/resource/css/Folder Demo ứng dụng css/pagination.css" />
+    <!-- Boxicons CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<style>
+    img {
+        width: 100px;
+    }
+</style>
 
-                <li>
-                    <a href="FetchAPI.html">
-                        <i class="fa-regular fa-address-book"></i>
-                        <span class="links_name">View Account List</span>
-                    </a>
-                    <span class="tooltip">View Account List</span>
-                </li>
-            </ul>
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class="fa-solid fa-calendar icon"></i>
+            <div class="logo_name">F-ESMS</div>
+            <i class="fa-solid fa-bars" id="btn"></i>
         </div>
-        <section class="home-section">
-            <!-- Nav Horizontal-->
+        <ul class="nav-list">
+            <li>
+                <a href="Admin.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="links_name">Home</span>
+                </a>
+                <span class="tooltip">Home</span>
+            </li>
 
-            <div class="navbar">
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="myFunction()">
-                        <span id="user-name">UserName</span>
-                        <i
-                            class="fa-solid fa-chevron-down"
-                            id="dropdown-icon"></i>
-                    </button>
-                    <div class="dropdown-content" id="myDropdown">
-                        <a href="AdminProfile.html"
-                            ><i class="fa-regular fa-address-card"></i
-                            >Profile</a
-                        >
-                        <a href="TestingAdminProfile.html"
-                            ><i class="fa-regular fa-pen-to-square"></i>Update
-                            Profile</a
-                        >
-                        <a href="#"onclick="logOut()"
-                            ><i class="fa-solid fa-arrow-right-from-bracket"></i
-                            >Logout</a
-                        >
-                    </div>
+            <li>
+                <a href="FetchAPI.html">
+                    <i class="fa-regular fa-address-book"></i>
+                    <span class="links_name">View Account List</span>
+                </a>
+                <span class="tooltip">View Account List</span>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <!-- Nav Horizontal-->
+
+        <div class="navbar">
+            <div class="dropdown">
+                <button class="dropbtn" onclick="myFunction()">
+                    <span id="user-name">UserName</span>
+                    <i class="fa-solid fa-chevron-down" id="dropdown-icon"></i>
+                </button>
+                <div class="dropdown-content" id="myDropdown">
+                    <a href="AdminProfile.html"><i class="fa-regular fa-address-card"></i>Profile</a>
+                    <a href="TestingAdminProfile.html"><i class="fa-regular fa-pen-to-square"></i>Update
+                        Profile</a>
+                    <a href="#" onclick="logOut()"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a>
                 </div>
             </div>
-            <!------------------------------------------------------------------------------------------------->
+        </div>
+        <!------------------------------------------------------------------------------------------------->
 
-            <!-- Search + Button-->
-            <div class="search-background">
-                <input
-                    type="search"
-                    placeholder="Search Account Here"
-                    class="searchbar-admin"
-                    id="search" />
+        <!-- Search + Button-->
+        <div class="search-background">
+            <input type="search" placeholder="Search Account Here" class="searchbar-admin" id="search" />
+        </div>
+
+        <!--Table section-->
+        <table id="user-table" class="content-table">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Member Code</th>
+                    <th>Full name</th>
+                    <th>Role</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="table_body"></tbody>
+        </table>
+
+        <div id="myModal" class="modal" style="display: none;">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <p class="modal-text">
+                    Are You Sure to Set Role for this
+                    Account?
+                </p>
+                <span class="confirm">
+                    <p class="cofirmbutton" id="yes-button">Yes</p>
+                </span>
+                <span class="close">
+                    <p class="closebutton" id="no-button">No</p>
+                </span>
             </div>
+        </div>
 
-            <!--Table section-->
-            <table id="user-table" class="content-table">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Member Code</th>
-                        <th>Full name</th>
-                        <th>Role</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="table_body"></tbody>
-            </table>
-
-            <div id="myModal" class="modal" style="display: none;">
-                <!-- Modal content -->
-                <div class="modal-content">
-                    <p class="modal-text">
-                        Are You Sure to Set Role for this
-                        Account?
-                    </p>
-                    <span class="confirm">
-                        <p class="cofirmbutton" id="yes-button">Yes</p>
-                    </span>
-                    <span class="close">
-                        <p class="closebutton" id="no-button">No</p>
-                    </span>
-                </div>
+        <div class="result" id="result" style="display: none;">
+            <div class="result-content">
+                <h3 class="result-text">Set role Successfully!!!</h3>
+                <span class="confirm">
+                    <p class="cofirmbutton" id="confirm-button">Return</p>
+                </span>
             </div>
-
-            <div class="result" id="result" style="display: none;">
-                <div class="result-content">
-                    <h3 class="result-text">Set role Successfully!!!</h3>
-                    <span class="confirm">
-                        <p class="cofirmbutton" id="confirm-button">Return</p>
-                    </span>
-                </div>
-            </div>
-            <!------------------------------------------------------------------->
-            <!-------------------------Pagination--------------------------------->
-            <!-- <div
+        </div>
+        <!------------------------------------------------------------------->
+        <!-------------------------Pagination--------------------------------->
+        <!-- <div
                 class="Pagination-container home-section_pagination"
                 id="pagination">
                 <ul class="pagination">
@@ -161,13 +146,14 @@
                 </ul>
             </div> -->
 
-            <!------------------------------------------------------------------->
-        </section>
-        <script src="/resource/javascript/FetchAPI-Authen/utils.js"></script>
-        <script src="/resource/javascript/Admin/fetchapi.js"></script>
-        <script src="/resource/javascript/Login-Google/welcome.js"></script>
-        <!-- <script src="/resource/javascript/Admin/AccountProfile.js"></script> -->
-       
-        
-    </body>
+        <!------------------------------------------------------------------->
+    </section>
+    <script src="/resource/javascript/FetchAPI-Authen/utils.js"></script>
+    <script src="/resource/javascript/Admin/fetchapi.js"></script>
+    <script src="/resource/javascript/Login-Google/welcome.js"></script>
+    <!-- <script src="/resource/javascript/Admin/AccountProfile.js"></script> -->
+
+
+</body>
+
 </html>

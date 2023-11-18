@@ -112,9 +112,11 @@
             });
         });
     }
+
     function authenticateAPI(email) {
         const signInUrl =
             'https://swp-esms-api.azurewebsites.net/api/auth/signin';
+        // 'https://localhost:7212/api/auth/signin';
         const data = { email };
 
         return fetchData(signInUrl, 'POST', data);
