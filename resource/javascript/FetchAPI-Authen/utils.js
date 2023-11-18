@@ -85,7 +85,7 @@ function fetchAPIDataFilter(url, method, data = {}) {
                 'Content-Type': 'application/json',
             },
         }).then((response) => response.json());
-    } else if (method === 'POST' || method === 'PUT' || method === 'DELETE') {
+    } else if (method === 'POST' || method === 'PUT' || method === 'PATCH' || method === 'DELETE') {
         const body = JSON.stringify(data.body ?? '');
 
         return fetch(url, {

@@ -77,6 +77,7 @@
             <table>
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Supervisor</th>
@@ -91,6 +92,14 @@
                 <div id="messageRemove" class="messageRemove"></div>
                 <button onclick="showTable4()" class="button-exam">
                     <i class="fa-solid fa-plus fa-xl" style="color: #12264f"></i>
+                </button>
+
+                <button class="" id="" onclick="showConfirmationModalPublic(this)">
+                    PUBLIC
+                </button>
+
+                <button class="" id="" onclick="showConfirmationModalPrivate(this)">
+                    PRIVATE
                 </button>
             </table>
         </div>
@@ -541,6 +550,30 @@
                 </div>
             </div>
         </div>
+        <!-- =============================================================================================================================== -->
+        <div id="confirmationModalPublic" class="modal">
+            <div class="modal-content">
+                <p>Are you sure you want to public this time?</p>
+
+                <div class="modal-buttons">
+                    <button class="modal-button-yes" id="Yes-confirm" onclick="confirmPublicTimeByButtonSelect(true)">Yes</button>
+                    <button class="modal-button no" id="No-confirm" onclick="confirmPublicTimeByButtonSelect(false)">No</button>
+                </div>
+            </div>
+        </div>
+        <!-- =============================================================================================================================== -->
+        <div id="confirmationModalPrivate" class="modal">
+            <div class="modal-content">
+                <p>Are you sure you want to private this time?</p>
+
+                <div class="modal-buttons">
+                    <button class="modal-button-yes" id="Yes-confirm" onclick="confirmPrivateTimeByButtonSelect(true)">Yes</button>
+                    <button class="modal-button no" id="No-confirm" onclick="confirmPrivateTimeByButtonSelect(false)">No</button>
+                </div>
+            </div>
+        </div>
+        <!-- =============================================================================================================================== -->
+
 
 
     </section>
