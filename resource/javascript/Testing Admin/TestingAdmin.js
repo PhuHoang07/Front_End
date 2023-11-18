@@ -3705,11 +3705,16 @@ function updateUIStudent(data) {
 // ==============================REMOVE STUDENT BY BUTTON SELECT=============================
 
 function showConfirmationModalRemoveStudentByButtonSelect(button) {
-  var modal = document.getElementById("confirmationModalRemoveStudentByButtonSelect");
-  modal.style.display = "block";
+  if (userNames.length > 0) {
+    var modal = document.getElementById("confirmationModalRemoveStudentByButtonSelect");
+    modal.style.display = "block";
 
-  // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
-  selectedButton = button;
+    // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
+    selectedButton = button;
+  } else {
+    console.log("No checkbox is selected. Modal not shown.");
+  }
+
 
   console.log(idt);
 }
@@ -3947,9 +3952,15 @@ selectAllCheckboxSupervisor.onclick = function () {
 };
 
 function showConfirmationModalRemoveSupervisorByButtonSelect(button) {
-  var modal = document.getElementById("confirmationModalRemoveSupervisorByButtonsSelect");
-  modal.style.display = "block";
-  selectedButton = button;
+  if (userNameSupervisor.length > 0) {
+    var modal = document.getElementById("confirmationModalRemoveSupervisorByButtonsSelect");
+    modal.style.display = "block";
+    selectedButton = button;
+  } else {
+    console.log("No checkbox is selected. Modal not shown.");
+
+  }
+
   console.log(idt);
 }
 
@@ -4196,12 +4207,17 @@ function getDataTimeByCheckBox(checkbox) {
 }
 
 function showConfirmationModalPublic(button) {
-  var modal = document.getElementById("confirmationModalPublic");
-  modal.style.display = "block";
-  selectedButton = button;
-
-
+  // Check if any checkbox is selected before showing the modal
+  if (time.length > 0) {
+    var modal = document.getElementById("confirmationModalPublic");
+    modal.style.display = "block";
+    selectedButton = button;
+  } else {
+    // Handle the case when no checkbox is selected (you can show an alert, console.log, or do nothing)
+    console.log("No checkbox is selected. Modal not shown.");
+  }
 }
+
 async function confirmPublicTimeByButtonSelect(confirmation) {
 
   var modal = document.getElementById("confirmationModalPublic");
@@ -4209,9 +4225,9 @@ async function confirmPublicTimeByButtonSelect(confirmation) {
   if (confirmation) {
     // Perform delete action here
 
-    const data = {   
+    const data = {
 
-        body: time
+      body: time
     }
 
     console.log(data);
@@ -4236,12 +4252,17 @@ async function confirmPublicTimeByButtonSelect(confirmation) {
   }
 }
 
+
 function showConfirmationModalPrivate(button) {
-  var modal = document.getElementById("confirmationModalPrivate");
-  modal.style.display = "block";
-  selectedButton = button;
-
-
+  // Check if any checkbox is selected before showing the modal
+  if (time.length > 0) {
+    var modal = document.getElementById("confirmationModalPrivate");
+    modal.style.display = "block";
+    selectedButton = button;
+  } else {
+    // Handle the case when no checkbox is selected (you can show an alert, console.log, or do nothing)
+    console.log("No checkbox is selected. Modal not shown.");
+  }
 }
 
 async function confirmPrivateTimeByButtonSelect(confirmation) {
@@ -4251,9 +4272,9 @@ async function confirmPrivateTimeByButtonSelect(confirmation) {
   if (confirmation) {
     // Perform delete action here
 
-    const data = {   
+    const data = {
 
-        body: time
+      body: time
     }
 
     console.log(data);
