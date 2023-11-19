@@ -58,9 +58,9 @@ th {
   color: #fff;
 }
 
-tr:nth-child(even) {
+/* tr:nth-child(even) {
   background-color: #f2f2f2;
-}
+} */
 
 tr:hover {
   background-color: #ddd;
@@ -639,6 +639,14 @@ select:invalid {
   cursor: pointer;
   padding: 10px;
 }
+.Filter_BtPB {
+  background: #0074d9;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 15px;
+  margin-right: 10px;
+}
 
 #searchInput {
   width: 100%;
@@ -668,12 +676,20 @@ select:invalid {
   /* Specify a stack order in case you're using a different order for other elements */
 }
 .fllow {
-  display: none;
+  display: block;
   position: fixed;
   top: 0; /* Adjust as needed based on your layout */
   right: 0; /* Adjust as needed based on your layout */
   max-height: 100vh; /* Set the maximum height to the height of the viewport */
   overflow-y: auto; /* Enable vertical scrolling */
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent; /* Set the overlay to be transparent */
 }
 .semester-title:not(:first-child) {
   margin-top: 50px; /* Adjust the margin to separate semester titles */
@@ -772,4 +788,21 @@ align-content: center;
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+.public-exam-row{
+  background-color: #fff;
+}
+.private-exam-row{
+  background-color: #b5abab;
+}
+.PnPButtons{
+  display: flex;
+  justify-content: flex-end; /* Align the elements to the end (right in this case) */
+  max-width: 77%; /* Limit the maximum width to 80% of the parent container */  
+}
+.PV_Select {
+  width: 2.5cm;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
