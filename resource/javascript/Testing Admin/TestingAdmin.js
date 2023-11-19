@@ -26,13 +26,13 @@ function showTable2(button) {
   console.log(date);
   window.addEventListener('click', function (e) {
     // Check if the clicked element is exactly the SupervisorTable or its overlay
-    if (e.target === hiddenTable ) {
+    if (e.target === hiddenTable) {
       hiddenTable.style.display = 'none';
     }
-    
-});
-  
-  
+
+  });
+
+
   var currentDate = new Date();
   var examDate = new Date(date);
   console.log(currentDate);
@@ -56,25 +56,25 @@ function showTable2(button) {
   } else {
     hiddenTable.style.display = 'none';
   }
-  
+
 }
 async function showSupervisor(button) {
   const listItem = [];
   const hiddenTable = document.getElementById("SupervisorTable");
   const text = document.getElementById("superTextToAdd");
-  
+
   idt = button.parentNode.parentNode.getAttribute('idt');
   date = button.parentNode.parentNode.cells[0].innerText;
 
   window.addEventListener('click', function (e) {
     const supervisorTable = document.getElementById('SupervisorTable');
     // Check if the clicked element is exactly the SupervisorTable or its overlay
-    if (e.target === supervisorTable ) {
+    if (e.target === supervisorTable) {
       text.style.display = 'none';
-        supervisorTable.style.display = 'none';
+      supervisorTable.style.display = 'none';
     }
-    
-});
+
+  });
 
   var currentDate = new Date();
   var examDate = new Date(date);
@@ -258,7 +258,7 @@ function textEreaAddSup() {
   const hiddenTable = document.getElementById('SupervisorTable');
   const hiddenTable4 = document.getElementById('superTextToAdd');
   const textarea = document.getElementById('inputSuper');
-  
+
   textarea.value = "";
   if (hiddenTable4.style.display === 'none') {
     hiddenTable4.style.display = 'block';
@@ -272,6 +272,8 @@ function textEreaAddSup() {
 
 async function showModalAddExamSchedule() {
   const hiddenTable = document.getElementById("hiddenTable-addTableExamSchedule");
+  const selectElementr = document.getElementById("room-input");
+  selectElementr.innerHTML=`<option value="" disabled selected hidden>Choose Room...</option>`;
   const selectForm = document.querySelector('#form-input');
   selectForm.value = '';
 
@@ -286,11 +288,11 @@ async function showModalAddExamSchedule() {
 
   window.addEventListener('click', function (e) {
     // Check if the clicked element is exactly the SupervisorTable or its overlay
-    if (e.target === hiddenTable ) {
+    if (e.target === hiddenTable) {
       hiddenTable.style.display = 'none';
     }
-    
-});
+
+  });
   const data = {
     body: {
 
@@ -306,7 +308,7 @@ async function showModalAddExamSchedule() {
     optionElement.text = item; // Nội dung của option
     selectElement.appendChild(optionElement);
   });
-  const selectElementr = document.getElementById("room-input");
+  
   selectElement.addEventListener("change", async function () {
     const selectedIndex = selectElement.selectedIndex; // Lấy chỉ số của lựa chọn
     const selectedOption = selectElement.options[selectedIndex]; // Lựa chọn đã chọn
@@ -317,7 +319,9 @@ async function showModalAddExamSchedule() {
         // 'subjectId': noiDungLuaChon
       }
     }
+  
     const resr = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/available-rooms", "GET", datar);
+    console.log(resr);
     resr.data.forEach((item, index) => {
       const optionElement = document.createElement("option");
       optionElement.value = index; // Giá trị của option (có thể là một giá trị duy nhất hoặc index)
@@ -328,9 +332,7 @@ async function showModalAddExamSchedule() {
 
   if (hiddenTable.style.display === "none") {
     hiddenTable.style.display = "block";
-  } else {
-    hiddenTable.style.display = "none";
-  }
+  } 
 
 }
 
@@ -360,10 +362,10 @@ async function addRowToTablesch() {
   if (!selectForm.value || !selectType.value || !selectRoom.value || !selectSubject.value) {
     errorMessage.style.display = "none";
     errorMessage2.style.display = "flex"; // Hiển thị thông báo
-    setTimeout(function() {
+    setTimeout(function () {
       errorMessage2.style.display = 'none';
     }, 5000);
-    
+
     return; // Dừng việc thêm dòng mới nếu có trường không hợp lệ.
   } else {
     errorMessage2.style.display = "none"; // Ẩn thông báo nếu tất cả trường hợp lệ.
@@ -382,12 +384,13 @@ async function addRowToTablesch() {
       "type": enteredtype
     }
   }
+  console.log(data);
   const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/add", "POST", data);
   if (res.isSuccess == true) {
     console.log(res.message);
     errorMessage.style.display = "flex";
     errorMessage.innerHTML = res.message;
-    setTimeout(function() {
+    setTimeout(function () {
       errorMessage.style.display = 'none';
     }, 5000);
     const selectForm = document.querySelector('#form-input');
@@ -402,14 +405,16 @@ async function addRowToTablesch() {
     const selectSubject = document.querySelector('#subject-input');
     selectSubject.value = '';
     renderExamSchedule(idt);
+    renderExamTime();
+    showModalAddExamSchedule();
   } else {
     console.log(res.message);
     errorMessage.style.display = "flex";
     errorMessage.innerHTML = res.message;
-    setTimeout(function() {
+    setTimeout(function () {
       errorMessage.style.display = 'none';
     }, 5000);
-    
+
   }
 }
 
@@ -472,13 +477,13 @@ async function showTable3(button) {
   window.addEventListener('click', function (e) {
     // Check if the clicked element is exactly the SupervisorTable or its overlay
     const hiddentextarea = document.getElementById("hiddenTable-StudentListToAdd");
-    
-    if (e.target === hiddenTable ) {
+
+    if (e.target === hiddenTable) {
       hiddentextarea.style.display = 'none';
       hiddenTable.style.display = 'none';
     }
-    
-});
+
+  });
   const data = {
     params: {
       'idt': idt,
@@ -630,30 +635,30 @@ async function getSelectedData() {
     updateUIStudent(updatedData);
     renderExamSchedule(idt);
     console.log(res);
-if(res.isSuccess = true){
-  const notificationContainer = document.getElementById("notificationContainer");
-    const notification = document.createElement("div");
-    textarea.value = "";
-    notification.className = "notification";
-    notification.innerText = res.message;
-    notificationContainer.appendChild(notification);
+    if (res.isSuccess = true) {
+      const notificationContainer = document.getElementById("notificationContainer");
+      const notification = document.createElement("div");
+      textarea.value = "";
+      notification.className = "notification";
+      notification.innerText = res.message;
+      notificationContainer.appendChild(notification);
 
-    // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
-    setTimeout(function () {
-      notification.style.display = "none"; // Ẩn thông báo
-    }, 3000);
-}else{
-  notification.className = "notificationERR";
-  notification.innerText = res.message;
-  notificationContainer.appendChild(notification);
+      // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
+      setTimeout(function () {
+        notification.style.display = "none"; // Ẩn thông báo
+      }, 3000);
+    } else {
+      notification.className = "notificationERR";
+      notification.innerText = res.message;
+      notificationContainer.appendChild(notification);
 
-  // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
-  setTimeout(function () {
-    notification.style.display = "none"; // Ẩn thông báo
-  }, 3000);
-}
+      // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
+      setTimeout(function () {
+        notification.style.display = "none"; // Ẩn thông báo
+      }, 3000);
+    }
 
-    
+
   }
 };
 function AddStudent() {
@@ -733,7 +738,7 @@ async function getSelectedDataSup() {
 
 function showTable4() {
   const hiddenTable = document.getElementById('hiddenTable-6');
-  
+
   if (hiddenTable.style.display === 'none') {
     hiddenTable.style.display = 'block';
   } else {
@@ -741,11 +746,11 @@ function showTable4() {
   }
   window.addEventListener('click', function (e) {
     // Check if the clicked element is exactly the SupervisorTable or its overlay
-    if (e.target === hiddenTable ) {
+    if (e.target === hiddenTable) {
       hiddenTable.style.display = 'none';
     }
-    
-});
+
+  });
 }
 
 function showTable5() {
@@ -829,12 +834,12 @@ async function showModalEditExamSchedule(button) { // do chung async nên nó ch
   hiddenTableRow.style.display = "block";
   window.addEventListener('click', function (e) {
     // Check if the clicked element is exactly the SupervisorTable or its overlay
-    
-    if (e.target === hiddenTableRow ) {
+
+    if (e.target === hiddenTableRow) {
       hiddenTableRow.style.display = 'none';
     }
-    
-});
+
+  });
   const dataRow = {
     params: {
       'idt': idt,
@@ -1054,11 +1059,11 @@ function showConfirmationModalEdit(button) {
   slot = button.parentNode.parentNode.cells[7].innerText;
   window.addEventListener('click', function (e) {
     // Check if the clicked element is exactly the SupervisorTable or its overlay
-    if (e.target === hiddenTable ) {
+    if (e.target === hiddenTable) {
       hiddenTable.style.display = 'none';
     }
-    
-});
+
+  });
   console.log(idt);
   console.log(date);
   console.log(timeRange);
@@ -1260,10 +1265,10 @@ async function addRowToTable2() {
     !publishDateInput.value
   ) {
     errorMessage.style.display = 'flex'; // Hiển thị thông báo
-    setTimeout(function() {
+    setTimeout(function () {
       errorMessage.style.display = 'none';
     }, 5000);
-    
+
     return; // Dừng việc thêm dòng mới nếu có trường không hợp lệ.
   } else {
     errorMessage.style.display = 'none'; // Ẩn thông báo nếu tất cả trường hợp lệ.
@@ -1289,19 +1294,19 @@ async function addRowToTable2() {
     console.log(res.message);
     errorMessagetest.style.display = 'flex';
     errorMessagetest.innerHTML = res.message;
-    setTimeout(function() {
+    setTimeout(function () {
       errorMessagetest.style.display = 'none';
     }, 5000);
-    
+
     renderExamTime();
   } else {
     console.log(res.message);
     errorMessagetest.style.display = 'flex';
     errorMessagetest.innerHTML = res.message;
-    setTimeout(function() {
+    setTimeout(function () {
       errorMessagetest.style.display = 'none';
     }, 5000);
-    
+
   }
 }
 
@@ -1425,13 +1430,13 @@ async function renderExamTime() {
 
       const isPublic = examTime.isPublic; // Assuming isPublic is a property in examTime
 
-  if (isPublic) {
-    // Row is public
-    tablerow.style.backgroundColor = '#aed8e6';
-  }
+      if (isPublic) {
+        // Row is public
+        tablerow.style.backgroundColor = '#aed8e6';
+      }
 
       listItem.push(tablerow);
-      
+
       var currentDate = new Date();
       var examDate = new Date(formatDate(examTime.date));// Chuyển đổi định dạng ngày nếu cần
       if (examDate <= currentDate) {
@@ -2007,12 +2012,12 @@ async function showProctorUnassign(button) {
   }
   window.addEventListener('click', function (e) {
     // Check if the clicked element is exactly the SupervisorTable or its overlay
-    
-    if (e.target === hiddenTable ) {
+
+    if (e.target === hiddenTable) {
       hiddenTable.style.display = 'none';
     }
-    
-});
+
+  });
   const data = {
     params: {
       'idt': idt
@@ -2191,7 +2196,7 @@ async function confirmPublicTimeByButtonSelect(confirmation) {
     renderExamTime();
     if (res.isSuccess == true) {
       console.log(res.message);
-      
+
       var messageElement = document.getElementById('messageRemove');
       messageElement.innerHTML = res.message;
       messageElement.style.display = "block";
@@ -2203,7 +2208,7 @@ async function confirmPublicTimeByButtonSelect(confirmation) {
         }
       });
 
-    }else{
+    } else {
       var messageElement = document.getElementById('messageRemove');
       messageElement.innerHTML = res.message;
       messageElement.style.display = "block";
@@ -2215,9 +2220,13 @@ async function confirmPublicTimeByButtonSelect(confirmation) {
         }
       });
     }
+    if (arrTime.size > 0) {
+      arrTime.clear();
+      time = [];
+      console.log("Array of selected time list after reset:", time);
+    }
   }
 }
-
 
 function showConfirmationModalPrivate(button) {
   // Check if any checkbox is selected before showing the modal
@@ -2259,8 +2268,13 @@ async function confirmPrivateTimeByButtonSelect(confirmation) {
           messageElement.style.display = "none";
         }
       });
+      if (arrTime.size > 0) {
+        arrTime.clear();
+        time = [];
+        console.log("Array of selected time list after reset:", time);
+      }
 
-    }else{
+    } else {
       var messageElement = document.getElementById('messageRemove');
       messageElement.innerHTML = res.message;
       messageElement.style.display = "block";
@@ -2272,7 +2286,10 @@ async function confirmPrivateTimeByButtonSelect(confirmation) {
         }
       });
     }
+    if (arrTime.size > 0) {
+      arrTime.clear();
+      time = [];
+      console.log("Array of selected time list after reset:", time);
+    }
   }
 }
-
-
