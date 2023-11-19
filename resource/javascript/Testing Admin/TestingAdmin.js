@@ -272,6 +272,8 @@ function textEreaAddSup() {
 
 async function showModalAddExamSchedule() {
   const hiddenTable = document.getElementById("hiddenTable-addTableExamSchedule");
+  const selectElementr = document.getElementById("room-input");
+  selectElementr.innerHTML=`<option value="" disabled selected hidden>Choose Room...</option>`;
   const selectForm = document.querySelector('#form-input');
   selectForm.value = '';
 
@@ -306,7 +308,7 @@ async function showModalAddExamSchedule() {
     optionElement.text = item; // Nội dung của option
     selectElement.appendChild(optionElement);
   });
-  const selectElementr = document.getElementById("room-input");
+  
   selectElement.addEventListener("change", async function () {
     const selectedIndex = selectElement.selectedIndex; // Lấy chỉ số của lựa chọn
     const selectedOption = selectElement.options[selectedIndex]; // Lựa chọn đã chọn
@@ -317,7 +319,9 @@ async function showModalAddExamSchedule() {
         // 'subjectId': noiDungLuaChon
       }
     }
+  
     const resr = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/available-rooms", "GET", datar);
+    console.log(resr);
     resr.data.forEach((item, index) => {
       const optionElement = document.createElement("option");
       optionElement.value = index; // Giá trị của option (có thể là một giá trị duy nhất hoặc index)
@@ -328,9 +332,7 @@ async function showModalAddExamSchedule() {
 
   if (hiddenTable.style.display === "none") {
     hiddenTable.style.display = "block";
-  } else {
-    hiddenTable.style.display = "none";
-  }
+  } 
 
 }
 
@@ -382,6 +384,7 @@ async function addRowToTablesch() {
       "type": enteredtype
     }
   }
+  console.log(data);
   const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/schedule/add", "POST", data);
   if (res.isSuccess == true) {
     console.log(res.message);
@@ -402,6 +405,8 @@ async function addRowToTablesch() {
     const selectSubject = document.querySelector('#subject-input');
     selectSubject.value = '';
     renderExamSchedule(idt);
+    renderExamTime();
+    showModalAddExamSchedule();
   } else {
     console.log(res.message);
     errorMessage.style.display = "flex";
