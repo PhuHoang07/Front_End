@@ -4247,7 +4247,11 @@ async function confirmPublicTimeByButtonSelect(confirmation) {
           messageElement.style.display = "none";
         }
       });
-
+      if (arrTime.size > 0) {
+        arrTime.clear();
+        time = [];
+        console.log("Array of selected time list after reset:", time);
+      }
     }
   }
 }
@@ -4294,6 +4298,11 @@ async function confirmPrivateTimeByButtonSelect(confirmation) {
           messageElement.style.display = "none";
         }
       });
+      if (arrTime.size > 0) {
+        arrTime.clear();
+        time = [];
+        console.log("Array of selected time list after reset:", time);
+      }
 
     }
   }
