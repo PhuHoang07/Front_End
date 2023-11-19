@@ -130,7 +130,14 @@ function showTimeFiltered(button) {
     } else {
         hiddenTable.style.display = 'none';
     }
-    
+    window.addEventListener('click', function (e) {
+        // Check if the clicked element is exactly the SupervisorTable or its overlay
+        
+        if (e.target === hiddenTable ) {
+          hiddenTable.style.display = 'none';
+        }
+        
+    });
 }
 async function showSupervisor(button) {
     const listItem=[];
@@ -147,7 +154,14 @@ const data = {
     }
 }
 const tableContainer = document.getElementById('table-container-hidden-2');
-
+window.addEventListener('click', function (e) {
+    // Check if the clicked element is exactly the SupervisorTable or its overlay
+    
+    if (e.target === hiddenTable ) {
+      hiddenTable.style.display = 'none';
+    }
+    
+});
 
 const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/proctors","GET",data);
 console.log(res);
@@ -384,6 +398,14 @@ async function showTable3(button) {
     } else {
         hiddenTable.style.display = 'none';
     }
+    window.addEventListener('click', function (e) {
+        // Check if the clicked element is exactly the SupervisorTable or its overlay
+        
+        if (e.target === hiddenTable ) {
+          hiddenTable.style.display = 'none';
+        }
+        
+    });
     const data = {
         params: {
             'idt': idt,
