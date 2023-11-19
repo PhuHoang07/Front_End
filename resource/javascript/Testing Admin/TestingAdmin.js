@@ -760,12 +760,47 @@ function showTable5() {
 function callEditButton() {
 
 }
+
+
+const formData = [
+  "EOS",
+  "PEA"
+];
+const formSelectElement = document.getElementById("form-input-edit");
+  formData.forEach((form) => {
+      const optionElement = document.createElement("option");
+      optionElement.text = form;
+      formSelectElement.appendChild(optionElement);
+});
+
+const typeData = [
+  "PE",
+  "FE",
+  "PE - Block3w",
+  "FE - Block3w",
+  "PE - RE",
+  "FE - RE",
+  "PE - Block3w - RE",
+  "FE - Block3w - RE"
+  
+];
+const typeSelectElement = document.getElementById("type-input-edit");
+  typeData.forEach((type) => {
+      const optionElement = document.createElement("option");
+      optionElement.text = type;
+      typeSelectElement.appendChild(optionElement);
+});
+
+
 const data = {};
+
 async function showModalEditExamSchedule(button) { // do chung async nên nó chạy luôn 1 mạch từ đầu đến cuối.
   if (!button) {
     console.error("Button is undefined.");
     return;
   }
+  
+
   //------------------------------------------------------lấy data từ thằng schedule đc chọn ----------------------------------------------------------------------------
   selectedButton = button;
   subject = button.parentNode?.parentNode?.cells[1].innerText; // Lấy giá trị từ cột thứ 2
@@ -780,12 +815,12 @@ async function showModalEditExamSchedule(button) { // do chung async nên nó ch
 
   Subject.innerHTML = `<option value="${subject}">${subject}</option>`;
   Room.innerHTML = `<option value="${room}">${room}</option>`;
-  const formEdit = document.getElementById('form-edit');
+  const formEdit = document.getElementById('form-input-edit');
   if (formEdit) {
     formEdit.value = formed;
   }
 
-  const typeEdit = document.getElementById('type-edit');
+  const typeEdit = document.getElementById('type-input-edit');
   if (typeEdit) {
     typeEdit.value = typed;
   }
@@ -823,15 +858,13 @@ async function showModalEditExamSchedule(button) { // do chung async nên nó ch
     selectElement.appendChild(optionElement);
   });
   console.log(response.data);
-  const selectElementr = document.getElementById("room-input-edit");
-  selectElement.addEventListener("change", async function () {
     const selectedIndex = selectElement.selectedIndex; // Lấy chỉ số của lựa chọn
     const selectedOption = selectElement.options[selectedIndex]; // Lựa chọn đã chọn
     const noiDungLuaChon = selectedOption.textContent; // Lấy nội dung của lựa chọn
+    const selectElementr = document.getElementById("room-input-edit");
     const datar = {
       params: {
-        'idt': idt
-        // 'subjectId': noiDungLuaChon
+        'idt': idt     // 'subjectId': noiDungLuaChon
       }
     }
     console.log(datar);
@@ -842,56 +875,8 @@ async function showModalEditExamSchedule(button) { // do chung async nên nó ch
       optionElement.text = item; // Nội dung của option
       selectElementr.appendChild(optionElement);
     });
-  });
   //    editRowToTableSchedule(subject, room);  
 }
-//============================================================Điền những thằng cần update ==================================================================================================
-// async function editRowToTableSchedule(subject, room){ 
-//     const subjectRow = subject;
-//     const roomRow = room;
-//     console.log(subjectRow, roomRow);
-
-//     const errorMessage = document.getElementById("error-messagesche-Edit");
-//     const errorMessage2 = document.getElementById("error-messagesche-Edit2");
-//     const nameInput = document.querySelector('[name="name-edit"]'); // form input
-//     const typeInput = document.getElementById("type-edit");
-//     const selectRoom = document.querySelector('#room-input-edit');
-//     const selectedRIndex = selectRoom.selectedIndex;
-//     const selectedROption = selectRoom.options[selectedRIndex];
-//     const selectSubject = document.querySelector('#subject-input-edit');
-//     const selectedIndex = selectSubject.selectedIndex;
-//     const selectedOption = selectSubject.options[selectedIndex];
-
-//     if (!nameInput.value || !typeInput.value || !selectRoom.value || !selectSubject.value) {
-//         errorMessage2.style.display = "flex";// Hiển thị thông báo
-//         errorMessage.style.display = "none"; // Dừng việc thêm dòng mới nếu có trường không hợp lệ.
-
-//         return;
-//     } else {
-//         errorMessage2.style.display = "none"; // Ẩn thông báo nếu tất cả trường hợp lệ.
-//     }   
-//     console.log(subjectRow,roomRow);
-//     const selectedOptionText = selectedOption.text;
-//     const enteredValue = nameInput.value;
-//     const selectedROptionText = selectedROption.text;
-//     const enteredtype= typeInput.value; 
-
-//     const data = {
-//         body : {
-//             'idt': idt,
-//             "subjectID":subjectRow,
-//             "roomNumber":roomRow,
-//             "updSubjectID":selectedOptionText,
-//             "updRoomNumber": selectedROptionText,
-//             "updForm":enteredValue,
-//             "updType":enteredtype
-//         }
-//      }
-//      console.log(data);
-
-//     //  confirmEditExamSchedule(true, subjectRow, roomRow, selectedOptionText, selectedROptionText, enteredValue, enteredtype);     
-// }
-
 //==============================================================confirmation để truyền dô update API=========================================================================================
 
 // async function confirmEditExamSchedule(confirmation, subjectRow, roomRow, selectedOptionText, selectedROptionText, formValue, typeValue){
@@ -906,8 +891,8 @@ async function confirmEditExamSchedule(confirmation) {
 
   const errorMessage = document.getElementById("error-messagesche-Edit");
   const errorMessage2 = document.getElementById("error-messagesche-Edit2");
-  const nameInput = document.querySelector('[name="name-edit"]'); // form input
-  const typeInput = document.getElementById("type-edit");
+  const nameInput = document.getElementById("form-input-edit"); // form input
+  const typeInput = document.getElementById("type-input-edit");
   const selectRoom = document.querySelector('#room-input-edit');
   const selectedRIndex = selectRoom.selectedIndex;
   const selectedROption = selectRoom.options[selectedRIndex];
@@ -1063,10 +1048,10 @@ function showConfirmationModalEdit(button) {
   // Lưu trạng thái nút Remove hiện tại để xác định hàng cần xóa
   selectedButton = button;
   idt = button.parentNode.parentNode.getAttribute('idt');
-  date = button.parentNode.parentNode.cells[0].innerText; // Lấy giá trị từ cột thứ 2
-  timeRange = button.parentNode.parentNode.cells[1].innerText;
-  publishDate = button.parentNode.parentNode.cells[5].innerText; // Lấy giá trị từ cột thứ 2
-  slot = button.parentNode.parentNode.cells[6].innerText;
+  date = button.parentNode.parentNode.cells[1].innerText; // Lấy giá trị từ cột thứ 2
+  timeRange = button.parentNode.parentNode.cells[2].innerText;
+  publishDate = button.parentNode.parentNode.cells[6].innerText; // Lấy giá trị từ cột thứ 2
+  slot = button.parentNode.parentNode.cells[7].innerText;
   window.addEventListener('click', function (e) {
     // Check if the clicked element is exactly the SupervisorTable or its overlay
     if (e.target === hiddenTable ) {
