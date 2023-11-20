@@ -2,14 +2,20 @@
 <html lang="en" dir="ltr">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Exam Schedule Management System</title>
-    <link rel="stylesheet" href="/resource/css/Login-Google/Welcome.css">
-    <link rel="stylesheet" href="/resource/css/Testing Admin/TestingAdminProfile.css">
-
+    <link rel="stylesheet" href="/resource/css/Login-Google/Welcome.css" />
+    <link rel="stylesheet" href="/resource/css/Staff/StaffAllowance.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.2/xlsx.full.min.js"></script>
     <!-- Boxicons CDN Link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://kit.fontawesome.com/53e701d613.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <body>
@@ -56,30 +62,40 @@
                 </button>
                 <div class="dropdown-content" id="myDropdown">
                     <a href="ViewStaffProfile.html"><i class="fa-regular fa-address-card"></i>Profile</a>
-                    <a href="UpdateStaffProfile.html"><i class="fa-regular fa-pen-to-square"></i>Update Profile</a>
+                    <a href="UpdateStaffProfile.html"><i class="fa-regular fa-pen-to-square"></i>Update
+                        Profile</a>
                     <a href="#" onclick="logOut()"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a>
                 </div>
             </div>
         </div>
         <!---->
         <!--Welcome section-->
-        <div class="wrapper">
-            <div class="left">
+        <div class="Semester toll_box" id="table_container">
+            <!-- Semester tables will be dynamically added here -->
+      
+          <div class="Search-container">
+            <div class="table-container">
+              <!-- This is your table structure -->
+              <table>
+                <thead>
+                  <tr>
+                    <th>Username</th>
+                    <th>Fullname</th>
+                    <th>Total time</th>
+                    <th>Allowance</th>
+                  </tr>
+                </thead>
+                <tbody id="table_allowance"></tbody>
+              </table>
             </div>
-            <div class="right">
-
-            </div>
-
+          </div>
         </div>
-        </head>
-
         <!------------------------------------------------------------------->
-
     </section>
-    <script src="/resource/javascript/FetchAPI-Authen/utils.js"></script>
-    <script src="/resource/javascript/Login-Google/welcome.js"></script>
-    <script src="/resource/javascript/Testing Admin/TestingAdminProfile.js"></script>
 
+    <script src="/resource//javascript/FetchAPI-Authen/utils.js"></script>
+    <script src="/resource/javascript/Login-Google/welcome.js"></script>
+    <script src="/resource/javascript/Staff/StaffViewAllowance.js"></script>
 </body>
 
 </html>
