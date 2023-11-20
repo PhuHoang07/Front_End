@@ -54,6 +54,19 @@ function fetchAPIData(url, method, data = {}) {
     }
 }
 
+async function sendEmail(url, body = {}) {
+    const token = localStorage.getItem('token');
+
+    await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(body ?? ''),
+        headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+    });
+}
+
 function showUserName() {
     const userName = localStorage.getItem('name');
     const userField = document.getElementById('user-name');
@@ -85,7 +98,12 @@ function fetchAPIDataFilter(url, method, data = {}) {
                 'Content-Type': 'application/json',
             },
         }).then((response) => response.json());
-    } else if (method === 'POST' || method === 'PUT' || method === 'PATCH' || method === 'DELETE') {
+    } else if (
+        method === 'POST' ||
+        method === 'PUT' ||
+        method === 'PATCH' ||
+        method === 'DELETE'
+    ) {
         const body = JSON.stringify(data.body ?? '');
 
         return fetch(url, {
