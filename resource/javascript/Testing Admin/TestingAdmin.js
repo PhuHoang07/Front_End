@@ -317,10 +317,10 @@ async function showModalAddExamSchedule() {
         selectElement.appendChild(optionElement);
     });
 
-    selectElement.addEventListener('change', async function () {
-        const selectedIndex = selectElement.selectedIndex; // Lấy chỉ số của lựa chọn
-        const selectedOption = selectElement.options[selectedIndex]; // Lựa chọn đã chọn
-        const noiDungLuaChon = selectedOption.textContent; // Lấy nội dung của lựa chọn
+    // selectElement.addEventListener('change', async function () {
+    //     const selectedIndex = selectElement.selectedIndex; // Lấy chỉ số của lựa chọn
+    //     const selectedOption = selectElement.options[selectedIndex]; // Lựa chọn đã chọn
+    //     const noiDungLuaChon = selectedOption.textContent; // Lấy nội dung của lựa chọn
         const datar = {
             params: {
                 idt: idt,
@@ -340,7 +340,7 @@ async function showModalAddExamSchedule() {
             optionElement.text = item; // Nội dung của option
             selectElementr.appendChild(optionElement);
         });
-    });
+    // });
 
     if (hiddenTable.style.display === 'none') {
         hiddenTable.style.display = 'block';
@@ -657,7 +657,7 @@ async function getSelectedData() {
         updateUIStudent(updatedData);
         renderExamSchedule(idt);
         console.log(res);
-        if ((res.isSuccess = true)) {
+        if (res.isSuccess === true) {
             const notificationContainer = document.getElementById(
                 'notificationContainer'
             );
@@ -672,6 +672,11 @@ async function getSelectedData() {
                 notification.style.display = 'none'; // Ẩn thông báo
             }, 3000);
         } else {
+            const notificationContainer = document.getElementById(
+                'notificationContainer'
+            );
+            const notification = document.createElement('div');
+            textarea.value = '';
             notification.className = 'notificationERR';
             notification.innerText = res.message;
             notificationContainer.appendChild(notification);
@@ -731,7 +736,7 @@ async function getSelectedDataSup() {
             data
         );
         console.log(res);
-        if ((res.isSuccess = true)) {
+        if (res.isSuccess === true) {
             const notification = document.createElement('div');
             notification.className = 'notification';
             notification.innerText = res.message;
