@@ -2435,3 +2435,93 @@ async function confirmPrivateTimeByButtonSelect(confirmation) {
         }
     }
 }
+
+function openEmailModal() {
+    const modal = document.getElementById('emailModal');
+            modal.style.display = (modal.style.display === 'block') ? 'none' : 'block';
+            
+}
+
+function closeModal() {
+    document.getElementById('emailModal').style.display = 'none';
+}
+
+
+            
+async function sendEmail() {
+    const subjectText = document.getElementById('subject').value;
+    const bodyText = document.getElementById('body').value;
+    console.log(subjectText,bodyText);
+
+    if (subjectText.trim() == '') {
+        console.log('Empty Array');
+        const notificationContainer = document.getElementById(
+            'notificationContainerEmail'
+        );
+
+        const notification = document.createElement('div');
+        notification.className = 'notificationERR';
+        notification.innerText = 'Please Input Email Subject head line!';
+
+        notificationContainer.appendChild(notification);
+
+        // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
+        setTimeout(function () {
+            notification.style.display = 'none'; // Ẩn thông báo
+            notification.remove();
+        }, 5000);
+
+        return;
+    } else if(bodyText.trim() == ''){console.log('Empty Array');
+    const notificationContainer = document.getElementById(
+        'notificationContainerEmail'
+    );
+
+    const notification = document.createElement('div');
+    notification.className = 'notificationERR';
+    notification.innerText = 'Please Input Email Body!';
+
+    notificationContainer.appendChild(notification);
+
+    // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
+    setTimeout(function () {
+        notification.style.display = 'none'; // Ẩn thông báo
+        notification.remove();
+    }, 5000);
+
+    return;
+}else{
+    const subjectText = document.getElementById('subject').value;
+    const bodyText = document.getElementById('body').value;
+const datae = {
+        subject : subjectText,
+        body : bodyText
+    
+};
+console.log(datae);
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/email/send/all","POST",datae);
+    console.log(res);
+    const notificationContainer = document.getElementById(
+        'notificationContainerEmail'
+    );
+
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.innerText = 'Email send Successfully!';
+
+    notificationContainer.appendChild(notification);
+
+    // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
+    setTimeout(function () {
+        notification.style.display = 'none'; // Ẩn thông báo
+        notification.remove();
+    }, 5000);
+    clearFields()
+    }
+
+
+}
+function clearFields() {
+    document.getElementById('subject').value = '';
+    document.getElementById('body').value = '';
+}
