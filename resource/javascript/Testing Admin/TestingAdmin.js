@@ -719,6 +719,7 @@ async function getSelectedDataSup() {
       table.innerHTML = ``;
       textarea.value = "";
       reFetchSup();
+      renderExamTime();
     } else {
       const notification = document.createElement("div");
       notification.className = "notificationERR";
