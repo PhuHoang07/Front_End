@@ -33,8 +33,8 @@ function showTable2(button) {
         }
     });
 
-    var currentDate = new Date();
-    var examDate = new Date(date);
+    let currentDate = new Date();
+    let examDate = new Date(formatDate(date));
     console.log(currentDate);
     console.log(examDate);
 
@@ -74,7 +74,7 @@ async function showSupervisor(button) {
     });
 
     var currentDate = new Date();
-    var examDate = new Date(date);
+    var examDate = new Date(formatDate(date));
     console.log(currentDate);
     console.log(examDate);
 
@@ -138,7 +138,7 @@ async function showSupervisor(button) {
             const tablerow = document.createElement('tr');
             listItem.push(tablerow);
             var currentDate = new Date();
-            var examDate = new Date(date); // Chuyển đổi định dạng ngày nếu cần
+            var examDate = new Date(formatDate(date)); // Chuyển đổi định dạng ngày nếu cần
             console.log(examDate);
             if (examDate <= currentDate) {
                 tablerow.innerHTML = `
@@ -321,25 +321,25 @@ async function showModalAddExamSchedule() {
     //     const selectedIndex = selectElement.selectedIndex; // Lấy chỉ số của lựa chọn
     //     const selectedOption = selectElement.options[selectedIndex]; // Lựa chọn đã chọn
     //     const noiDungLuaChon = selectedOption.textContent; // Lấy nội dung của lựa chọn
-        const datar = {
-            params: {
-                idt: idt,
-                // 'subjectId': noiDungLuaChon
-            },
-        };
+    const datar = {
+        params: {
+            idt: idt,
+            // 'subjectId': noiDungLuaChon
+        },
+    };
 
-        const resr = await fetchAPIData(
-            'https://swp-esms-api.azurewebsites.net/api/exams/available-rooms',
-            'GET',
-            datar
-        );
-        console.log(resr);
-        resr.data.forEach((item, index) => {
-            const optionElement = document.createElement('option');
-            optionElement.value = index; // Giá trị của option (có thể là một giá trị duy nhất hoặc index)
-            optionElement.text = item; // Nội dung của option
-            selectElementr.appendChild(optionElement);
-        });
+    const resr = await fetchAPIData(
+        'https://swp-esms-api.azurewebsites.net/api/exams/available-rooms',
+        'GET',
+        datar
+    );
+    console.log(resr);
+    resr.data.forEach((item, index) => {
+        const optionElement = document.createElement('option');
+        optionElement.value = index; // Giá trị của option (có thể là một giá trị duy nhất hoặc index)
+        optionElement.text = item; // Nội dung của option
+        selectElementr.appendChild(optionElement);
+    });
     // });
 
     if (hiddenTable.style.display === 'none') {
@@ -449,7 +449,7 @@ async function showTable3(button) {
     console.log(subject);
 
     var currentDate = new Date();
-    var examDate = new Date(date);
+    var examDate = new Date(formatDate(date));
     console.log(currentDate);
     console.log(examDate);
 
@@ -527,7 +527,7 @@ async function showTable3(button) {
         const tablerow = document.createElement('tr');
         listItem.push(tablerow);
         var currentDate = new Date();
-        var examDate = new Date(date);
+        var examDate = new Date(formatDate(date));
         if (examDate <= currentDate) {
             tablerow.innerHTML = `
                         <td></td>
@@ -742,20 +742,20 @@ async function getSelectedDataSup() {
             notification.innerText = res.message;
             notificationContainer.appendChild(notification);
 
-      // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
-      setTimeout(function () {
-        notification.style.display = "none"; // Ẩn thông báo
-      }, 3000);
-      const table = document.getElementById("table_body_super");
-      table.innerHTML = ``;
-      textarea.value = "";
-      reFetchSup();
-      renderExamTime();
-    } else {
-      const notification = document.createElement("div");
-      notification.className = "notificationERR";
-      notification.innerText = res.message;
-      notificationContainer.appendChild(notification);
+            // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
+            setTimeout(function () {
+                notification.style.display = "none"; // Ẩn thông báo
+            }, 3000);
+            const table = document.getElementById("table_body_super");
+            table.innerHTML = ``;
+            textarea.value = "";
+            reFetchSup();
+            renderExamTime();
+        } else {
+            const notification = document.createElement("div");
+            notification.className = "notificationERR";
+            notification.innerText = res.message;
+            notificationContainer.appendChild(notification);
 
             // Tự động ẩn thông báo sau một khoảng thời gian (ví dụ: 3 giây)
             setTimeout(function () {
@@ -790,7 +790,7 @@ function showTable5() {
     }
 }
 
-function callEditButton() {}
+function callEditButton() { }
 
 const formData = ['EOS', 'PEA'];
 const formSelectElement = document.getElementById('form-input-edit');
@@ -1518,7 +1518,7 @@ async function renderExamTime() {
                 <td>${examTime.start} - ${examTime.end}</td>
                 <td><button class="button-supervisor" onclick="showSupervisor(this)">${examTime.totalSupervisor}/${examTime.requireSupervisor}</button></td>
                 <td><button class="edit-button" onclick="showConfirmationModalEdit(this)" disabled style="background-color: grey;">Edit</button></td>
-                <td><button class="remove-button" onclick="showConfirmationModal(this)" disabled style="background-color: grey;">Remove</button></td>
+                <td><button class="remove-button" onclick="showConfirmationModal(this)" disabled style="background-color: grey; ">Remove</button></td>
                 <td>${examTime.publishDate}</td>
                 <td>${examTime.slot}</td>
                 <td><i onclick="showTable2(this) "class="fa-solid fa-square-caret-down fa-2xl btn-showExamSchedule"></i></td>
@@ -1586,7 +1586,7 @@ async function renderExamSchedule(idt) {
                     const tablerow = document.createElement('tr');
                     listItem01.push(tablerow);
                     var currentDate = new Date();
-                    var examDate = new Date(date);
+                    var examDate = new Date(formatDate(date));
                     if (examDate <= currentDate) {
                         tablerow.innerHTML = `
                         <td>${numgrade++}</td>
@@ -1594,12 +1594,10 @@ async function renderExamSchedule(idt) {
                         <td>${schedule.form}</td>
                         <td>${schedule.room}</td>
                         <td>${schedule.type}</td>
-                        <td><button class="button-supervisor" onclick="showTable3(this)">${
-                            schedule.totalStudent
-                        }/${schedule.capacity}</button></td>
-                        <td><button class="button-supervisor" onclick="showProctorUnassign(this)">${
-                            schedule.proctor
-                        }</button></td>
+                        <td><button class="button-supervisor" onclick="showTable3(this)">${schedule.totalStudent
+                            }/${schedule.capacity}</button></td>
+                        <td><button class="button-supervisor" onclick="showProctorUnassign(this)">${schedule.proctor
+                            }</button></td>
                         <td><button class="edit-button" onclick="showModalEditExamSchedule(this)" disabled style="background-color: grey;">Edit</button></td>
                         <td><button class="remove-button" onclick="showConfirmationModalExamSchedule(this)" disabled style="background-color: grey;">Remove</button></td>
                       `;
@@ -1611,12 +1609,10 @@ async function renderExamSchedule(idt) {
                         <td>${schedule.form}</td>
                         <td>${schedule.room}</td>
                         <td>${schedule.type}</td>
-                        <td><button class="button-supervisor" onclick="showTable3(this)">${
-                            schedule.totalStudent
-                        }/${schedule.capacity}</button></td>
-                        <td><button class="button-supervisor" onclick="showProctorUnassign(this)">${
-                            schedule.proctor
-                        }</button></td>
+                        <td><button class="button-supervisor" onclick="showTable3(this)">${schedule.totalStudent
+                            }/${schedule.capacity}</button></td>
+                        <td><button class="button-supervisor" onclick="showProctorUnassign(this)">${schedule.proctor
+                            }</button></td>
                         <td><button class="edit-button" onclick="showModalEditExamSchedule(this)">Edit</button></td>
                         <td><button class="remove-button" onclick="showConfirmationModalExamSchedule(this)">Remove</button></td>
                       `;
@@ -2165,7 +2161,7 @@ async function showProctorUnassign(button) {
         const tablerow = document.createElement('tr');
         listItem.push(tablerow);
         var currentDate = new Date();
-        var examDate = new Date(date);
+        var examDate = new Date(formatDate(date));
         if (examDate <= currentDate) {
             tablerow.innerHTML = `
     
