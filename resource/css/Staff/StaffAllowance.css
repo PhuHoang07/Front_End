@@ -38,3 +38,8 @@ body {
   tr:hover {
     background-color: #ddd;
   }
+
+  .semester-header{
+    margin-left: 225px;
+    margin-top: 30px;
+  }

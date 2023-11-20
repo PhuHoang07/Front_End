@@ -44,6 +44,7 @@ function renderAllowance(data) {
         semesterTable.appendChild(headerRow);
 
         const semesterHeader = document.createElement('h2');
+        semesterHeader.className = 'semester-header';
         semesterHeader.innerHTML = `Semester: ${semesterData.semester}`;
         showSemesterContainer.appendChild(semesterHeader);
 
@@ -64,11 +65,8 @@ function renderAllowance(data) {
         showSemesterContainer.appendChild(semesterTable);
     });
 
-    // Rest of your code...
+
 }
 
 
-
-
-// Call the fetchData function to start the process
 
