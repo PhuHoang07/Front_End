@@ -2490,8 +2490,11 @@ async function sendEmail() {
     const subjectText = document.getElementById('subject').value;
     const bodyText = document.getElementById('body').value;
 const datae = {
+    body:{
         subject : subjectText,
         body : bodyText
+    }
+        
     
 };
 console.log(datae);
