@@ -21,7 +21,7 @@ let date;
 function showTable2(button) {
   const hiddenTable = document.getElementById("hiddenTable-2");
   idt = button.parentNode.parentNode.getAttribute('idt');
-  date = button.parentNode.parentNode.cells[0].innerText;
+  date = button.parentNode.parentNode.cells[1].innerText;
   console.log(idt);
   console.log(date);
   window.addEventListener('click', function (e) {
@@ -64,7 +64,7 @@ async function showSupervisor(button) {
   const text = document.getElementById("superTextToAdd");
 
   idt = button.parentNode.parentNode.getAttribute('idt');
-  date = button.parentNode.parentNode.cells[0].innerText;
+  date = button.parentNode.parentNode.cells[1].innerText;
 
   window.addEventListener('click', function (e) {
     const supervisorTable = document.getElementById('SupervisorTable');
