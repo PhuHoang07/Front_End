@@ -242,3 +242,88 @@ section .content-table {
   font-weight: 500;
   line-height: normal;
 }
+
+/*result fail*/
+.result-fail{
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+.result-content-fail{
+  background-color: #fefefe;
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 100%;
+  /* Could be more or less, depending on screen size */
+  width: 450px;
+  height: 200px;
+  padding: 30px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 20px 200px;
+  flex-wrap: wrap;
+  border: 5px solid var(--Green, red);
+  background: #FFF;
+}
+
+.result-text-fail{
+  color: var(--Green, red);
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.cofirmbutton-fail {
+  text-align: center;
+  display: flex;
+  width: 55px;
+  padding: 8px 38px 8px 33px;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 1px solid #FCFCFC;
+  background: var(--Green, red);
+  display: flex;
+  width: 92px;
+  padding: 8px 0px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.confirm-fail:hover,
+.confirm-fail:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.confirm-fail {
+  color: #FFFFFF;
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+
+}

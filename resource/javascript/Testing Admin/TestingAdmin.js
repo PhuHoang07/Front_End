@@ -216,6 +216,18 @@ function showConfirmationModalExamSchedule(button) {
 
 }
 
+async function sendEmail(url, body){
+  await fetch(url, {
+          method: "POST", // or 'POST', 'PUT', etc.
+          // mode: 'no-cors',
+          body: JSON.stringify(body),
+          headers: {
+              'Authorization': `Bearer ${localStorage.getItem("token")}`,
+              'Content-Type': 'application/json',
+          },
+      });
+}
+
 async function confirmRemoveExamSchedule(confirmation) {
 
   console.log(idt);
@@ -1222,6 +1234,8 @@ async function confirmRemove(confirmation) {
       }
     }
 
+    await sendEmail("https://swp-esms-api.azurewebsites.net/api/email/send/delete-update/time", idt);
+    
     const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/exams/time/delete", "DELETE", data);
     if (res.isSuccess == true) {
       console.log(res.message);
