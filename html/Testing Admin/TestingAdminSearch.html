@@ -73,6 +73,23 @@
         <div class="Semester toll_box" id="ShowSemester">
         </div>
         <div class="PnPButtons">
+            <button class="PV_Select Filter_BtPB" style="width: 5.25cm;" id="" onclick="openEmailModal()">
+                Send Email
+            </button>
+        </div>
+        <div class="notification-container" id="notificationContainerEmail"></div>
+        <div id="emailModal" class="custom-modal">
+            <label for="subject">Subject:</label>
+            <textarea class="emailSubjectText" id="subject" rows="1"></textarea>
+    
+            <label for="body">Body:</label>
+            <textarea class="emailBodyText" id="body" rows="4"></textarea>
+    
+            <button class="modal-btn" onclick="sendEmail()">Send</button>
+            <button class="modal-btn" onclick="clearFields()">Clear</button>
+            <button class="modal-btn cancel-btn" onclick="closeModal()">Cancel</button>
+        </div>  
+        <div class="PnPButtons">
             <button class="PV_Select Filter_BtPB" id="" onclick="showConfirmationModalPublic(this)">
                 PUBLIC
             </button>

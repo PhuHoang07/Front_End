@@ -234,6 +234,7 @@ tr:hover {
   left: 20px;
   color: white;
   cursor: pointer;
+  
 }
 
 .close-button-supervisor {
@@ -805,4 +806,53 @@ align-content: center;
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
+.custom-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 51.2%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  width: 52.6%;
+}
+
+.emailSubjectText{
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  height: 50px;
+  margin-top: auto;
+}
+.emailSubjectText::-webkit-scrollbar {
+  display: none;
+}
+
+.emailBodyText{
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  height: 250px;
+  margin-top: auto;
+}
+.emailBodyText::-webkit-scrollbar {
+  display: none;
+}
+.modal-btn {
+  background-color: #4285F4;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-left: 10px; /* Add margin-left */
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  margin-left: 12.44cm;
 }
