@@ -39,7 +39,35 @@ body {
     background-color: #ddd;
   }
 
+  tr.hidden{
+    display: none;
+  }
+
   .semester-header{
     margin-left: 225px;
     margin-top: 30px;
+  }
+/*---------------------------------searchbar + searchbtn ------------------------------------------------------------------*/
+  .home-section .searchbar-admin {
+    border-radius: 5px;
+    padding: 10px;
+    width: 400px;
+    height: 35px;
+    margin: auto;
+  }
+  
+  
+  .home-section .search-background {
+    background: rgba(0, 0, 0, 0.3);
+    width: 500px;
+    height: 65px;
+    margin: 100px auto 50px auto;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    transition: all 0.4s ease; animation: all 0.4s ease;
+  }
+  
+  .home-section .search-background:hover {
+    background: rgba(0, 0, 0, 0.5);
   }
