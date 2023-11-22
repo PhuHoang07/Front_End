@@ -3,6 +3,7 @@
 
 const showSemesterContainer = document.getElementById('table_container');
 const listItem = [];
+let semesterTable;
 
 async function fetchData() {
     try {
@@ -31,7 +32,8 @@ function renderAllowance(data) {
     }
 
     data.forEach((semesterData) => {
-        const semesterTable = document.createElement('table');
+        
+         semesterTable = document.createElement('table');
         semesterTable.className = 'table-container';
 
         const headerRow = document.createElement('tr');
@@ -42,11 +44,11 @@ function renderAllowance(data) {
             <th>Allowance</th>
         `;
         semesterTable.appendChild(headerRow);
-
         const semesterHeader = document.createElement('h2');
         semesterHeader.className = 'semester-header';
         semesterHeader.innerHTML = `Semester: ${semesterData.semester}`;
         showSemesterContainer.appendChild(semesterHeader);
+       
 
         semesterData.allowances.forEach((examTime) => {
             const tablerow = document.createElement('tr');

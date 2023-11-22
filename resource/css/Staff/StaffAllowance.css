@@ -43,3 +43,7 @@ body {
     margin-left: 225px;
     margin-top: 30px;
   }
+
+  h2{
+    margin-bottom: -30px;
+  }
