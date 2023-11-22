@@ -135,42 +135,51 @@ async function ConfirmationRole(confirmation,userNameUpd,roleIdUpd) {
 
     var modal = document.getElementById("myModal");
     var result = document.getElementById("result");
+    var resulttext = document.getElementById("result-text");
+    var fail = document.getElementById("result-fail");
+    var failtext = document.getElementById("result-text-fail");
     var yes = document.getElementById("yes-button");
     var no = document.getElementById("no-button");
     var confirm = document.getElementById("confirm-button");
-    
-    yes.onclick = async function() {
-    const data ={
-      body:{
-        userName: userNameUpd,
-        roleId: roleIdUpd
+    var confirmfail = document.getElementById("confirm-button-fail");
+    yes.onclick = async function () {
+      const data = {
+        body: {
+          userName: userNameUpd,
+          roleId: roleIdUpd
+        }
+      }
+      const response = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/admin/users/update", "PATCH", data);
+      console.log(response);
+      
+      if (response.isSuccess == true) {
+        modal.style.display = "none";
+        result.style.display = "block";
+        resulttext.innerText = response.message;
+        confirm.onclick = function () {
+          result.style.display = "none";
+        };
+        const responseData = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/admin/users", "GET");
+        const newdata = responseData.data;
+        renderAccountList(newdata);
+      }else {
+        modal.style.display = "none";
+        fail.style.display = "block";
+        failtext.innerText = response.message;
+        confirmfail.onclick = function () {
+          fail.style.display = "none";
+        };
+        const responseFail = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/admin/users", "GET");
+        const faildata = responseFail.data;
+        renderAccountList(faildata);
       }
     }
-    const response = await fetchAPIData(`https://swp-esms-api.azurewebsites.net/api/admin/users/update`, "PATCH",data);
-    console.log(response);
-    if (response.isSuccess == true) {
-      modal.style.display = "none";
-      result.style.display = "block";
-        confirm.onclick = function () {
-            result.style.display = "none";
-        };
-        const response = await fetchAPIData(
-          'https://swp-esms-api.azurewebsites.net/api/admin/users',
-          'GET'
-        );
-        const newdata = response.data;
-        renderAccountList(newdata);
-    }
-    else{
-
-    }
-  }
 
     no.onclick = function () {
       modal.style.display = "none";
     };
-  }
   
+  }
 }
 
 
