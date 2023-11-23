@@ -76,24 +76,24 @@ async function confirmRegisterLecturer(confirmation) {
   modal.style.display = "none";
   if (confirmation) {
     var row = selectedButton.parentNode.parentNode;
-        row.remove();
-        
-      const data = {
-          body: idt
-      }
+    row.remove();
 
-      const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/lecturer/exams/register", "POST", data);
-      if (res.isSuccess == true) {
-        console.log(res.message);
-        var messageElement = document.getElementById('messageRegisterSuccess');
-        messageElement.innerHTML = res.message;
-        messageElement.style.display = "block";
-        // Close modal
-        document.addEventListener("click", function (event) {
-            if (event.target !== messageElement && !messageElement.contains(event.target)) {
-                messageElement.style.display = "none";
-            }
-        });
+    const data = {
+      body: idt
+    }
+
+    const res = await fetchAPIData("https://swp-esms-api.azurewebsites.net/api/lecturer/exams/register", "POST", data);
+    if (res.isSuccess == true) {
+      console.log(res.message);
+      var messageElement = document.getElementById('messageRegisterSuccess');
+      messageElement.innerHTML = res.message;
+      messageElement.style.display = "block";
+      // Close modal
+      document.addEventListener("click", function (event) {
+        if (event.target !== messageElement && !messageElement.contains(event.target)) {
+          messageElement.style.display = "none";
+        }
+      });
 
     }
   }
@@ -107,11 +107,11 @@ function showTableRegistered() {
   // console.log(idt);
 
   if (hiddenTable.style.display === "none") {
-      hiddenTable.style.display = "block";
-      reloadRegisteredList();
-   
+    hiddenTable.style.display = "block";
+    reloadRegisteredList();
+
   } else {
-      hiddenTable.style.display = 'none';
+    hiddenTable.style.display = 'none';
   }
 }
 
@@ -120,4 +120,92 @@ function closeTableRegistered() {
   const hiddenTable = document.getElementById('hiddenTable-Registered');
   hiddenTable.style.display = 'none';
 }
+// =======================================================================
+const showSemesterContainer = document.getElementById('table_container');
+let semesterTable;
+const listItem = [];
+
+async function fetchDataAllowance() {
+  try {
+    const response = await fetchAPIData('https://swp-esms-api.azurewebsites.net/api/lecturer/allowance', 'POST');
+    const data = await response.data;
+
+    renderAllowance(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+
+fetchDataAllowance();
+
+function renderAllowance(data) {
+  showSemesterContainer.innerHTML = ''; // Clear the container
+
+  if (data.length === 0) {
+      const noDataRow = document.createElement('tr');
+      noDataRow.innerHTML = '<td colspan="2">There is no information to display</td>';
+      const noDataTable = document.createElement('table');
+      noDataTable.className = 'table-container';
+      noDataTable.appendChild(noDataRow);
+      showSemesterContainer.appendChild(noDataTable);
+      return;
+  }
+
+  data.forEach((semesterData) => {
+      const semesterWrapper = document.createElement('div');
+      semesterWrapper.className = 'semester-wrapper';
+
+      const semesterTable = document.createElement('table');
+      semesterTable.className = 'table-container';
+
+      const headerRow = document.createElement('tr');
+      headerRow.innerHTML = `
+          <th>Date</th>
+          <th>Time</th>
+      `;
+      semesterTable.appendChild(headerRow);
+
+      const semesterHeader = document.createElement('h2');
+      semesterHeader.className = 'semester-header';
+      semesterHeader.innerHTML = `Semester: ${semesterData.semester}`;
+
+      semesterWrapper.appendChild(semesterHeader);
+
+      if (semesterData.examTime.length === 0) {
+          // Handle the case when there is no examTime data for the semester
+          const noDataRow = document.createElement('tr');
+          noDataRow.innerHTML = '<td colspan="2">There is no information to display</td>';
+          semesterTable.appendChild(noDataRow);
+      } else {
+          semesterData.examTime.forEach((examTime) => {
+              const tablerow = document.createElement('tr');
+              tablerow.innerHTML = `
+                  <td>${examTime.date}</td>
+                  <td>${examTime.start} - ${examTime.end}</td>
+              `;
+              semesterTable.appendChild(tablerow);
+          });
+      }
+
+      semesterWrapper.appendChild(semesterTable);
+
+      // Add Total Time and Allowance below the table
+      const totalTimeDiv = document.createElement('div');
+      totalTimeDiv.className = 'total-time';
+      totalTimeDiv.innerHTML = `Total Time: ${semesterData.allowanceModel.totalTime} hours`;
+
+      const allowanceDiv = document.createElement('div');
+      allowanceDiv.className = 'allowance';
+      allowanceDiv.innerHTML = `Allowance: ${semesterData.allowanceModel.allowance}`;
+
+      semesterWrapper.appendChild(totalTimeDiv);
+      semesterWrapper.appendChild(allowanceDiv);
+
+      showSemesterContainer.appendChild(semesterWrapper);
+  });
+}
+
+
+
+
 

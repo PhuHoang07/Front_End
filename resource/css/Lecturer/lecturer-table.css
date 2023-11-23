@@ -320,3 +320,22 @@ background-color: #087a62;
   z-index: 3;
 
 }
+
+.header-table{
+  display: flex;
+  
+  
+}
+
+.header-allowance {
+  text-align: center;
+  color: red;
+  margin-left: 54.5%;
+  font-family: Inter;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+
