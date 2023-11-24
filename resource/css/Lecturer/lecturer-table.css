@@ -323,19 +323,21 @@ background-color: #087a62;
 
 .header-table{
   display: flex;
+  align-items: center;
   
   
 }
 
 .header-allowance {
   text-align: center;
-  color: red;
-  margin-left: 54.5%;
+  color: black;
+  margin-left: 40%;
   font-family: Inter;
   font-size: 28px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  font-size: 24px;
 }
 
 
