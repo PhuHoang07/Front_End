@@ -2518,7 +2518,7 @@ console.log(datae);
 
     const notification = document.createElement('div');
     notification.className = 'notification';
-    notification.innerText = 'Email send Successfully!';
+    notification.innerText = res.message;
 
     notificationContainer.appendChild(notification);
 
@@ -2527,7 +2527,7 @@ console.log(datae);
         notification.style.display = 'none'; // Ẩn thông báo
         notification.remove();
     }, 5000);
-    clearFields()
+    clearFields();
     }
 
 

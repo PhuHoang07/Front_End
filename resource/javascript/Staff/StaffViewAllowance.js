@@ -19,7 +19,9 @@ async function fetchData() {
     console.error('Error fetching data:', error);
   }
 }
-
+const loadingContainer = document.getElementById('loading-container');
+  
+  loadingContainer.style.display = 'block';
 fetchData();
 
 
