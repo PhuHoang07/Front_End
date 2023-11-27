@@ -49,7 +49,7 @@ body{
 
 .letter {
   position: absolute;
-  top: 88%;
+  top: 90%;
   left: 25%;
   transform: translate(-50%, -50%);
   font-size: 25px;
@@ -60,7 +60,7 @@ body{
 
 .letter1 {
   position: absolute;
-  top: 40%;
+  top: 43%;
   left: 75%;
   transform: translate(-50%, -50%);
   font-size: 25px;
@@ -71,7 +71,7 @@ body{
 
 .letter2 {
   position: absolute;
-  top: 88%;
+  top: 90%;
   left: 75%;
   transform: translate(-50%, -50%);
   font-size: 25px;
@@ -82,7 +82,7 @@ body{
 
 .letter3 {
   position: absolute;
-  top: 40%;
+  top: 43%;
   left: 24%;
   transform: translate(-50%, -50%);
   font-size: 25px;
@@ -223,8 +223,8 @@ body{
 }
 /*-------------------------------------------------------------- dot decoration --------------------------------------------------------------*/
 .decoration{
-  top: 0%;
-  left: 23.5%;
+  top: 8%;
+  left: 25%;
   position: absolute;
   transform: translate(-50%, -50%);
 }
@@ -241,7 +241,7 @@ body{
 
 .decoration2{
   bottom: 0%;
-  left: 23.5%;
+  left: 29%;
   position: absolute;
   transform: translate(-50%, -50%);
 }
@@ -258,8 +258,8 @@ body{
 }
 
 .decoration3{
-  top: 0%;
-  left: 68.5%;
+  top: 3%;
+  left: 72%;
   position: absolute;
   transform: translate(-50%, -50%);
 }
@@ -276,7 +276,7 @@ body{
 }
 
 .decoration4{
-  bottom: 0%;
+  top: 90%;
   left: 74%;
   position: absolute;
   transform: translate(-50%, -50%);
