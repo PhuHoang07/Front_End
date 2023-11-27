@@ -191,6 +191,62 @@ section .content-table {
 .home-section .search-background:hover {
   background: rgba(0, 0, 0, 0.5);
 }
+/*search-bar only for view own exam schedule*/
+
+.home-section .searchbar-admin1 {
+  border-radius: 5px;
+  padding: 10px;
+  width: 400px;
+  height: 35px;
+  margin: auto;
+}
+
+
+.home-section .search-background1 {
+  background: rgba(0, 0, 0, 0.3);
+  width: 500px;
+  height: 65px;
+  margin: 100px 0px 10px auto;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  transition: all 0.4s ease; animation: all 0.4s ease;
+}
+
+.home-section .search-background1:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.home-section .combo-box{
+  display: flex;
+}
+
+.home-section .download-container{
+  border-radius: 5px;
+  padding: 5px;
+  width: 190px;
+  height: 35px;
+  margin: 115px auto 10px 10px;
+  display: flex;
+  background: #079073;
+}
+
+.home-section .download-container a{
+  list-style: none;
+  text-align: center;
+  font-size: 14px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 400;
+  margin: auto;
+}
+
+.home-section .download-container i{
+  color: #fff;
+  margin: auto;
+}
+
+/*====================================================*/ 
 
 .result{
   display: none;

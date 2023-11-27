@@ -81,7 +81,7 @@ function filterInput(keySearch) {
     // No matches found, show status message
     const trows = document.createElement('tr');
     trows.id = 'noResultMessage';
-    trows.innerHTML = '<td colspan="5">No Result At Here</td>';
+    trows.innerHTML = '<td colspan="7">No Result At Here</td>';
     list.appendChild(trows);
   }
 }
