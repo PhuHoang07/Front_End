@@ -130,7 +130,12 @@ function showTimeFiltered(button) {
     } else {
         hiddenTable.style.display = 'none';
     }
-    
+    window.addEventListener('click', function (e) {
+        // Check if the clicked element is exactly the SupervisorTable or its overlay
+        if (e.target === hiddenTable) {
+            hiddenTable.style.display = 'none';
+        }
+    });
 }
 async function showSupervisor(button) {
     const listItem=[];
@@ -138,7 +143,12 @@ async function showSupervisor(button) {
     idt = button.parentNode.parentNode.getAttribute('idt');
     console.log(idt);
 const table = document.getElementById("table_body_super");
-
+window.addEventListener('click', function (e) {
+    // Check if the clicked element is exactly the SupervisorTable or its overlay
+    if (e.target === hiddenTable) {
+        hiddenTable.style.display = 'none';
+    }
+});
 table.innerHTML=``;
 
 const data = {
@@ -384,6 +394,12 @@ async function showTable3(button) {
     } else {
         hiddenTable.style.display = 'none';
     }
+    window.addEventListener('click', function (e) {
+        // Check if the clicked element is exactly the SupervisorTable or its overlay
+        if (e.target === hiddenTable) {
+            hiddenTable.style.display = 'none';
+        }
+    });
     const data = {
         params: {
             'idt': idt,
@@ -597,8 +613,12 @@ async function loadSubject() {
      
 // }
 
+const loadingContainer = document.getElementById('loading-container');
+  
+loadingContainer.style.display = 'block';
 
 async function StartFilter(){
+    const loadingContainer = document.getElementById('loading-container');
     const dateInput = document.querySelector("#Filter_Date input[type='date']");
     const startTimeInput = document.querySelector("#Filter_Date input[type='time']");
     const endTimeInput = document.querySelectorAll("#Filter_Date input[type='time']")[1]; // Lấy thứ hai input[type='time']
@@ -616,7 +636,7 @@ async function StartFilter(){
     const start = startTimeInput.value;
     const end = endTimeInput.value;    
     const subjects = Array.from(selectElement.options).map(option => option.value);
-
+   
     let params = {};
     semester && (params.semester = semester);
     from && (params.from = from);
@@ -630,19 +650,16 @@ async function StartFilter(){
   };
   console.log(data);
 
-  const loadingContainer = document.getElementById('loading-container');
-  
-  loadingContainer.style.display = 'block';
 
   const listItem = [];
   try {
       const res = await fetchAPIDataFilter("https://swp-esms-api.azurewebsites.net/api/exams/filter","GET",data);
-      loadingContainer.style.display = 'none';
+    //   loadingContainer.style.display = 'none';
       const dataKeysCount = Object.keys(res.data).length;
       console.log(res);
       const OBJ = res.data;
       console.log(OBJ);
-      loadingContainer.style.display = 'none';
+    //   loadingContainer.style.display = 'none';
       renderExamTimeFiltered();
       if (dataKeysCount == 0) {
         console.log("no");
@@ -720,7 +737,7 @@ async function StartFilter(){
                 btn.addEventListener('click', () => renderExamScheduleFIltered(idt));
             }
         );
-        loadingContainer.style.display = 'none';
+        // loadingContainer.style.display = 'none';
     }
     
 
@@ -775,7 +792,6 @@ async function StartFilter(){
         const container = document.getElementById("Exam_schedule_table");
       // Handle API request error and hide the loading container
       container.innerHTML = `<h2 class="title toll_box">Empty OR Failed to fetch data!</h2>`;
-      loadingContainer.style.display = 'none';
     }
   }
       

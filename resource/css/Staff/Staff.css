@@ -547,7 +547,6 @@ textarea {
     bottom: 0;
     background-color: rgba(0,0,0,0.5); /* Black background with opacity */
     z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-    cursor: pointer; /* Add a pointer on hover */
   }
 
   .Select_Subject_overLap{
@@ -611,7 +610,6 @@ textarea {
     bottom: 0;
     background-color: rgba(0,0,0,0.5); /* Black background with opacity */
     z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-    cursor: pointer; /* Add a pointer on hover */
   }
   .tooltip {
     position: relative;
@@ -633,7 +631,7 @@ textarea {
     /* Position the tooltip */
     position: absolute;
     z-index: 1;
-    top: -5px;
+    top: -10px;
     right: 105%;
   }
   
